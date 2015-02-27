@@ -1,52 +1,10 @@
 <meta charset="UTF-8">
 
-<div class="container" ng-init="findAll()">
-	
-	<div class="page-header">
-		
-		<h2>Home</h2>
-		
+<div class="container-fluid">
+
+	<div class="jumbotron">	
+		<h1 style="text-align: center">Welcome, <strong>{{texto}}</strong> Let's start working!</h1>	
 	</div>
-		
-	<form ng-submit="adicionar()">
-		
-		<div class="form-group">
-			<label class="control-label">Projeto</label>
-			<input type="text" class="form-control" ng-model="descricao" required="required">
-		</div>
-		<div class="form-group">
-			
-		</div>
-		<div class="form-group">
-			<input type="submit" class="btn btn-default">
-		</div>	
-		
-	</form>
 	
-	<div class="panel panel-default">
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th></th>
-					<th>NOME</th>
-					<th></th>
-				</tr>
-			</thead>
-			
-			<!-- ITERACAO SOBRE A LISTA PROJETOS -->				
-			<tbody ng-repeat="projeto in projetos">
-				<tr>
-					<td style="text-align: center" class="col-xs-1">
-						<a href="#/projetos/{{projeto.id}}"><i class="glyphicon glyphicon-folder-open"></i></a>
-					</td>
-					<td>{{projeto.descricao}}</td>
-					<td style="text-align: center" class="col-xs-1">					
-						<button type="button" class="btn btn-danger btn-xs" ng-click="deletar(projeto)">
-							<i class="glyphicon glyphicon-trash"></i>
-						</button>
-					</td>
-				</tr>
-			</tbody>				
-		</table>	
-	</div>	
-</div>	
+</div>
+

@@ -1,5 +1,11 @@
 // main controller
-app.controller('MainCtrl' , function($scope, $routeParams, Projeto) {
+app.controller('MainCtrl', function($scope, $routeParams) {
+	
+	$scope.texto = "Bruno";
+});
+
+// projeto controller
+app.controller('ProjetoCtrl', function($scope, $routeParams, Projeto) {
 	
 	// listar todos os projetos
 	$scope.findAll = function() {		
