@@ -24,6 +24,11 @@ public class ProjetoController {
 		return projetoRepository.findAll();
 	}
 	
+	@RequestMapping(value = "/{id}" ,method = RequestMethod.GET)
+	public Projeto getProjeto(@PathVariable Integer id) {
+		return projetoRepository.findOne(id);
+	}
+	
 	@RequestMapping(method = RequestMethod.POST)
 	public Projeto salvar(@RequestBody Projeto projeto) {
 		projeto.setId(null);
