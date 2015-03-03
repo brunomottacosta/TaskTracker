@@ -1,6 +1,7 @@
 app.config(['$routeProvider', function($routeProvider, $locationProvider) {
 	
 	$routeProvider
+	
 		// home
 		.when("/", {
 			templateUrl: "pages/home.html", 
@@ -15,6 +16,11 @@ app.config(['$routeProvider', function($routeProvider, $locationProvider) {
 		.when("/projetos/:id", {
 			templateUrl: "pages/projeto/projeto.view.html", 
 			controller: "ProjetoCtrl"				
+		})
+		// vert doas as tarefas
+		.when("/tarefas", {
+			templateUrl: "pages/tarefa/tarefa.lista.html",
+			controller: "TarefaCtrl"
 		})
 	
 }]);

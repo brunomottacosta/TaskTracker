@@ -4,7 +4,37 @@
 	
 	<div class="page-header">
 		
-		<h2>{{projeto.descricao}}</h2>
+		<h2>
+			<strong>{{projeto.descricao}}</strong>
+			<button type="button" class="btn btn-default btn-sm" ng-click="habilitarEdicao()">
+				<i class="glyphicon glyphicon-edit"></i>
+			</button>
+		</h2>
+		
+	</div>
+	
+	<div class="row">
+	
+		<div class="col-xs-6">
+		
+			<form ng-submit="atualizar()">
+			
+			<div class="form-group">
+					
+				</div>
+			
+				<div class="form-group">
+					<label class="control-label">Nome do Projeto</label>
+					<input type="text" class="form-control" ng-model="projeto.descricao" required="required" ng-disabled="!edicao">
+				</div>
+				
+				<div class="form-group">
+					<input type="submit" class="btn btn-primary" value="Atualizar" ng-show="edicao">
+				</div>				
+			
+			</form>
+		
+		</div>
 		
 	</div>
 	

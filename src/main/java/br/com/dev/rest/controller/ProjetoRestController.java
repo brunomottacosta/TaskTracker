@@ -14,7 +14,7 @@ import br.com.dev.rest.repository.ProjetoRepository;
 
 @RestController
 @RequestMapping("/projetos")
-public class ProjetoController {
+public class ProjetoRestController {
 	
 	@Autowired
 	private ProjetoRepository projetoRepository;
@@ -24,7 +24,7 @@ public class ProjetoController {
 		return projetoRepository.findAll();
 	}
 	
-	@RequestMapping(value = "/{id}" ,method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Projeto getProjeto(@PathVariable Integer id) {
 		return projetoRepository.findOne(id);
 	}

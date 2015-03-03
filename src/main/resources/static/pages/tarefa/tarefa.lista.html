@@ -1,0 +1,63 @@
+<meta charset="UTF-8">
+
+<div class="container" ng-init="findAll()">
+	
+	<div class="page-header">
+		
+		<h2>Tarefas: </h2>
+		
+	</div>
+	
+	<div class="row">
+		<div class="col-xs-6">
+		
+			<form ng-submit="adicionar()">
+				
+				<div class="form-group">
+					<label class="control-label">Descricao</label>
+					<input type="text" class="form-control" ng-model="descricao" required="required">
+				</div>
+				<div class="form-group">
+					<select class="form-control" ng-model="projeto" ng-options="projeto.descricao for projeto in projetos" required="required">
+						<option value="">Selecione..</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<input type="submit" class="btn btn-default" value="Salvar">
+				</div>	
+				
+			</form>
+		
+		</div>
+	</div>		
+	
+	<p ng-hide="tarefas.length" class="text-danger">Nenhuma tarefa na lista</p>
+	<div class="panel panel-default" ng-show="tarefas.length">
+		<table class="table table-striped" >
+			<thead>
+				<tr>
+					<th></th>
+					<th>DESCRICAO</th>
+					<th>PROJETO</th>
+					<th></th>
+				</tr>
+			</thead>
+			
+			<!-- ITERACAO SOBRE A LISTA TAREFAS -->				
+			<tbody ng-repeat="tarefa in tarefas">
+				<tr>
+					<td style="text-align: center" class="col-xs-1">
+						<a href="#/tarefas/{{tarefas.id}}"><i class="glyphicon glyphicon-folder-open"></i></a>
+					</td>
+					<td>{{tarefa.descricao}}</td>
+					<td>{{tarefa.projeto.descricao}}</td>
+					<td style="text-align: center" class="col-xs-1">					
+						<button type="button" class="btn btn-danger btn-xs" ng-click="deletar(tarefa)">
+							<i class="glyphicon glyphicon-trash"></i>
+						</button>
+					</td>
+				</tr>
+			</tbody>				
+		</table>	
+	</div>	
+</div>	

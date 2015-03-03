@@ -19,8 +19,12 @@ import javax.persistence.Table;
 
 import br.com.dev.rest.model.constants.Status;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "tarefa")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@tarefaId")
 public class Tarefa {
 	
 	@Id
