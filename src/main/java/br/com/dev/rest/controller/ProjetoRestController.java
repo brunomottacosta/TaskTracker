@@ -13,35 +13,34 @@ import br.com.dev.rest.model.Projeto;
 import br.com.dev.rest.repository.ProjetoRepository;
 
 @RestController
-@RequestMapping("/projetos")
 public class ProjetoRestController {
 	
 	@Autowired
 	private ProjetoRepository projetoRepository;
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/projetos", method = RequestMethod.GET)
 	public List<Projeto> listar() {
 		return projetoRepository.findAll();
 	}
 	
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/projetos/{id}", method = RequestMethod.GET)
 	public Projeto getProjeto(@PathVariable Integer id) {
 		return projetoRepository.findOne(id);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "/projetos", method = RequestMethod.POST)
 	public Projeto salvar(@RequestBody Projeto projeto) {
 		projeto.setId(null);
 		return projetoRepository.saveAndFlush(projeto);		
 	}
 	
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/projetos/{id}", method = RequestMethod.PUT)
 	public Projeto atualizar(@RequestBody Projeto projeto, @PathVariable Integer id) {
 		projeto.setId(id);
 		return projetoRepository.saveAndFlush(projeto);
 	}
 	
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/projetos/{id}", method = RequestMethod.DELETE)
 	public void remover(@PathVariable Integer id) {
 		projetoRepository.delete(id);
 	}	

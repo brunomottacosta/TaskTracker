@@ -10,45 +10,45 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.dev.rest.model.Tarefa;
+import br.com.dev.rest.repository.ProjetoRepository;
 import br.com.dev.rest.repository.TarefaRepository;
 
 @RestController
-@RequestMapping("/tarefas")
 public class TarefaRestController {
 	
-	@Autowired
-	private TarefaRepository tarefaRespository;
+	@Autowired private TarefaRepository tarefaRespository;
+	@Autowired private ProjetoRepository projetoRepository;
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/tarefas", method = RequestMethod.GET)
 	public List<Tarefa> listar() {
 		return tarefaRespository.findAll();
 	}
 	
-	@RequestMapping(value = "/projeto/{projetoId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/projetos/{projetoId}/tarefas", method = RequestMethod.GET)
 	public List<Tarefa> listarPorProjeto(@PathVariable Integer projetoId) {
 		return tarefaRespository.findByProjeto(projetoId);
 	}
 	
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Tarefa getTarefa(@PathVariable Integer id) {
-		return tarefaRespository.findOne(id);
+	@RequestMapping(value = "/projetos/{projetoId}/tarefas/{tarefaId}", method = RequestMethod.GET)
+	public Tarefa getTarefa(@PathVariable Integer tarefaId, @PathVariable Integer projetoId) {
+		return tarefaRespository.findOne(tarefaId);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "/projetos/{projetoId}/tarefas", method = RequestMethod.POST)
 	public Tarefa salvar(@RequestBody Tarefa tarefa) {
 		tarefa.setId(null);
 		return tarefaRespository.saveAndFlush(tarefa);
 	}
 	
-	@RequestMapping(value = "/{id}" , method = RequestMethod.PUT)
-	public Tarefa atualizar(@RequestBody Tarefa tarefa, @PathVariable Integer id) {
-		tarefa.setId(id);
+	@RequestMapping(value = "/projetos/{projetoId}/tarefas/{tarefaId}" , method = RequestMethod.PUT)
+	public Tarefa atualizar(@RequestBody Tarefa tarefa, @PathVariable Integer tarefaId) {
+		tarefa.setId(tarefaId);
 		return tarefaRespository.saveAndFlush(tarefa);
 	}
 	
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public void remover(@PathVariable Integer id) {
-		tarefaRespository.delete(id);
+	@RequestMapping(value = "/projetos/{projetoId}/tarefas/{tarefaId}", method = RequestMethod.DELETE)
+	public void remover(@PathVariable Integer tarefaId, @PathVariable Integer projetoId) {
+		tarefaRespository.delete(tarefaId);
 	}
 	
 }

@@ -8,7 +8,9 @@ app.controller('MainCtrl', function($scope, $routeParams) {
 // projeto controller
 app.controller('ProjetoCtrl', function($scope, $location, $routeParams, Projeto) {
 	
-	$scope.edicao = false;
+	$scope.edicao = false;	
+
+	$scope.projetos = Projeto.projetos;
 	
 	// libera para edicao
 	$scope.habilitarEdicao = function() {
@@ -19,27 +21,16 @@ app.controller('ProjetoCtrl', function($scope, $location, $routeParams, Projeto)
 		}
 	}
 	
-	// listar todos os projetos
-	$scope.findAll = function() {		
-		Projeto.query( function(response) {
-			$scope.projetos = response ? response : [];	
-		});
-	};
-	
 	// busca um projeto
 	$scope.find = function() {
-		$scope.projeto = Projeto.get({
-			id: $routeParams.id
-		});
+		console.log(Projeto.get($routeParams.id));
+		$scope.projeto = Projeto.projeto;
 	};	
 	
 	// salvar projeto
 	$scope.adicionar = function() {
-		new Projeto({
+		Projeto.create({
 			descricao : $scope.descricao
-		})
-		.$save(function(projeto) {
-			$scope.projetos.push(projeto);
 		});
 		$scope.descricao = "";
 	};

@@ -10,15 +10,20 @@ app.config(['$routeProvider', function($routeProvider, $locationProvider) {
 		// ver todos os projetos
 		.when("/projetos", {
 			templateUrl: "pages/projeto/projeto.lista.html",
-			controller: "ProjetoCtrl"
+			controller: "ProjetoCtrl",
+			resolve: {
+				postPromise: ['Projeto', function(Projeto) {
+					return Projeto.getAll();
+				}]
+			}
 		})
 		// ver um projeto
 		.when("/projetos/:id", {
 			templateUrl: "pages/projeto/projeto.view.html", 
-			controller: "ProjetoCtrl"				
-		})
-		// vert doas as tarefas
-		.when("/tarefas", {
+			controller: "ProjetoCtrl"
+		})		
+		// ver tarefas por projeto
+		.when("/projetos/:id/tarefas", {
 			templateUrl: "pages/tarefa/tarefa.lista.html",
 			controller: "TarefaCtrl"
 		})
