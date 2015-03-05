@@ -29,25 +29,25 @@ public class TarefaRestController {
 		return tarefaRespository.findByProjeto(projetoId);
 	}
 	
-	@RequestMapping(value = "/projetos/{projetoId}/tarefas/{tarefaId}", method = RequestMethod.GET)
-	public Tarefa getTarefa(@PathVariable Integer tarefaId, @PathVariable Integer projetoId) {
+	@RequestMapping(value = "/tarefas/{tarefaId}", method = RequestMethod.GET)
+	public Tarefa getTarefa(@PathVariable Integer tarefaId) {
 		return tarefaRespository.findOne(tarefaId);
 	}
 	
-	@RequestMapping(value = "/projetos/{projetoId}/tarefas", method = RequestMethod.POST)
+	@RequestMapping(value = "/tarefas", method = RequestMethod.POST)
 	public Tarefa salvar(@RequestBody Tarefa tarefa) {
 		tarefa.setId(null);
 		return tarefaRespository.saveAndFlush(tarefa);
 	}
 	
-	@RequestMapping(value = "/projetos/{projetoId}/tarefas/{tarefaId}" , method = RequestMethod.PUT)
+	@RequestMapping(value = "/tarefas/{tarefaId}" , method = RequestMethod.PUT)
 	public Tarefa atualizar(@RequestBody Tarefa tarefa, @PathVariable Integer tarefaId) {
 		tarefa.setId(tarefaId);
 		return tarefaRespository.saveAndFlush(tarefa);
 	}
 	
-	@RequestMapping(value = "/projetos/{projetoId}/tarefas/{tarefaId}", method = RequestMethod.DELETE)
-	public void remover(@PathVariable Integer tarefaId, @PathVariable Integer projetoId) {
+	@RequestMapping(value = "/tarefas/{tarefaId}", method = RequestMethod.DELETE)
+	public void remover(@PathVariable Integer tarefaId) {
 		tarefaRespository.delete(tarefaId);
 	}
 	
