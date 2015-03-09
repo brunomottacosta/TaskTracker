@@ -15,14 +15,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "projeto")
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@projetoId")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Projeto {
 
-	@Id	
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idn_projeto")
 	private Integer id;
@@ -32,17 +33,18 @@ public class Projeto {
 
 	@Column(name = "dat_criacao")
 	private Date criacao;
-	
+
 	@OneToMany(mappedBy = "projeto", cascade = CascadeType.ALL)
+	@JsonIdentityReference(alwaysAsId = true)
 	private List<Tarefa> tarefas;
-	
+
 	@OneToMany(mappedBy = "projeto", cascade = CascadeType.ALL)
 	private List<Comentario> comentarios;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "idn_usuario", referencedColumnName = "idn_usuario")
 	private Usuario usuario;
-	
+
 	public Projeto() {
 		super();
 	}

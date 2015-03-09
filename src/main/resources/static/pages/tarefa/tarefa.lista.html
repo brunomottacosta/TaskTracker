@@ -10,20 +10,40 @@
 	
 	<div class="row">
 		<div class="col-xs-6">
-		
 			<form ng-submit="adicionar(tarefa)">
 				
 				<div class="form-group">
-					<label class="control-label">Descricao</label>
+					<label class="control-label">Descricao <span class="text-danger">*</span></label>
 					<input type="text" class="form-control" ng-model="descricao" required="required">
 				</div>
 				<div class="form-group">
-					<select class="form-control" ng-model="projeto" ng-options="projeto.descricao for projeto in projetos" required="required">
+					<label class="control-label">Projeto <span class="text-danger">*</span></label>
+					<select class="form-control" ng-model="projeto" 
+						ng-options="projeto.descricao for projeto in projetos" required="required">
 						<option value="">Selecione..</option>
 					</select>
 				</div>
+				
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label">Inicio da Tarefa <span class="text-danger">*</span></label>					
+				            <input type="text" class="form-control" ng-model="inicio.date" required="required"
+				            	datepicker-popup="dd/MM/yyyy" is-open="inicio.opened" ng-click="inicio.opened = true" />	            		
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label">Prazo Final <span class="text-danger">*</span></label>					
+				            <input type="text" class="form-control" ng-model="prazo.date" required="required"
+				            	datepicker-popup="dd/MM/yyyy" is-open="prazo.opened" ng-click="prazo.opened = true" />	            		
+						</div>
+					</div>
+				</div>
+				
+				<!-- SUBMIT -->
 				<div class="form-group">
-					<input type="submit" class="btn btn-default" value="Salvar">
+					<input type="submit" class="btn btn-success" value="Salvar">
 				</div>	
 				
 			</form>
@@ -31,7 +51,8 @@
 		</div>
 	</div>		
 	
-	<p ng-hide="tarefas.length" class="text-danger">Nenhuma tarefa na lista</p>
+	<hr />
+	
 	<div class="panel panel-default" ng-show="tarefas.length">
 		<table class="table table-striped" >
 			<thead>
@@ -39,20 +60,24 @@
 					<th></th>
 					<th>DESCRICAO</th>
 					<th>PROJETO</th>
+					<th>INÍCIO</th>
+					<th>PRAZO</th>
 					<th></th>
 				</tr>
 			</thead>
 			
 			<!-- ITERACAO SOBRE A LISTA TAREFAS -->				
-			<tbody ng-repeat="tarefa in tarefas">
-				<tr>
+			<tbody>
+				<tr ng-repeat="t in tarefas | orderBy: t.id">
 					<td style="text-align: center" class="col-xs-1">
-						<a href="#/tarefas/{{tarefas.id}}"><i class="glyphicon glyphicon-folder-open"></i></a>
+						<a href="/#/tarefas/{{t.id}}"><i class="glyphicon glyphicon-folder-open"></i></a>
 					</td>
-					<td>{{tarefa.descricao}}</td>
-					<td>{{tarefa.projeto.descricao}}</td>
+					<td data-ng-bind="t.descricao"></td>
+					<td data-ng-bind="t.projeto.descricao"></td>
+					<td data-ng-bind="t.criacao | date: 'dd/MM/yyyy'"></td>
+					<td data-ng-bind="t.prazo | date: 'dd/MM/yyyy'"></td>
 					<td style="text-align: center" class="col-xs-1">					
-						<button type="button" class="btn btn-danger btn-xs" ng-click="deletar(tarefa)">
+						<button type="button" class="btn btn-danger btn-xs" ng-click="deletar(t)">
 							<i class="glyphicon glyphicon-trash"></i>
 						</button>
 					</td>

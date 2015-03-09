@@ -26,7 +26,7 @@ public class TarefaRestController {
 	
 	@RequestMapping(value = "/projetos/{projetoId}/tarefas", method = RequestMethod.GET)
 	public List<Tarefa> listarPorProjeto(@PathVariable Integer projetoId) {
-		return tarefaRespository.findByProjeto(projetoId);
+		return tarefaRespository.findByProjeto(projetoRepository.findOne(projetoId));
 	}
 	
 	@RequestMapping(value = "/tarefas/{tarefaId}", method = RequestMethod.GET)
@@ -36,6 +36,7 @@ public class TarefaRestController {
 	
 	@RequestMapping(value = "/tarefas", method = RequestMethod.POST)
 	public Tarefa salvar(@RequestBody Tarefa tarefa) {
+		System.out.println(tarefa.getProjeto().getDescricao());
 		tarefa.setId(null);
 		return tarefaRespository.saveAndFlush(tarefa);
 	}

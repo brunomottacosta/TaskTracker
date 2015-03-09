@@ -2,7 +2,7 @@
  * 
  */
 
-app.controller('ProjetoCtrl', function($scope, $route, $location, ProjetoService) {
+app.controller('ProjetoCtrl', function($scope, $route, $location, ProjetoService, TarefaService) {
 	
 	$scope.projetos = ProjetoService.projetos;
 	$scope.projeto = ProjetoService.projeto;
@@ -13,7 +13,11 @@ app.controller('ProjetoCtrl', function($scope, $route, $location, ProjetoService
 	
 	// buscar uma projeto
 	$scope.find = function() {
-		ProjetoService.get($route.current.params.id);		
+		ProjetoService.get($route.current.params.id).then(function() {
+			TarefaService.listByProjeto($route.current.params.id).then(function() {
+				$scope.tarefas = TarefaService.tarefas;
+			});
+		});		
 	};
 	
 	// adicionar projeto

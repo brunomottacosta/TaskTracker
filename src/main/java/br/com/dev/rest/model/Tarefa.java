@@ -24,41 +24,41 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "tarefa")
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@tarefaId")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Tarefa {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idn_tarefa")
 	private Integer id;
-	
+
 	@Column(name = "dsc_tarefa")
 	private String descricao;
-	
+
 	@Column(name = "dat_criacao")
 	private Date criacao;
-	
+
 	@Column(name = "dat_finalizacao")
 	private Date finalizacao;
-	
+
 	@Column(name = "dat_prazo")
 	private Date prazo;
-	
+
 	@Column(name = "cod_status")
 	@Enumerated(EnumType.ORDINAL)
 	private Status status;
-	
+
 	@OneToMany(mappedBy = "tarefa", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Comentario> comentarios;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "idn_projeto", referencedColumnName = "idn_projeto")
-	private Projeto projeto;	
-	
+	private Projeto projeto;
+
 	@ManyToOne
 	@JoinColumn(name = "idn_usuario", referencedColumnName = "idn_usuario")
 	private Usuario usuario;
-	
+
 	public Tarefa() {
 		super();
 	}
@@ -148,5 +148,5 @@ public class Tarefa {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
+
 }

@@ -1,4 +1,4 @@
-var app = angular.module('TaskTracker', ['ngRoute', 'ngResource']);
+var app = angular.module('TaskTracker', ['ngRoute', 'ngResource', 'ui.bootstrap']);
 
 
 app.constant('_START_REQUEST_', '_START_REQUEST_');
