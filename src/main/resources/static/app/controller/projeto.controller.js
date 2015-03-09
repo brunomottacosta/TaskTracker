@@ -2,57 +2,42 @@
  * 
  */
 
-app.controller('ProjetoCtrl', function($scope, $route, $location, Projeto) {
+app.controller('ProjetoCtrl', function($scope, $route, $location, ProjetoService) {
 	
-	$scope.edicao = false;
+	$scope.projetos = ProjetoService.projetos;
+	$scope.projeto = ProjetoService.projeto;
 	
-	// libera para edicao
-	$scope.habilitarEdicao = function() {
-		if ($scope.edicao) {
-			$scope.edicao = false;
-		} else {
-			$scope.edicao = true;
-		}
-	}
-	
-	// listar todas as projetos
-	$scope.findAll = function() {		
-		Projeto.query( function(response) {
-			$scope.projetos = response ? response : [];	
-		});
+	$scope.findAll = function() {
+		ProjetoService.list();		
 	};
 	
 	// buscar uma projeto
 	$scope.find = function() {
-		$scope.projeto = Projeto.get({
-			id: $route.current.params.id
-		});
+		ProjetoService.get($route.current.params.id);		
 	};
 	
 	// adicionar projeto
-	$scope.adicionar = function() {
-		new Projeto({
-			descricao : $scope.descricao,
-			projeto : $scope.projeto
-		})
-		.$save( function(projeto) {
-			$scope.projetos.push(projeto);
-		});
-		$scope.descricao = "";
+	$scope.adicionar = function(projeto) {
+		if ($scope.descricao !== "") {
+			projeto.descricao = $scope.descricao;
+			ProjetoService.save(projeto).then(function() {
+				$scope.descricao = "";
+			});			
+		};		
 	};
 	
 	// atualizar projeto
 	$scope.atualizar = function(projeto) {
-		projeto.$update(function() {
-			$scope.edicao = false;
+		ProjetoService.update(projeto).then(function() {
+			$location.path('/projetos/' + projeto.id);
 		});
-	} 
+	}; 
 	
 	// deletar projeto
 	$scope.deletar = function(projeto) {
-		projeto.$remove(function() {
-			$scope.projetos.splice($scope.projetos.indexOf(projeto), 1);
-		});
+		ProjetoService.remove(projeto).then(function() {
+			$location.path('/projetos');
+		});				
 	};
 
 });

@@ -7,23 +7,29 @@
 		<h2>Projetos</h2>
 		
 	</div>
-		
-	<form ng-submit="adicionar()">
-		
-		<div class="form-group">
-			<label class="control-label">Nome do Projeto</label>
-			<input type="text" class="form-control" ng-model="descricao" required="required">
-		</div>
-		<div class="form-group">
-			
-		</div>
-		<div class="form-group">
-			<input type="submit" class="btn btn-default" value="Salvar">
-		</div>	
-		
-	</form>
 	
-	<p ng-hide="projetos.length" class="text-danger">Nenhum projeto na lista</p>
+	<div class="row">
+		<div class="col-xs-6">
+			<form ng-submit="adicionar(projeto)">					
+				<div class="form-group">
+					<label class="control-label">Nome do Projeto</label>
+					<input type="text" class="form-control" ng-model="descricao" required="required">
+				</div>							
+				<div class="form-group">
+					<input type="submit" class="btn btn-success" value="Salvar">
+				</div>								
+			</form>
+		</div>
+	</div>
+	
+	<div data-loading-widget >
+		<div>
+		    <p>
+		        Carregando..
+		    </p>
+	    </div>
+    </div>
+	
 	<div class="panel panel-default" ng-show="projetos.length">
 		<table class="table table-striped" >
 			<thead>

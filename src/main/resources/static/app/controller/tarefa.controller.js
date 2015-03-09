@@ -1,38 +1,42 @@
-app.controller('TarefaCtrl', function($scope, $location, $routeParams, Tarefa, Projeto) {
+app.controller('TarefaCtrl', function($scope, $location, $routeParams, TarefaService, ProjetoService) {
 	
-	// listar todas as tarefas
-	$scope.findAll = function() {		
-		Tarefa.query( function(response) {
-			$scope.tarefas = response ? response : [];	
-		});
-		Projeto.query( function(response) {
-			$scope.projetos = response ? response : [];
-		});
+	$scope.tarefas = TarefaService.tarefas;
+	$scope.projetos = ProjetoService.projetos;
+	$scope.tarefa = TarefaService.tarefa;
+	
+	$scope.findAll = function() {
+		TarefaService.list();
+		ProjetoService.list();
 	};
 	
-	// buscra uma tarefa
+	// buscar uma tarefa
 	$scope.find = function() {
-		$scope.tarefa = Tarefa.get({
-			id: $routeParams.id
-		});
+		TarefaService.get($route.current.params.id);		
 	};
 	
 	// adicionar tarefa
-	$scope.adicionar = function() {
-		new Tarefa({
-			descricao : $scope.descricao,
-			projeto : $scope.projeto
-		})
-		.$save( function(tarefa) {
-			$scope.tarefas.push(tarefa);
-		});
-		$scope.descricao = "";
+	$scope.adicionar = function(tarefa) {
+		if ($scope.descricao !== "") {
+			tarefa.descricao = $scope.descricao;
+			tarefa.projeto = $scope.projeto;
+			TarefaService.save(tarefa).then(function() {
+				$scope.descricao = "";
+				$scope.projeto = "";
+			});			
+		};		
 	};
+	
+	// atualizar tarefa
+	$scope.atualizar = function(tarefa) {
+		TarefaService.update(tarefa).then(function() {
+			$location.path('/tarefas/' + tarefa.id);
+		});
+	}; 
 	
 	// deletar tarefa
 	$scope.deletar = function(tarefa) {
-		tarefa.$remove( function() {
-			$scope.tarefas.splice($scope.tarefas.indexOf(tarefa), 1);
-		});
+		TarefaService.remove(tarefa).then(function() {
+			$location.path('/tarefas');
+		});				
 	};
 });

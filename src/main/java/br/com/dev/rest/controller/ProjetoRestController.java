@@ -1,5 +1,7 @@
 package br.com.dev.rest.controller;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,7 @@ public class ProjetoRestController {
 	@RequestMapping(value = "/projetos", method = RequestMethod.POST)
 	public Projeto salvar(@RequestBody Projeto projeto) {
 		projeto.setId(null);
+		projeto.setCriacao(Date.from(Instant.now()));
 		return projetoRepository.saveAndFlush(projeto);		
 	}
 	
