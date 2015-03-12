@@ -1,5 +1,6 @@
 package br.com.dev.rest.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.dev.rest.model.Tarefa;
 import br.com.dev.rest.repository.ProjetoRepository;
 import br.com.dev.rest.repository.TarefaRepository;
+import br.com.dev.rest.wrapper.TarefaWrapper;
 
 @RestController
 public class TarefaRestController {
@@ -20,23 +22,27 @@ public class TarefaRestController {
 	@Autowired private ProjetoRepository projetoRepository;
 	
 	@RequestMapping(value = "/tarefas", method = RequestMethod.GET)
-	public List<Tarefa> listar() {
-		return tarefaRespository.findAll();
-	}
-	
-	@RequestMapping(value = "/projetos/{projetoId}/tarefas", method = RequestMethod.GET)
-	public List<Tarefa> listarPorProjeto(@PathVariable Integer projetoId) {
-		return tarefaRespository.findByProjeto(projetoRepository.findOne(projetoId));
+	public List<TarefaWrapper> listar() {
+		
+		List<TarefaWrapper> wrappers = new ArrayList<TarefaWrapper>();
+		List<Tarefa> tarefas =  tarefaRespository.findAll();
+		
+		tarefas.forEach(t -> wrappers.add(new TarefaWrapper(t)));
+		
+		return wrappers;
 	}
 	
 	@RequestMapping(value = "/tarefas/{tarefaId}", method = RequestMethod.GET)
-	public Tarefa getTarefa(@PathVariable Integer tarefaId) {
-		return tarefaRespository.findOne(tarefaId);
+	public TarefaWrapper getTarefa(@PathVariable Integer tarefaId) {
+		
+		Tarefa tarefa = tarefaRespository.findOne(tarefaId);
+		TarefaWrapper wrapper = new TarefaWrapper(tarefa);
+		
+		return wrapper;
 	}
 	
 	@RequestMapping(value = "/tarefas", method = RequestMethod.POST)
 	public Tarefa salvar(@RequestBody Tarefa tarefa) {
-		System.out.println(tarefa.getProjeto().getDescricao());
 		tarefa.setId(null);
 		return tarefaRespository.saveAndFlush(tarefa);
 	}

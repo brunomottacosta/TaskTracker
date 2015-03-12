@@ -20,18 +20,9 @@
 	
 	<div class="row">
 	
-		<div class="col-xs-6">
-		
-			<table class="table table-bordered">
-				<tr>
-					<td><strong>Projeto: </strong></td>
-					<td>{{projeto.descricao}}</td>
-				</tr>
-				<tr>
-					<td><strong>Criação: </strong></td>
-					<td>{{projeto.criacao | date: 'dd/MM/yyyy'}}</td>
-				</tr>
-			</table>
+		<div class="col-xs-4">
+			
+			
 			
 		</div>
 		
@@ -45,15 +36,25 @@
 				
 			<div class="panel panel-default">
 				
-				<table class="table table-condensed">
+				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th>Tarefa</th>
+							<th></th>
+							<th>TAREFA</th>
+							<th>INICIO</th>
+							<th>PRAZO</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="tarefa in tarefas">
+						<tr ng-repeat="tarefa in projeto.tarefas">
+							<td style="text-align: center" class="col-xs-1">
+								<a ng-href="/#/tarefas/{{tarefa.id}}">
+									<i class="glyphicon glyphicon-folder-open"></i>
+								</a>
+							</td>
 							<td>{{tarefa.descricao}}</td>
+							<td>{{tarefa.criacao | date: 'dd/MM/yyyy'}}</td>
+							<td>{{tarefa.prazo | date: 'dd/MM/yyyy'}}</td>
 						</tr>
 					</tbody>
 				</table>

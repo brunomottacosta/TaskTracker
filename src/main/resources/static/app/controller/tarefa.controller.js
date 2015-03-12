@@ -2,16 +2,14 @@
  * 
  */
 
-app.controller('TarefaCtrl', function($scope, $location, $route, TarefaService,
-		ProjetoService) {
+app.controller('TarefaCtrl', function($scope, $location, $route, TarefaService,	ProjetoService) {
 
+	$scope.tarefas = TarefaService.tarefas;
 	$scope.projetos = ProjetoService.projetos;
 	$scope.tarefa = TarefaService.tarefa;
 
 	$scope.findAll = function() {
-		TarefaService.list().then(function() {
-			$scope.tarefas = TarefaService.tarefas;					
-		});
+		TarefaService.list();
 		ProjetoService.list();
 	};
 
@@ -27,9 +25,9 @@ app.controller('TarefaCtrl', function($scope, $location, $route, TarefaService,
 		tarefa.projeto = $scope.projeto;
 		tarefa.criacao = $scope.inicio.date;
 		tarefa.prazo = $scope.prazo.date;
-		
+
 		console.log(tarefa);
-		
+
 		TarefaService.save(tarefa).then(function() {
 			$scope.descricao = "";
 			$scope.projeto = {};
@@ -52,4 +50,3 @@ app.controller('TarefaCtrl', function($scope, $location, $route, TarefaService,
 		});
 	};
 });
-

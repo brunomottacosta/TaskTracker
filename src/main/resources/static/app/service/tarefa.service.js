@@ -8,20 +8,6 @@ app.factory('TarefaService', function($http, ProjetoService) {
 		o.list = function() {
 			return $http.get('/tarefas').success(function(data) {
 				angular.copy(data, o.tarefas);
-				$.each(data, function(key, obj) {
-					if (obj.projeto.descricao != null) {	
-					} else {
-						ProjetoService.get(obj.projeto).then(function(res) {
-							obj.projeto = res.data;
-						});
-					}			 
-				});	
-			});
-		};
-		
-		o.listByProjeto = function(id) {
-			return $http.get('/projetos/' + id + '/tarefas').success(function(data) {
-				angular.copy(data, o.tarefas);
 			});
 		};
 		

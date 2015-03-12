@@ -14,13 +14,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "projeto")
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Projeto {
 
 	@Id
@@ -35,14 +33,16 @@ public class Projeto {
 	private Date criacao;
 
 	@OneToMany(mappedBy = "projeto", cascade = CascadeType.ALL)
-	@JsonIdentityReference(alwaysAsId = true)
+	@JsonManagedReference(value = "projeto-tarefa")
 	private List<Tarefa> tarefas;
 
 	@OneToMany(mappedBy = "projeto", cascade = CascadeType.ALL)
+	@JsonManagedReference(value = "projeto-comentario")
 	private List<Comentario> comentarios;
 
 	@ManyToOne
 	@JoinColumn(name = "idn_usuario", referencedColumnName = "idn_usuario")
+	@JsonBackReference(value = "usuario-projeto")
 	private Usuario usuario;
 
 	public Projeto() {

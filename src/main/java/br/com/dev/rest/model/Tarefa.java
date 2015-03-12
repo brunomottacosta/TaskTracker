@@ -8,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,12 +18,11 @@ import javax.persistence.Table;
 
 import br.com.dev.rest.model.constants.Status;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "tarefa")
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Tarefa {
 
 	@Id
@@ -48,15 +46,18 @@ public class Tarefa {
 	@Enumerated(EnumType.ORDINAL)
 	private Status status;
 
-	@OneToMany(mappedBy = "tarefa", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "tarefa", cascade = CascadeType.ALL)
+	@JsonManagedReference(value = "tarefa-comentario")
 	private List<Comentario> comentarios;
 
 	@ManyToOne
 	@JoinColumn(name = "idn_projeto", referencedColumnName = "idn_projeto")
+	@JsonBackReference(value = "projeto-tarefa")
 	private Projeto projeto;
 
 	@ManyToOne
 	@JoinColumn(name = "idn_usuario", referencedColumnName = "idn_usuario")
+	@JsonBackReference(value = "usuario-tarefa")
 	private Usuario usuario;
 
 	public Tarefa() {

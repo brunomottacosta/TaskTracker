@@ -10,12 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "usuario")
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@usuarioId")
 public class Usuario {
 
 	@Id
@@ -27,12 +25,15 @@ public class Usuario {
 	private String nome;
 	
 	@OneToMany(mappedBy = "usuario")
+	@JsonManagedReference(value = "usuario-projeto")
 	private List<Projeto> projetos;
 	
 	@OneToMany(mappedBy = "usuario")
+	@JsonManagedReference(value = "usuario-tarefa")
 	private List<Tarefa> tarefas;
 	
 	@OneToMany(mappedBy = "usuario")
+	@JsonManagedReference(value = "usuario-comentario")
 	private List<Comentario> comentarios;	
 	
 	public Usuario() {

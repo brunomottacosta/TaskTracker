@@ -9,12 +9,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "comentario")
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@comentarioId")
 public class Comentario {
 	
 	@Id
@@ -27,14 +25,17 @@ public class Comentario {
 	
 	@ManyToOne
 	@JoinColumn(name = "idn_usuario", referencedColumnName = "idn_usuario")
+	@JsonBackReference(value = "usuario-comentario")
 	private Usuario usuario;
 	
 	@ManyToOne
 	@JoinColumn(name = "idn_projeto", referencedColumnName = "idn_projeto")
+	@JsonBackReference(value = "projeto-comentario")
 	private Projeto projeto;
 	
 	@ManyToOne
 	@JoinColumn(name = "idn_tarefa", referencedColumnName = "idn_tarefa")
+	@JsonBackReference(value = "tarefa-comentario")
 	private Tarefa tarefa;
 	
 	public Comentario() {

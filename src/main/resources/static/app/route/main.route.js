@@ -2,7 +2,7 @@
  * 
  */
 
-app.config(['$routeProvider', function($routeProvider, $locationProvider) {
+app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
 	
 	$routeProvider
 	
@@ -11,5 +11,22 @@ app.config(['$routeProvider', function($routeProvider, $locationProvider) {
 			templateUrl: "pages/home.html", 
 			controller: "MainCtrl"
 		})
+		
+		.when("/login", {
+			templateUrl: "pages/login.html",
+			controller: "MainCtrl"
+		})
+		
+		.when("/404", {
+			templateUrl: "pages/states/404.html",
+		})
+		
+		.when("/error", {
+			templateUrl: "pages/states/error.html",
+		})
+		
+		.otherwise('/');
+	
+	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 		
 }]);	

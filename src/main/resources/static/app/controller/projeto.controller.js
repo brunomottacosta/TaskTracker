@@ -2,7 +2,7 @@
  * 
  */
 
-app.controller('ProjetoCtrl', function($scope, $route, $location, ProjetoService, TarefaService) {
+app.controller('ProjetoCtrl', function($scope, $route, $location, ProjetoService) {
 	
 	$scope.projetos = ProjetoService.projetos;
 	$scope.projeto = ProjetoService.projeto;
@@ -13,19 +13,17 @@ app.controller('ProjetoCtrl', function($scope, $route, $location, ProjetoService
 	
 	// buscar uma projeto
 	$scope.find = function() {
-		ProjetoService.get($route.current.params.id).then(function() {
-			TarefaService.listByProjeto($route.current.params.id).then(function() {
-				$scope.tarefas = TarefaService.tarefas;
-			});
-		});		
+		ProjetoService.get($route.current.params.id);
 	};
 	
 	// adicionar projeto
 	$scope.adicionar = function(projeto) {
 		if ($scope.descricao !== "") {
 			projeto.descricao = $scope.descricao;
+			projeto.criacao = $scope.criacao.date;
 			ProjetoService.save(projeto).then(function() {
 				$scope.descricao = "";
+				$scope.criacao = "";
 			});			
 		};		
 	};
@@ -45,3 +43,4 @@ app.controller('ProjetoCtrl', function($scope, $route, $location, ProjetoService
 	};
 
 });
+

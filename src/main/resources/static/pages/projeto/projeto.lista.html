@@ -4,49 +4,81 @@
 	
 	<div class="page-header">
 		
-		<h2>Projetos</h2>
+		<h1><strong>Projetos</strong></h1>
+		
+	</div>
+
+	<div class="row">
+	
+		<div class="col-xs-6">
+		
+			<form ng-submit="adicionar(projeto)">
+								
+				<div class="form-group">
+					<label class="control-label">Nome do Projeto <span class="text-danger">*</span></label>
+					<input type="text" class="form-control" ng-model="descricao" required="required">
+				</div>	
+				
+				<div class="form-group">
+					<label class="control-label">Data de Criação <span class="text-danger">*</span></label>					
+		            <input type="text" class="form-control" ng-model="criacao.date" required="required"
+		            	datepicker-popup="dd/MM/yyyy" is-open="criacao.opened" ng-click="criacao.opened = true" />	            		
+				</div>
+										
+				<div class="form-group">
+					<input type="submit" class="btn btn-success" value="Salvar">
+				</div>	
+											
+			</form>
+			
+		</div>
+		
+	</div>		
+
+	<div class="row">
+	
+		<div class="col-xs-12">
+		
+			<div class="panel panel-default" ng-show="projetos.length">
+			
+				<table class="table" >
+					<thead>
+						<tr>
+							<th></th>
+							<th>NOME</th>
+							<th>DATA DE CRIACAO</th>
+							<th>Nº DE TAREFAS</th>
+							<th></th>
+						</tr>
+					</thead>
+					
+					<!-- ITERACAO SOBRE A LISTA PROJETOS -->				
+					<tbody>
+						<tr ng-repeat="projeto in projetos">
+							<td style="text-align: center" class="col-xs-1">
+								<a href="#/projetos/{{projeto.id}}"><i class="glyphicon glyphicon-folder-open"></i></a>
+							</td>
+							<td>{{projeto.descricao}}</td>
+							<td>{{projeto.criacao | date: 'dd/MM/yyyy'}}</td>
+							<td>
+								<span ng-if="projeto.tarefas">{{projeto.tarefas.length}}</span>
+								<span ng-if="!projeto.tarefas">0</span>
+							</td>
+							<td style="text-align: center" class="col-xs-1">					
+								<button type="button" class="btn btn-danger btn-xs" ng-click="deletar(projeto)">
+									<i class="glyphicon glyphicon-trash"></i>
+								</button>
+							</td>
+						</tr>
+					</tbody>				
+				</table>
+					
+			</div>
+				
+		</div>
 		
 	</div>
 	
-	<div class="row">
-		<div class="col-xs-6">
-			<form ng-submit="adicionar(projeto)">					
-				<div class="form-group">
-					<label class="control-label">Nome do Projeto</label>
-					<input type="text" class="form-control" ng-model="descricao" required="required">
-				</div>							
-				<div class="form-group">
-					<input type="submit" class="btn btn-success" value="Salvar">
-				</div>								
-			</form>
-		</div>
-	</div>
-	
-	
-	<div class="panel panel-default" ng-show="projetos.length">
-		<table class="table table-striped" >
-			<thead>
-				<tr>
-					<th></th>
-					<th>NOME</th>
-					<th></th>
-				</tr>
-			</thead>
-			
-			<!-- ITERACAO SOBRE A LISTA PROJETOS -->				
-			<tbody ng-repeat="projeto in projetos">
-				<tr>
-					<td style="text-align: center" class="col-xs-1">
-						<a href="#/projetos/{{projeto.id}}"><i class="glyphicon glyphicon-folder-open"></i></a>
-					</td>
-					<td>{{projeto.descricao}}</td>
-					<td style="text-align: center" class="col-xs-1">					
-						<button type="button" class="btn btn-danger btn-xs" ng-click="deletar(projeto)">
-							<i class="glyphicon glyphicon-trash"></i>
-						</button>
-					</td>
-				</tr>
-			</tbody>				
-		</table>	
-	</div>	
 </div>	
+
+

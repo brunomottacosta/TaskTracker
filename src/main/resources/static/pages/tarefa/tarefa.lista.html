@@ -4,7 +4,7 @@
 	
 	<div class="page-header">
 		
-		<h2>Tarefas: </h2>
+		<h1><strong>Tarefas: </strong></h1>
 		
 	</div>
 	
@@ -68,16 +68,18 @@
 			
 			<!-- ITERACAO SOBRE A LISTA TAREFAS -->				
 			<tbody>
-				<tr ng-repeat="t in tarefas | orderBy: t.id">
+				<tr ng-repeat="tarefa in tarefas | orderBy: 'projeto.id'">
 					<td style="text-align: center" class="col-xs-1">
-						<a href="/#/tarefas/{{t.id}}"><i class="glyphicon glyphicon-folder-open"></i></a>
+						<a ng-href="/#/tarefas/{{tarefa.id}}">
+							<i class="glyphicon glyphicon-folder-open"></i>
+						</a>
 					</td>
-					<td data-ng-bind="t.descricao"></td>
-					<td data-ng-bind="t.projeto.descricao"></td>
-					<td data-ng-bind="t.criacao | date: 'dd/MM/yyyy'"></td>
-					<td data-ng-bind="t.prazo | date: 'dd/MM/yyyy'"></td>
+					<td data-ng-bind="tarefa.descricao"></td>
+					<td data-ng-bind="tarefa.projeto.descricao"></td>
+					<td data-ng-bind="tarefa.criacao | date: 'dd/MM/yyyy'"></td>
+					<td data-ng-bind="tarefa.prazo | date: 'dd/MM/yyyy'"></td>
 					<td style="text-align: center" class="col-xs-1">					
-						<button type="button" class="btn btn-danger btn-xs" ng-click="deletar(t)">
+						<button type="button" class="btn btn-danger btn-xs" ng-click="deletar(tarefa)">
 							<i class="glyphicon glyphicon-trash"></i>
 						</button>
 					</td>

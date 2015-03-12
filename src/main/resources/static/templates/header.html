@@ -10,7 +10,7 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="/#/">
+		<a class="navbar-brand" ng-href="/#/">
 			<i class="glyphicon glyphicon-home"></i>
 		</a>
 	</div>
@@ -18,23 +18,24 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="main-nav-menu">
 		
-			<ul class="nav navbar-nav">
-			
-		    	<li class="active">
-		    		<a href="#">
-		    			Link <span class="sr-only">(current)</span>
+			<ul class="nav navbar-nav">			
+		    	
+		    	<li>
+		    		<a ng-href="/#/projetos">
+		    			Projetos
 		    		</a>
 		    	</li>
 		    	<li>
-		    		<a href="/#/projetos">
-		    			Projeto
+		    		<a ng-href="/#/tarefas">
+		    			Tarefas
 		    		</a>
 		    	</li>
-		    	<li>
-		    		<a href="/#/tarefas">
-		    			Tarefa
-		    		</a>
-		    	</li>
+	    	</ul>
+	    	
+	    	<ul class="nav navbar-nav navbar-right">
+	    		<li ng-show="authenticated">
+	    			<a href="#!/" ng-click="logout()">logout</a>
+	    		</li>
 	    	</ul>
 	    	
 		</div>
