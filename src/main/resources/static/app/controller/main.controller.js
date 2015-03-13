@@ -1,15 +1,18 @@
-app.controller('MainCtrl', function($rootScope, $scope, $http, $location, $route) {
+app.controller('MainCtrl', function($rootScope, $scope, $http, $location,
+		$route) {
 
 	$scope.tab = function(route) {
 		return $route.current && route === $route.current.controller;
 	};
-	
+
 	var authenticate = function(credentials, callback) {
+
 		var headers = credentials ? {
 			authorization : "Basic "
 					+ btoa(credentials.username + ":" + credentials.password)
 		} : {};
-		$http.get('user', {
+
+		$http.get('/user', {
 			headers : headers
 		}).success(function(data) {
 			if (data.name) {
@@ -17,33 +20,30 @@ app.controller('MainCtrl', function($rootScope, $scope, $http, $location, $route
 			} else {
 				$rootScope.authenticated = false;
 			}
-			callback && callback($rootScope.authenticated);
+			callback && callback();
 		}).error(function() {
 			$rootScope.authenticated = false;
-			callback && callback(false);
+			callback && callback();
 		});
+
 	}
-	
+
 	authenticate();
-	
+
 	$scope.credentials = {};
-	
+
 	$scope.login = function() {
-		authenticate($scope.credentials, function(authenticated) {
-			if (authenticated) {
-				console.log("Login succeeded")
+		authenticate($scope.credentials, function() {
+			if ($rootScope.authenticated) {
 				$location.path("/");
 				$scope.error = false;
-				$rootScope.authenticated = true;
 			} else {
-				console.log("Login failed")
 				$location.path("/login");
 				$scope.error = true;
-				$rootScope.authenticated = false;
 			}
-		})
+		});
 	};
-	
+
 	$scope.logout = function() {
 		$http.post('logout', {}).success(function() {
 			$rootScope.authenticated = false;
