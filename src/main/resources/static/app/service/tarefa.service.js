@@ -1,4 +1,4 @@
-app.factory('TarefaService', function($http, ProjetoService) {
+app.factory('TarefaService', function($http) {
 	
 	var o = {
 			tarefas: [],

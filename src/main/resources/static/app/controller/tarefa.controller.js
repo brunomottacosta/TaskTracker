@@ -2,7 +2,7 @@
  * 
  */
 
-app.controller('TarefaCtrl', function($scope, $location, $route, TarefaService,	ProjetoService) {
+app.controller('TarefaCtrl', function($scope, $location, $stateParams, TarefaService, ProjetoService) {
 
 	$scope.tarefas = TarefaService.tarefas;
 	$scope.projetos = ProjetoService.projetos;
@@ -15,7 +15,7 @@ app.controller('TarefaCtrl', function($scope, $location, $route, TarefaService,	
 
 	// buscar uma tarefa
 	$scope.find = function() {
-		TarefaService.get($route.current.params.id);
+		TarefaService.get($stateParams.id);
 	};
 
 	// adicionar tarefa

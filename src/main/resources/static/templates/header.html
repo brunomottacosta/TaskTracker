@@ -1,5 +1,7 @@
 <meta charset="UTF-8">
 
+<div ng-controller="MainCtrl">
+
 <nav class="navbar navbar-default navbar-fixed-top">
 
 	<div class="container-fluid">
@@ -10,7 +12,7 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" ng-href="/#/">
+		<a class="navbar-brand" ng-href="/#/home">
 			<i class="glyphicon glyphicon-home"></i>
 		</a>
 	</div>
@@ -33,8 +35,11 @@
 	    	</ul>
 	    	
 	    	<ul class="nav navbar-nav navbar-right">
+	    		<li ng-show="!authenticated">
+	    			<a href="/#/login">Login</a>
+	    		</li>
 	    		<li ng-show="authenticated">
-	    			<a href="" ng-click="logout()">logout</a>
+	    			<a href="" ng-click="logout()">Logout</a>
 	    		</li>
 	    	</ul>
 	    	
@@ -43,3 +48,5 @@
 	</div>
 	
 </nav>
+
+</div>

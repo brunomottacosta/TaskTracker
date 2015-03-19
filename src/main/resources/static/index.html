@@ -15,13 +15,13 @@
 	
 </head>
 	
-<body ng-app="TaskTracker" ng-cloak class="ng-cloak">
+<body ng-app="TaskTracker" ng-cloak>
 	
 	<!-- HEADER -->	
 	<div ng-include="'./templates/header.html'" class="nav-header"></div>
 	
 	<!-- CONTEUDO -->
-	<div ng-view></div>
+	<div ui-view ng-cloak></div>
 	
 	<!-- FOOTER -->
 	<div ng-include="'./templates/footer.html'" class="footer"></div>
@@ -29,20 +29,26 @@
 	<!-- SCRIPTS -->	
 	<script type="text/javascript" src="./imports/angular/angular.min.js"></script>
 	<script type="text/javascript" src="./imports/angular/locale-pt_br.js"></script>	
+	<script src="//code.angularjs.org/1.2.13/angular-cookies.js"></script>
 	<script type="text/javascript" src="./imports/angular-route/angular-route.min.js"></script>
+	<script type="text/javascript" src="./imports/angular/angular-ui-router.min.js"></script>
 	<script type="text/javascript" src="./imports/angular-resource/angular-resource.min.js"></script>
 	<script type="text/javascript" src="./imports/angular-bootstrap/ui-bootstrap-tpls-0.12.1.min.js"></script>
 	
 	<!-- APP -->
 	<script type="text/javascript" src="./app/app.js"></script>
-	<script type="text/javascript" src="./app/app.config.js"></script>
+	
+	<!-- CONFIG -->
+	<script type="text/javascript" src="./app/config/auth.config.js"></script>
 	
 	<!-- CONTROLLERS -->
 	<script type="text/javascript" src="./app/controller/main.controller.js"></script>
+	<script type="text/javascript" src="./app/controller/auth.controller.js"></script>
 	<script type="text/javascript" src="./app/controller/projeto.controller.js"></script>
 	<script type="text/javascript" src="./app/controller/tarefa.controller.js"></script>
 	
 	<!-- SERVICES -->
+	<script type="text/javascript" src="./app/service/auth.service.js"></script>
 	<script type="text/javascript" src="./app/service/projeto.service.js"></script>
 	<script type="text/javascript" src="./app/service/tarefa.service.js"></script>
 	

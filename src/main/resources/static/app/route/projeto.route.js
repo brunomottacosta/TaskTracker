@@ -1,17 +1,25 @@
-app.config(['$routeProvider', function($routeProvider, $locationProvider) {
+/**
+ * 
+ */
+
+app.config(['$stateProvider', '$urlRouterProvider', 
+            
+            function($stateProvider, $urlRouterProvider, $locationProvider) {
 	
-	$routeProvider
+	$stateProvider
 	
 		// ver todos os projetos
-		.when("/projetos", {
-			templateUrl: "pages/projeto/projeto.lista.html",
-			controller: "ProjetoCtrl"
+		.state('lista-projetos', {
+			url: '/projetos',
+			templateUrl: 'pages/projeto/projeto.lista.html',
+			controller: 'ProjetoCtrl'
 		})
 		
 		// ver um projeto
-		.when("/projetos/:id", {
-			templateUrl: "pages/projeto/projeto.view.html", 
-			controller: "ProjetoCtrl"			
-		})	
+		.state('projeto', {
+			url: '/projetos/{id}',
+			templateUrl: 'pages/projeto/projeto.view.html', 
+			controller: 'ProjetoCtrl'			
+		});
 	
 }]);

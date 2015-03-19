@@ -2,20 +2,24 @@
  * 
  */
 
-app.config(['$routeProvider', function($routeProvider, $locationProvider) {
+app.config(['$stateProvider', '$urlRouterProvider',
+            
+            function($stateProvider, $urlRouterProvider, $locationProvider) {
 	
-	$routeProvider
+	$stateProvider
 	
 		// ver todas as tarefas
-		.when("/tarefas", {
-			templateUrl: "pages/tarefa/tarefa.lista.html",
-			controller: "TarefaCtrl"
+		.state('lista-tarefas', {
+			url: '/tarefas',
+			templateUrl: 'pages/tarefa/tarefa.lista.html',
+			controller: 'TarefaCtrl'
 		})
 		
 		// ver uma tarefa
-		.when("/tarefas/:id", {
-			templateUrl: "pages/tarefa/tarefa.view.html", 
-			controller: "TarefaCtrl"			
+		.state('tarefa', {
+			url: '/tarefas/{id}',
+			templateUrl: 'pages/tarefa/tarefa.view.html', 
+			controller: 'TarefaCtrl'			
 		})	
 	
 }]);

@@ -2,31 +2,41 @@
  * 
  */
 
-app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
+app.config(['$stateProvider', '$urlRouterProvider','$httpProvider', '$locationProvider', 
+            
+            function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
 	
-	$routeProvider
+	$stateProvider
 	
-		// home
-		.when("/", {
-			templateUrl: "pages/home.html", 
-			controller: "MainCtrl"
+		.state('home', {
+			url: '/home',
+			templateUrl: 'pages/home.html', 
+			controller: 'MainCtrl',
+			data: {
+				authentication: true
+			}
 		})
 		
-		.when("/login", {
-			templateUrl: "pages/login.html",
-			controller: "MainCtrl"
+		.state('login', {
+			url: '/login',
+			templateUrl: 'pages/login.html',
+			controller: 'AuthCtrl',
+			data: {
+				authentication: false
+			}
 		})
 		
-		.when("/404", {
+		.state("404", {
+			url: '/404',
 			templateUrl: "pages/states/404.html",
 		})
 		
-		.when("/error", {
+		.state('error', {
+			url: '/error',
 			templateUrl: "pages/states/error.html",
-		})
+		});
 		
-		.otherwise('/');
+	$urlRouterProvider.otherwise('home');
 	
-	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 		
 }]);	
