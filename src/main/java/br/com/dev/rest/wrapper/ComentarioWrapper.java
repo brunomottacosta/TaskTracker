@@ -2,10 +2,10 @@ package br.com.dev.rest.wrapper;
 
 import java.io.Serializable;
 
+import br.com.dev.rest.config.user.User;
 import br.com.dev.rest.model.Comentario;
 import br.com.dev.rest.model.Projeto;
 import br.com.dev.rest.model.Tarefa;
-import br.com.dev.rest.model.Usuario;
 
 public class ComentarioWrapper implements Serializable {
 
@@ -13,7 +13,7 @@ public class ComentarioWrapper implements Serializable {
 	
 	private Integer id;
 	private String texto;
-	private Usuario usuario;
+	private User user;
 	private Projeto projeto;
 	private Tarefa tarefa;
 	
@@ -23,9 +23,6 @@ public class ComentarioWrapper implements Serializable {
 		}
 		if (!comentario.getTexto().isEmpty()) {
 			this.texto = comentario.getTexto();
-		}
-		if (comentario.getUsuario() != null) {
-			this.usuario = comentario.getUsuario();
 		}
 		if (comentario.getProjeto() != null) {
 			this.projeto = comentario.getProjeto();
@@ -51,12 +48,12 @@ public class ComentarioWrapper implements Serializable {
 		this.texto = texto;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public User getUsuario() {
+		return user;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setUsuario(User user) {
+		this.user = user;
 	}
 
 	public Projeto getProjeto() {

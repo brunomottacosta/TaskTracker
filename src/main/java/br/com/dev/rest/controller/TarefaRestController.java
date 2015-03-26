@@ -16,6 +16,7 @@ import br.com.dev.rest.repository.TarefaRepository;
 import br.com.dev.rest.wrapper.TarefaWrapper;
 
 @RestController
+@RequestMapping(value = "/api")
 public class TarefaRestController {
 	
 	@Autowired private TarefaRepository tarefaRespository;

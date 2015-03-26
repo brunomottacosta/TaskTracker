@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import br.com.dev.rest.config.user.User;
 import br.com.dev.rest.model.Comentario;
 import br.com.dev.rest.model.Projeto;
 import br.com.dev.rest.model.Tarefa;
-import br.com.dev.rest.model.Usuario;
 import br.com.dev.rest.model.constants.Status;
 
 public class TarefaWrapper implements Serializable {
@@ -20,7 +20,7 @@ public class TarefaWrapper implements Serializable {
 	private Date finalizacao;
 	private Date prazo;
 	private Projeto projeto;
-	private Usuario usuario;
+	private User user;
 	private List<Comentario> comentarios;
 	private Status status;
 	
@@ -42,9 +42,6 @@ public class TarefaWrapper implements Serializable {
 		}
 		if (tarefa.getProjeto() != null) {
 			this.projeto = tarefa.getProjeto();
-		}
-		if (tarefa.getUsuario() != null) {
-			this.usuario = tarefa.getUsuario();
 		}
 		if (!tarefa.getComentarios().isEmpty()) {
 			this.comentarios = tarefa.getComentarios();
@@ -102,12 +99,12 @@ public class TarefaWrapper implements Serializable {
 		this.projeto = projeto;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public User getUsuario() {
+		return user;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setUsuario(User user) {
+		this.user = user;
 	}
 
 	public List<Comentario> getComentarios() {

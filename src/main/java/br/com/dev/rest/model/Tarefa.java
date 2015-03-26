@@ -55,11 +55,6 @@ public class Tarefa {
 	@JsonBackReference(value = "projeto-tarefa")
 	private Projeto projeto;
 
-	@ManyToOne
-	@JoinColumn(name = "idn_usuario", referencedColumnName = "idn_usuario")
-	@JsonBackReference(value = "usuario-tarefa")
-	private Usuario usuario;
-
 	public Tarefa() {
 		super();
 	}
@@ -140,14 +135,6 @@ public class Tarefa {
 
 	public void setProjeto(Projeto projeto) {
 		this.projeto = projeto;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
 	}
 
 }

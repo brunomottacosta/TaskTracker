@@ -10,33 +10,26 @@ app.config(['$stateProvider', '$urlRouterProvider','$httpProvider', '$locationPr
 	
 		.state('home', {
 			url: '/home',
-			templateUrl: 'pages/home.html', 
-			controller: 'MainCtrl',
-			data: {
-				authentication: true
-			}
+			templateUrl: 'resources/pages/home.html', 
+			controller: 'MainCtrl'
 		})
 		
 		.state('login', {
 			url: '/login',
-			templateUrl: 'pages/login.html',
-			controller: 'AuthCtrl',
-			data: {
-				authentication: false
-			}
+			templateUrl: 'resources/pages/login.html',
+			controller: 'AuthCtrl'
 		})
 		
 		.state("404", {
 			url: '/404',
-			templateUrl: "pages/states/404.html",
+			templateUrl: "resources/pages/states/404.html",
 		})
 		
 		.state('error', {
 			url: '/error',
-			templateUrl: "pages/states/error.html",
+			templateUrl: "resources/pages/states/error.html",
 		});
 		
-	$urlRouterProvider.otherwise('home');
-	
+	$urlRouterProvider.otherwise('home');	
 		
 }]);	

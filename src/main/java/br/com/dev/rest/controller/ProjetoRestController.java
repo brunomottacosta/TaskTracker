@@ -15,6 +15,7 @@ import br.com.dev.rest.repository.ProjetoRepository;
 import br.com.dev.rest.wrapper.ProjetoWrapper;
 
 @RestController
+@RequestMapping(value = "/api")
 public class ProjetoRestController {
 	
 	@Autowired

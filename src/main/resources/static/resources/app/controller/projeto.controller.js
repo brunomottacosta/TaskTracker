@@ -3,13 +3,17 @@
  */
 
 app.controller('ProjetoCtrl', function($scope, $stateParams, $location, ProjetoService) {
-	
+ 	
 	$scope.projetos = ProjetoService.projetos;
 	$scope.projeto = ProjetoService.projeto;
 	
 	$scope.findAll = function() {
 		ProjetoService.list();		
 	};
+	
+	$scope.esconder = function(elem) {
+		
+	}
 	
 	// buscar uma projeto
 	$scope.find = function() {

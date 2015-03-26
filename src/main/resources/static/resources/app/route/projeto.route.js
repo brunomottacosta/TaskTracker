@@ -11,14 +11,14 @@ app.config(['$stateProvider', '$urlRouterProvider',
 		// ver todos os projetos
 		.state('lista-projetos', {
 			url: '/projetos',
-			templateUrl: 'pages/projeto/projeto.lista.html',
+			templateUrl: 'resources/pages/projeto/projeto.lista.html',
 			controller: 'ProjetoCtrl'
 		})
 		
 		// ver um projeto
 		.state('projeto', {
 			url: '/projetos/{id}',
-			templateUrl: 'pages/projeto/projeto.view.html', 
+			templateUrl: 'resources/pages/projeto/projeto.view.html', 
 			controller: 'ProjetoCtrl'			
 		});
 	

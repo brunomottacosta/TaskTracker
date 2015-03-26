@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.dev.rest.config.user.User;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
@@ -23,11 +25,7 @@ public class Comentario {
 	@Column(name = "txt_comentario")
 	private String texto;
 	
-	@ManyToOne
-	@JoinColumn(name = "idn_usuario", referencedColumnName = "idn_usuario")
-	@JsonBackReference(value = "usuario-comentario")
-	private Usuario usuario;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "idn_projeto", referencedColumnName = "idn_projeto")
 	@JsonBackReference(value = "projeto-comentario")
@@ -42,11 +40,10 @@ public class Comentario {
 		super();
 	}
 
-	public Comentario(Integer id, String texto, Usuario usuario) {
+	public Comentario(Integer id, String texto, User user) {
 		super();
 		this.id = id;
 		this.texto = texto;
-		this.usuario = usuario;
 	}
 
 	public Integer getId() {
@@ -63,14 +60,6 @@ public class Comentario {
 
 	public void setTexto(String texto) {
 		this.texto = texto;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
 	}
 
 	public Projeto getProjeto() {

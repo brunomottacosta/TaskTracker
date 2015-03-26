@@ -1,6 +1,6 @@
 <meta charset="UTF-8">
 
-<div ng-controller="MainCtrl">
+<div ng-controller="ApplicationController" ng-init="init()">
 
 <nav class="navbar navbar-default navbar-fixed-top">
 
@@ -35,7 +35,7 @@
 	    	</ul>
 	    	
 	    	<ul class="nav navbar-nav navbar-right">
-	    		<li ng-show="!authenticated">
+	    		<li ng-hide="authenticated">
 	    			<a href="/#/login">Login</a>
 	    		</li>
 	    		<li ng-show="authenticated">
