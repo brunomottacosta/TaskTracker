@@ -1,12 +1,16 @@
-app.controller('AuthCtrl', function($scope, $http, TokenStorage) {
+'use strict';
+
+app.controller('AuthCtrl', function($scope, $http, $state,Authentication) {
 	
-	$scope.login = function() {
-		$http.post('/api/login', {
-			username : $scope.username,
-			password : $scope.password
-		}).success(function(result, status, headers) {
+	$scope.user = {};
+	
+	$scope.login = function(user) {
+		Authentication.login(user).then(function(res) {
 			$scope.authenticated = true;
-			TokenStorage.store(headers('X-AUTH-TOKEN'));
+			$state.go('home');
+		}, function(err) {
+			$scope.err = err.status;
 		});
 	};
+	
 });

@@ -2,9 +2,7 @@
  * 
  */
 
-app.config(['$stateProvider', '$urlRouterProvider', 
-            
-            function($stateProvider, $urlRouterProvider, $locationProvider) {
+app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
 	
 	$stateProvider
 	

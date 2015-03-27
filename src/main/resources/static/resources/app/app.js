@@ -1,29 +1,25 @@
-var app = angular.module('TaskTracker', [ 'ui.router', 'ngRoute', 'ngResource',	'ui.bootstrap', 'ngCookies' ]);
+var app = angular.module('TaskTracker', [ 'ui.router', 'ngResource', 'ui.bootstrap' ]);
 
-app.controller('ApplicationController', function($scope, $http, $state, TokenStorage) {
+app.controller('ApplicationController', function($scope, $http, $state, TokenStorage, Authentication) {
 	
-	$scope.authenticated = false;
-	$scope.token; // For display purposes only
 	$scope.init = function() {
 		$http.get('/api/users/current').success(function(user) {
 			if (user.username !== 'anonymousUser') {
-				$scope.authenticated = true;
-				$scope.username = user.username;
-				// For display purposes only
-				$scope.token = JSON.parse(atob(TokenStorage.retrieve().split('.')[0]));
+				$scope.authenticated = true;		
 			}
-		});
+		});		
 	};
 	
 	$scope.logout = function() {
-		// Just clear the local storage
-		TokenStorage.clear();
+		Authentication.logout();
 		$scope.authenticated = false;
 		$state.go('login');
 	};
 	
-	$scope.$watch('authenticated', function() {
-		
+	$scope.$watch(function(scope) {
+		return scope.authenticated;
+	}, function(newVal, oldVal) {
+		if (newVal != oldVal) ;
 	});
 	
 });

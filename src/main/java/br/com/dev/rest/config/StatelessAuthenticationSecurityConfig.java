@@ -38,29 +38,29 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 				.servletApi().and()
 				.headers().cacheControl().and()
 				.authorizeRequests()
-				// allow anonymous resource requests
+				
 				.antMatchers("/").permitAll()
 				.antMatchers("/favicon.ico").permitAll()
 				.antMatchers("/resources/**").permitAll()
-				// allow anonymous POSTs to login
-				.antMatchers(HttpMethod.POST, "/api/login")	.permitAll()
-				// allow anonymous GETs to API
-				.antMatchers(HttpMethod.GET, "/api/**").permitAll()
-				// defined Admin only API area
+				
+				.antMatchers(HttpMethod.POST, "/api/login").permitAll()
+				.antMatchers(HttpMethod.GET, "/api/users/current").permitAll()
+				
+				.antMatchers(HttpMethod.GET, "/api/**").authenticated()
+				.antMatchers(HttpMethod.POST, "/api/**").hasRole("ADMIN")
+				.antMatchers(HttpMethod.PUT, "/api/**").hasRole("ADMIN")
+				.antMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN")
+				
 				.antMatchers("/admin/**").hasRole("ADMIN")
-				// all other request need to be authenticated
-				.anyRequest().hasRole("USER")
+				.anyRequest().permitAll()
+				
 				.and()
-				// custom JSON based authentication by POST of
-				// {"username":"<name>","password":"<password>"} which sets the
-				// token header upon authentication
+			
 				.addFilterBefore(
 						new StatelessLoginFilter("/api/login",
 								tokenAuthenticationService, userDetailsService,
 								authenticationManager()),
-						UsernamePasswordAuthenticationFilter.class)
-				// custom Token based authentication based on the header
-				// previously given to the client
+						UsernamePasswordAuthenticationFilter.class)				
 				.addFilterBefore(
 						new StatelessAuthenticationFilter(
 								tokenAuthenticationService),

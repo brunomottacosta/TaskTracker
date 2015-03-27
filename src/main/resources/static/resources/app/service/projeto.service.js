@@ -1,3 +1,5 @@
+'use strict';
+
 app.factory('ProjetoService', function($http) {	
 	
 	var o = {

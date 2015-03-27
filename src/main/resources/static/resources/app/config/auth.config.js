@@ -33,4 +33,5 @@ app.factory('TokenStorage', function() {
 }).config(function($httpProvider) {
 	
 	$httpProvider.interceptors.push('TokenAuthInterceptor');
+	
 });

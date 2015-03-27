@@ -15,7 +15,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @IdClass(UserAuthority.class)
 public class UserAuthority implements GrantedAuthority {
-	
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)

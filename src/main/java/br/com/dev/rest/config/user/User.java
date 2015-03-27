@@ -27,8 +27,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Table(name = "User", uniqueConstraints = @UniqueConstraint(columnNames = { "username" }))
 public class User implements UserDetails {
 	
-	public User() {
-	}
+	static final long serialVersionUID = 1L;
+
+	public User() {}
 
 	public User(String username) {
 		this.username = username;
@@ -42,24 +43,33 @@ public class User implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
 	@NotNull
 	@Size(min = 4, max = 30)
 	private String username;
+	
 	@NotNull
 	@Size(min = 4, max = 100)
 	private String password;
+	
 	@Transient
 	private long expires;
+	
 	@NotNull
 	private boolean accountExpired;
+	
 	@NotNull
 	private boolean accountLocked;
+	
 	@NotNull
 	private boolean credentialsExpired;
+	
 	@NotNull
 	private boolean accountEnabled;
+	
 	@Transient
 	private String newPassword;
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true)
 	private Set<UserAuthority> authorities;
 
