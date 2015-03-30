@@ -35,10 +35,10 @@
 	    	</ul>
 	    	
 	    	<ul class="nav navbar-nav navbar-right">
-	    		<li ng-show="!authenticated">
+	    		<li ng-hide="isAuthenticated()">
 	    			<a href="/#/login">Login</a>
 	    		</li>
-	    		<li ng-show="authenticated">
+	    		<li ng-show="isAuthenticated()">
 	    			<a href="" ng-click="logout()">Logout</a>
 	    		</li>
 	    	</ul>

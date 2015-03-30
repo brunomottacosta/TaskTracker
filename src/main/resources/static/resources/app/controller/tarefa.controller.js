@@ -7,7 +7,8 @@ app.controller('TarefaCtrl', function($scope, $location, $stateParams, TarefaSer
 	$scope.tarefas = TarefaService.tarefas;
 	$scope.projetos = ProjetoService.projetos;
 	$scope.tarefa = TarefaService.tarefa;
-
+	
+	// buscar todas as tarefas
 	$scope.findAll = function() {
 		TarefaService.list();
 		ProjetoService.list();
@@ -25,8 +26,6 @@ app.controller('TarefaCtrl', function($scope, $location, $stateParams, TarefaSer
 		tarefa.projeto = $scope.projeto;
 		tarefa.criacao = $scope.inicio.date;
 		tarefa.prazo = $scope.prazo.date;
-
-		console.log(tarefa);
 
 		TarefaService.save(tarefa).then(function() {
 			$scope.descricao = "";

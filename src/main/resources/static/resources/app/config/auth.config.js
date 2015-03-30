@@ -28,10 +28,22 @@ app.factory('TokenStorage', function() {
 			return $q.reject(error);
 		}
 	};
-}).factory('HttpProviderInterceptor', function() {
+}).config(function($httpProvider) {	
+	$httpProvider.interceptors.push('TokenAuthInterceptor');	
+}).run(function($rootScope, $state, $location) {
 	
-}).config(function($httpProvider) {
-	
-	$httpProvider.interceptors.push('TokenAuthInterceptor');
-	
+	$rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+		$http.get('/api/users/current').success(function(user) {
+			if (user.username !== 'anonymousUser') {
+				$rootScope.authenticated = true;
+			}
+		});	
+		if (!$rootScope.authenticated) {
+			 if (!$state.is('login')) {
+				$location.path('/login');
+			 } else {
+				 event.preventDefault();
+			 }
+		}	   
+	});
 });
