@@ -1,5 +1,21 @@
-app.controller('MainCtrl', function($rootScope, $scope, $state, $stateParams) {
+app.controller('ApplicationController', function($scope, $state, Authentication) {
 	
-	$scope.texto = "Bruno";
+	$scope.init = function() {
+		return Authentication.set();	
+	};
+	
+	$scope.logout = function() {
+		Authentication.logout();
+		$state.go('login');
+	};
+	
+	$scope.isAuthenticated = function() {
+		setUser(Authentication.user);		
+		return Authentication.isAuthenticated();
+	}
+	
+	var setUser = function(user) {
+		$scope.user = user;
+	}
 	
 });
