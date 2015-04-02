@@ -12,7 +12,6 @@ app.factory('Authentication', function($http, TokenStorage) {
 			password : user.password
 		}).success(function(result, status, headers) {
 			TokenStorage.store(headers('X-AUTH-TOKEN'));
-			_this.set();
 		});
 	};
 	

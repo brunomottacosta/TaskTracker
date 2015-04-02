@@ -11,12 +11,18 @@ app.config(['$stateProvider', '$urlRouterProvider','$httpProvider', '$locationPr
 		.state('home', {
 			url: '/home',
 			templateUrl: 'resources/pages/home.html', 
+			data: {
+				security: true
+			}
 		})
 		
 		.state('login', {
 			url: '/login',
 			templateUrl: 'resources/pages/login.html',
-			controller: 'AuthCtrl'
+			controller: 'AuthCtrl',
+			data: {
+				security: false
+			}	
 		})
 		
 		.state("404", {

@@ -12,14 +12,20 @@ app.config(['$stateProvider', '$urlRouterProvider',
 		.state('lista-tarefas', {
 			url: '/tarefas',
 			templateUrl: 'resources/pages/tarefa/tarefa.lista.html',
-			controller: 'TarefaCtrl'
+			controller: 'TarefaCtrl',
+			data: {
+				security: true
+			}
 		})
 		
 		// ver uma tarefa
 		.state('tarefa', {
 			url: '/tarefas/{id}',
 			templateUrl: 'resources/pages/tarefa/tarefa.view.html', 
-			controller: 'TarefaCtrl'			
+			controller: 'TarefaCtrl',
+			data: {
+				security: true
+			}
 		})	
 	
 }]);

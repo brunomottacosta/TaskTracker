@@ -10,14 +10,20 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 		.state('lista-projetos', {
 			url: '/projetos',
 			templateUrl: 'resources/pages/projeto/projeto.lista.html',
-			controller: 'ProjetoCtrl'
+			controller: 'ProjetoCtrl',
+			data: {
+				security: true
+			}
 		})
 		
 		// ver um projeto
 		.state('projeto', {
 			url: '/projetos/{id}',
 			templateUrl: 'resources/pages/projeto/projeto.view.html', 
-			controller: 'ProjetoCtrl'			
+			controller: 'ProjetoCtrl',
+			data: {
+				security: true
+			}
 		});
 	
 }]);

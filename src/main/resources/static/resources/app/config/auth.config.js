@@ -22,13 +22,19 @@ app.config(function($httpProvider) {
 	
 });
 
-app.run(function($rootScope, $state, $location, Authentication) {
+app.run(function($rootScope, $state, $location, $http, $timeout, Authentication) {
 	
-	
-	
-//	$rootScope.$on('$stateChangeStart', function (event) {	
-//		if (!Authentication.isAuthenticated()) {			
-//			if (!$state.is('login')) $location.path('/login');			
-//		} 				
-//	});
+	Authentication.set().then(function(res) {		
+		$rootScope.$on('$stateChangeStart', function (event, toState, toParams) {	
+			
+			if (!Authentication.isAuthenticated()) {	
+				if($state.current.data.security) {					
+					$location.path('/login');
+				} else {
+					event.preventDefault();
+				}				
+			}	
+			
+		});			
+	});		
 });
