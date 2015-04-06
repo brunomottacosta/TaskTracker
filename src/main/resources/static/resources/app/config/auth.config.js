@@ -1,14 +1,18 @@
+// servico para gravar o token apos autenticado
 app.factory('TokenStorage', function() {
 	
 	var storageKey = 'auth_token';
 	
 	return {
+		// guarda o token na sessao
 		store : function(token) {
 			return sessionStorage.setItem(storageKey, token);
 		},
+		// recupera o token da sessao
 		retrieve : function() {
 			return sessionStorage.getItem(storageKey);
 		},
+		// limpa o token, usado para logout
 		clear : function() {
 			return sessionStorage.removeItem(storageKey);
 		}
@@ -31,7 +35,9 @@ app.run(function($rootScope, $state, $location, $http, $timeout, Authentication)
 				if($state.current.data.security) {					
 					$location.path('/login');
 				} else {
-					event.preventDefault();
+					if($state.is('login')) {
+						event.preventDefault();
+					}
 				}				
 			}	
 			

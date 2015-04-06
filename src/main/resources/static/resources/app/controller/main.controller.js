@@ -1,3 +1,5 @@
+'use strict';
+
 app.controller('ApplicationController', function($scope, $state, Authentication) {
 	
 	$scope.init = function() {

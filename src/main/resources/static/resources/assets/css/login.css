@@ -1,0 +1,37 @@
+.background-login {
+	background-image: url('../imgs/city.jpg');
+    background-size: cover;
+}
+
+.fullsize {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	overflow: hidden;
+}
+
+.opaco-panel {
+	background-color: rgba(255, 255, 255, 0.3);
+	border-color: rgba(255, 255, 255, 0.3);
+}
+
+.opaco-error {
+	background-color: rgba(255, 0, 0, 0.3);
+	border-color: rgba(255, 0, 0, 0.3);
+}
+
+.panel-body-login {
+    padding: 15px;
+}
+
+body {
+	padding-top: 40px;
+	padding-bottom: 40px;
+	background-color: #AAA;
+}
+
+.login-panel {
+	border-radius: 10px;
+}

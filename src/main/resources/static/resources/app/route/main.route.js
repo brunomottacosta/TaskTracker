@@ -12,7 +12,7 @@ app.config(['$stateProvider', '$urlRouterProvider','$httpProvider', '$locationPr
 			url: '/home',
 			templateUrl: 'resources/pages/home.html', 
 			data: {
-				security: true
+				security: false
 			}
 		})
 		

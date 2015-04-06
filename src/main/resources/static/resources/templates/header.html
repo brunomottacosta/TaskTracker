@@ -22,12 +22,12 @@
 		
 			<ul class="nav navbar-nav">			
 		    	
-		    	<li>
+		    	<li ng-show="isAuthenticated()">
 		    		<a ng-href="/#/projetos">
 		    			Projetos
 		    		</a>
 		    	</li>
-		    	<li>
+		    	<li ng-show="isAuthenticated()">
 		    		<a ng-href="/#/tarefas">
 		    			Tarefas
 		    		</a>
@@ -36,10 +36,14 @@
 	    	
 	    	<ul class="nav navbar-nav navbar-right">
 	    		<li ng-hide="isAuthenticated()">
-	    			<a href="/#/login">Login</a>
+	    			<a href="/#/login">
+	    				<i class="fa fa-sign-in"></i> Login
+	    			</a>
 	    		</li>
 	    		<li ng-show="isAuthenticated()">
-	    			<a href="" ng-click="logout()">Logout</a>
+	    			<a href="" ng-click="logout()">
+	    				<i class="fa fa-sign-out"></i> Logout
+	    			</a>
 	    		</li>
 	    	</ul>
 	    	
