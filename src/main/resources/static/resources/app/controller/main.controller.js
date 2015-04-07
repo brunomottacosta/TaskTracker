@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('ApplicationController', function($scope, $state, Authentication) {
+app.controller('ApplicationController', function($scope, $state, $modal, Authentication) {
 	
 	$scope.init = function() {
 		return Authentication.set();	
@@ -14,10 +14,17 @@ app.controller('ApplicationController', function($scope, $state, Authentication)
 	$scope.isAuthenticated = function() {
 		setUser(Authentication.user);		
 		return Authentication.isAuthenticated();
-	}
+	};
 	
+	$scope.isAuthorized =  function(role) {
+		return Authentication.isAuthorized(role);
+    };
+	
+   
+    	
+    
 	var setUser = function(user) {
 		$scope.user = user;
-	}
+	};
 	
 });

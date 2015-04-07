@@ -48,4 +48,13 @@ app.controller('TarefaCtrl', function($scope, $location, $stateParams, TarefaSer
 			$location.path('/tarefas');
 		});
 	};
+	
+	// limpar formulario
+	$scope.limparFormulario = function() {
+		$scope.descricao = "";
+		$scope.projeto = {};
+		$scope.inicio = "";
+		$scope.prazo = "";
+	};	
+	
 });

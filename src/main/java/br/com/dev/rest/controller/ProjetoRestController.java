@@ -42,7 +42,7 @@ public class ProjetoRestController {
 	}
 	
 	@RequestMapping(value = "/projetos", method = RequestMethod.POST)
-	public Projeto salvar(@RequestBody Projeto projeto) {
+	public Projeto salvar(@RequestBody Projeto projeto) {		
 		projeto.setId(null);
 		return projetoRepository.saveAndFlush(projeto);		
 	}

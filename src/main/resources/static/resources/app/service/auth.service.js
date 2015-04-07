@@ -32,6 +32,18 @@ app.factory('Authentication', function($http, TokenStorage) {
 		return (_this.user) ? _this.user : false; 
 	};
 	
+	_this.isAuthorized = function(role) {
+		if (_this.user) {
+			var i = _this.user.roles.length;
+			while (i--) {
+		       if (_this.user.roles[i] === role) {
+		           return true;
+		       }
+		    }
+		    return false;
+		} return false;		
+	};
+	
 	return _this;
 	
 });

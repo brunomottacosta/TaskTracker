@@ -1,7 +1,7 @@
 'use strict';
 
 
-app.controller('ProjetoCtrl', function($scope, $stateParams, $state, $location, $modal, ProjetoService) {
+app.controller('ProjetoCtrl', function($scope, $stateParams, $state, $location, $modal, $filter, ProjetoService) {
  	
 	$scope.projetos = ProjetoService.projetos;
 	$scope.projeto = ProjetoService.projeto;
@@ -22,16 +22,22 @@ app.controller('ProjetoCtrl', function($scope, $stateParams, $state, $location, 
 	
 	// adicionar projeto
 	$scope.adicionar = function(projeto) {
+		
 		if ($scope.descricao !== "") {
+			
 			projeto.descricao = $scope.descricao;
 			projeto.criacao = $scope.criacao.date;
+			projeto.seila = "asdfsadf";
+			
 			ProjetoService.save(projeto).then(function() {
 				$scope.descricao = "";
 				$scope.criacao = "";
 			});			
 		};		
+		
 	};
 	
+	// funcao editar projeto, abre modal para editar dados 
 	$scope.editar = function(size) {
 		
 		var modal = $modal.open({
@@ -66,7 +72,13 @@ app.controller('ProjetoCtrl', function($scope, $stateParams, $state, $location, 
 			$location.path('/projetos'); 
 		});				
 	};
-
+	
+	$scope.ordem = "descricao";
+	
+	$scope.ordenar = function(val) {
+		$scope.ordem = $scope.ordem ? val : "";
+		$scope.isOrdered = "background-color: #444";
+	};
 })
 
 /* controller extra para projeto */

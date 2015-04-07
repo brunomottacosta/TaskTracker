@@ -51,8 +51,7 @@ public class UserAuthority implements GrantedAuthority {
 		if (!(obj instanceof UserAuthority))
 			return false;
 		UserAuthority ua = (UserAuthority) obj;
-		return ua.getAuthority() == this.getAuthority()
-				|| ua.getAuthority().equals(this.getAuthority());
+		return ua.getAuthority() == this.getAuthority()	|| ua.getAuthority().equals(this.getAuthority());
 	}
 
 	@Override
