@@ -2,7 +2,8 @@ var app = angular.module('TaskTracker', [
                                          
 	'ui.router', 
 	'ngResource', 
-	'ui.bootstrap' 
+	'ui.bootstrap',
+	'ui.mask'
 
 ]);
 

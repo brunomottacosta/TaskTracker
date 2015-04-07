@@ -1,8 +1,7 @@
-/*
- * 
- */
+'use strict';
 
-app.controller('ProjetoCtrl', function($scope, $stateParams, $location, ProjetoService) {
+
+app.controller('ProjetoCtrl', function($scope, $stateParams, $state, $location, $modal, ProjetoService) {
  	
 	$scope.projetos = ProjetoService.projetos;
 	$scope.projeto = ProjetoService.projeto;
@@ -11,9 +10,10 @@ app.controller('ProjetoCtrl', function($scope, $stateParams, $location, ProjetoS
 		ProjetoService.list();		
 	};
 	
-	$scope.esconder = function(elem) {
-		
-	}
+	$scope.limparFormulario = function() {
+		$scope.descricao = "";
+		$scope.criacao = "";
+	};
 	
 	// buscar uma projeto
 	$scope.find = function() {
@@ -32,19 +32,54 @@ app.controller('ProjetoCtrl', function($scope, $stateParams, $location, ProjetoS
 		};		
 	};
 	
+	$scope.editar = function(size) {
+		
+		var modal = $modal.open({
+			templateUrl: 'resources/pages/modals/projeto.edit.modal.html',
+			controller: 'ProjetoFnCtrl',
+			size: size,
+			resolve: {
+				projeto: function() {
+					return $scope.projeto;
+				}
+			}
+		});
+		
+		modal.result.then(function(projeto) {				
+			atualizar(projeto);
+		}, function() {			
+			$scope.projeto = ProjetoService.projeto;			
+		});
+		
+	};
+	
 	// atualizar projeto
-	$scope.atualizar = function(projeto) {
+	var atualizar = function(projeto) {
 		ProjetoService.update(projeto).then(function() {
-			$location.path('/projetos/' + projeto.id);
+			$state.reload();
 		});
 	}; 
 	
 	// deletar projeto
 	$scope.deletar = function(projeto) {
 		ProjetoService.remove(projeto).then(function() {
-			$location.path('/projetos');
+			$location.path('/projetos'); 
 		});				
 	};
 
-});
+})
 
+/* controller extra para projeto */
+.controller('ProjetoFnCtrl', function($scope, $modalInstance, projeto) {	
+	
+	$scope.editando = angular.copy(projeto);	
+	
+	$scope.ok = function() {		
+		$modalInstance.close($scope.editando);		
+	};
+	
+	$scope.cancel = function() {
+		$modalInstance.dismiss('cancel');
+	};
+	
+});

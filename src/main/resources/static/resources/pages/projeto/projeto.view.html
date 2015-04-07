@@ -7,7 +7,7 @@
 		<h2>
 			<strong>{{projeto.descricao}}</strong>
 			<span class="pull-right">
-				<button type="button" class="btn btn-warning btn-sm">
+				<button type="button" class="btn btn-warning btn-sm" ng-click="editar()">
 					<i class="glyphicon glyphicon-pencil"></i>
 				</button>			
 				<button type="button" class="btn btn-danger btn-sm" ng-click="deletar(projeto)">
@@ -24,10 +24,17 @@
 			
 			<div class="panel panel-default">
 				<table class="table">
-					<tr><td></td></tr>
+					<tr>
+						<td>
+							<strong>Data de Criação:</strong>
+						</td>
+						<td>
+							{{projeto.criacao | date: 'dd/MM/yyyy'}}
+						</td>
+					</tr>
 				</table>
 			</div> 
-			<p>{{projeto.criacao | date: 'dd/MM/yyyy'}}</p>
+			
 			
 		</div>
 		
@@ -71,3 +78,6 @@
 	</div>
 	
 </div>	
+
+
+

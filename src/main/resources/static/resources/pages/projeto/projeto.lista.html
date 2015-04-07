@@ -7,32 +7,45 @@
 		<h1><strong>Projetos</strong></h1>
 		
 	</div>
-
+	
+	
 	<div class="row">
-
+	
 		<div class="col-xs-6">
 			
-			<form ng-submit="adicionar(projeto)">
-								
-				<div class="form-group">
-					<label class="control-label">Nome do Projeto <span class="text-danger">*</span></label>
-					<input type="text" class="form-control" ng-model="descricao" required="required">
-				</div>	
+			<div class="panel panel-default">
 				
-				<div class="form-group">
-					<label class="control-label">Data de Criação <span class="text-danger">*</span></label>					
-		            <input type="text" class="form-control" ng-model="criacao.date" required="required"
-		            	datepicker-popup="dd/MM/yyyy" is-open="criacao.opened" ng-click="criacao.opened = true" />	            		
-				</div>
-										
-				<div class="form-group">
-					<input type="submit" class="btn btn-success" value="Salvar">
-				</div>	
+				<form class="panel-body" ng-submit="adicionar(projeto)">
+									
+					<div class="form-group">
+						<label class="control-label">Nome do Projeto <span class="text-danger">*</span></label>
+						<input type="text" class="form-control" ng-model="descricao" required="required">
+					</div>	
+					
+					<div class="form-group">
+						<label class="control-label">Data de Criação <span class="text-danger">*</span></label>					
+			            <input type="text" class="form-control" required="required" 
+			            	ng-model="criacao.date" 
+			            	ng-click="criacao.opened = true" 
+			            	datepicker-popup="dd/MM/yyyy" 
+			            	is-open="criacao.opened" />	            		
+					</div>
 											
-			</form>
+					<div class="form-group">
+						<button type="submit" class="btn btn-success">
+							<i class="fa fa-floppy-o"></i>
+						</button>
+						<button type="button" class="btn btn-danger" ng-click="limparFormulario()">
+							<i class="fa fa-remove"></i>
+						</button>
+					</div>	
+												
+				</form>
+				
+			</div>
 			
-		</div>
-		
+		</div>	
+	
 	</div>		
 
 	<div class="row">
@@ -57,7 +70,7 @@
 						<tr ng-repeat="projeto in projetos">
 							<td style="text-align: center" class="col-xs-1">
 								<a ng-href="#/projetos/{{projeto.id}}">
-									<i class="glyphicon glyphicon-folder-open"></i>
+									<i class="fa fa-folder-open"></i>
 								</a>
 							</td>
 							<td>{{projeto.descricao}}</td>
@@ -68,7 +81,7 @@
 							</td>
 							<td style="text-align: center" class="col-xs-1">					
 								<button type="button" class="btn btn-danger btn-xs" ng-click="deletar(projeto)">
-									<i class="glyphicon glyphicon-trash"></i>
+									<i class="fa fa-trash-o"></i>
 								</button>
 							</td>
 						</tr>
