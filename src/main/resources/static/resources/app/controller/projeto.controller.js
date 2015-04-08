@@ -8,17 +8,17 @@ app.controller('ProjetoCtrl', function($scope, $stateParams, $state, $location, 
 	
 	$scope.findAll = function() {
 		ProjetoService.list();		
-	};
+	}
 	
 	$scope.limparFormulario = function() {
 		$scope.descricao = "";
 		$scope.criacao = "";
-	};
+	}
 	
 	// buscar uma projeto
 	$scope.find = function() {
 		ProjetoService.get($stateParams.id);
-	};
+	}
 	
 	// adicionar projeto
 	$scope.adicionar = function(projeto) {
@@ -35,7 +35,7 @@ app.controller('ProjetoCtrl', function($scope, $stateParams, $state, $location, 
 			});			
 		};		
 		
-	};
+	}
 	
 	// funcao editar projeto, abre modal para editar dados 
 	$scope.editar = function(size) {
@@ -57,28 +57,65 @@ app.controller('ProjetoCtrl', function($scope, $stateParams, $state, $location, 
 			$scope.projeto = ProjetoService.projeto;			
 		});
 		
-	};
+	}
 	
 	// atualizar projeto
 	var atualizar = function(projeto) {
 		ProjetoService.update(projeto).then(function() {
 			$state.reload();
 		});
-	}; 
+	}
 	
 	// deletar projeto
 	$scope.deletar = function(projeto) {
 		ProjetoService.remove(projeto).then(function() {
 			$location.path('/projetos'); 
 		});				
-	};
+	}
 	
+	// para ordenação da lista
 	$scope.ordem = "descricao";
 	
-	$scope.ordenar = function(val) {
-		$scope.ordem = $scope.ordem ? val : "";
-		$scope.isOrdered = "background-color: #444";
-	};
+	$scope.ordenar = function(val) {		
+		var element = angular.element("#" + val);
+		var ordenacao = element.parent().children('th');
+		var i = ordenacao.length;
+		var selected = 'ordered-by-this';
+		
+		if (element.hasClass(selected)) {
+			if ($scope.ordem === val) {
+				$scope.ordem = "-" + val;
+				element.children('i').remove();
+				element.append(' <i class="fa fa-chevron-up"></i>');	
+			} else {
+				$scope.ordem = val;
+				element.children('i').remove();
+				element.append(' <i class="fa fa-chevron-down"></i>');	
+			}
+		} else {
+			$scope.ordem = val;
+			element.addClass(selected);
+			element.append(' <i class="fa fa-chevron-down"></i>');			
+		}
+		
+		while (i--) {
+			if (ordenacao[i].id !== "") {
+				var e = angular.element("#" + ordenacao[i].id);
+				if (ordenacao[i].id !== val && e.hasClass(selected)) {
+					e.removeClass(selected);
+					e.children('i').remove();
+				}
+			}
+		}
+	}
+	
+
+})
+
+.controller('ProjetoListCtrl', function($scope, $stateParams, $state, $location, ProjetoService) {
+	
+	
+	
 })
 
 /* controller extra para projeto */

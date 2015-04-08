@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('ApplicationController', function($scope, $state, $modal, Authentication) {
+app.controller('ApplicationController', function($scope, $rootScope, $state, $modal, Authentication) {
 	
 	$scope.init = function() {
 		return Authentication.set();	
@@ -12,19 +12,21 @@ app.controller('ApplicationController', function($scope, $state, $modal, Authent
 	};
 	
 	$scope.isAuthenticated = function() {
-		setUser(Authentication.user);		
+		if (!$scope.user) {
+			$scope.user = angular.copy(Authentication.user);	
+		}			
 		return Authentication.isAuthenticated();
 	};
 	
 	$scope.isAuthorized =  function(role) {
 		return Authentication.isAuthorized(role);
-    };
+    };   
 	
-   
-    	
+    $rootScope.loading = 'loading-off';
     
-	var setUser = function(user) {
-		$scope.user = user;
-	};
-	
+    $rootScope.isLoading = function(val) {
+    	if (val) $rootScope.loading = 'loading-on';
+    	else $rootScope.loading = 'loading-off';
+    };
+    
 });

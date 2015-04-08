@@ -26,8 +26,32 @@ body {
 	margin-bottom: 80px
 }
 
+/* Classes para funcoes loading de paginas */
+
+.loading-off {
+	visibility: hidden;
+	opacity: 0;
+	-webkit-transition: linear all 0.25s;
+	transition: linear all 0.25s;
+}
+
+.loading-on {
+	visibility: visible;
+	opacity: 1;
+	-webkit-transition: linear all 0.25s;
+	transition: linear all 0.25s;
+}
+
 .background-fade {
-	opacity: 0.1;
+	overflow: hidden;
+	z-index: 5000;
+	background-size: cover;
+    background-color: rgba(0, 0, 0, 0.75);
+    position: fixed;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
 }
 
 .loading-div {
@@ -38,5 +62,13 @@ body {
     top: 50%;
     margin-left: -100px; 
     margin-top: -100px;
-    z-index: 2000;
+    color: white; 
+    text-align: center;
 }
+
+/* Classes listas */
+
+.ordered-by-this {
+	color: #0A6EBD;
+}
+
