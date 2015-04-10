@@ -3,18 +3,20 @@
 app.controller('AuthCtrl', function($scope, $rootScope, $location, $timeout, Authentication) {
 	
 	$scope.login = function(user) {
-		Authentication.login(user).then(function(res) {
-			
+		$rootScope.fnLoading(true);
+		Authentication.login(user).then(function(res) {			
 			Authentication.set().then(function(res) {
-				$rootScope.isLoading(true);
+				$location.path('/home');				
 				$timeout(function() {
-					$location.path('/home');
-					$rootScope.isLoading(false);
-				}, 1000);
+					$rootScope.fnLoading(false);
+				}, 700);
 			});			
 			
 		}, function(err) {
 			$scope.err = err.status;
+			$timeout(function() {
+				$rootScope.fnLoading(false);
+			}, 700);
 		});
 	};
 	

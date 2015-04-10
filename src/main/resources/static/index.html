@@ -26,14 +26,17 @@
 		</div>	
     </div>
 	
-	<!-- HEADER -->	
-	<div ng-include="'./resources/templates/header.html'" class="nav-header"></div>
+	<div ng-hide="isLoading()">
+		<!-- HEADER -->	
+		<div ng-include="'./resources/templates/header.html'" class="nav-header"></div>
+		
+		<!-- CONTEUDO -->
+		<div ui-view></div>
+		
+		<!-- FOOTER -->
+		<div ng-include="'./resources/templates/footer.html'" class="footer"></div>
+	</div>
 	
-	<!-- CONTEUDO -->
-	<div ui-view></div>
-	
-	<!-- FOOTER -->
-	<div ng-include="'./resources/templates/footer.html'" class="footer"></div>
 	
 
 	<!-- SCRIPTS -->	

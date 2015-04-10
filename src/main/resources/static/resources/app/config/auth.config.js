@@ -30,16 +30,32 @@ app.run(function($rootScope, $state, $location, $http, $timeout, Authentication)
 	
 	Authentication.set().then(function(res) {		
 		$rootScope.$on('$stateChangeStart', function (event, toState, toParams) {	
-			
+			if (Authentication.isAuthenticated()) {	
+				$rootScope.fnLoading(true);
+				$timeout(function() {
+					$rootScope.fnLoading(false);
+				}, 700);
+			}
 			if (!Authentication.isAuthenticated()) {	
-				if($state.current.data.security) {					
+				$rootScope.fnLoading(true);
+				if ($state. current.data.security) {					
 					$location.path('/login');
 				} else {
-					if($state.is('login')) {
-						event.preventDefault();
-					}
+					if ($state.is('login')) {
+						if (toState.name !== 'home') {
+							event.preventDefault();
+						}						
+					} else if ($state.is('home')) {
+						if (toState.name !== 'login') {
+							event.preventDefault();
+						}
+					} 					
 				}				
-			}	
+				$timeout(function() {
+					$rootScope.fnLoading(false);
+				}, 700);
+			}
+			
 			
 		});			
 	});		

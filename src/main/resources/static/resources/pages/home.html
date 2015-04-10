@@ -2,8 +2,17 @@
 
 <div class="container">
 	
-	<div class="page-header">
-		<h1>Welcome, <strong>{{user.username}}</strong> Let's start working!</h1>
+	<div ng-show="isAuthenticated()">
+		<div class="page-header">
+			<h1>Welcome, <strong>{{user.username}}</strong> Let's start working!</h1>
+		</div>
+	</div>
+	
+	<div ng-hide="isAuthenticated()">
+		<div class="page-header">
+			<h1><strong>Task Tracker</strong> - Project Management</h1>
+			<h4>Welcome, start working with your <a href="#/login">account</a></h4>
+		</div>
 	</div>
 		
 </div>

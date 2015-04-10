@@ -2,7 +2,7 @@
  * 
  */
 
-app.controller('TarefaCtrl', function($scope, $location, $stateParams, TarefaService, ProjetoService) {
+app.controller('TarefaCtrl', function($rootScope, $scope, $location, $stateParams, TarefaService, ProjetoService) {
 
 	$scope.tarefas = TarefaService.tarefas;
 	$scope.projetos = ProjetoService.projetos;
@@ -45,7 +45,7 @@ app.controller('TarefaCtrl', function($scope, $location, $stateParams, TarefaSer
 	// deletar tarefa
 	$scope.deletar = function(tarefa) {
 		TarefaService.remove(tarefa).then(function() {
-			$location.path('/tarefas');
+			$state.reload();
 		});
 	};
 	
@@ -56,5 +56,20 @@ app.controller('TarefaCtrl', function($scope, $location, $stateParams, TarefaSer
 		$scope.inicio = "";
 		$scope.prazo = "";
 	};	
+	
+    $scope.sort = {
+    		column: 'a',
+    		descending: false
+    }
+    
+    $scope.ordenar = function(column) {
+    	var sort = $scope.sort;
+    	if (sort.column == column) {
+    		sort.descending = !sort.descending;
+    	} else {
+    		sort.column = column;
+    		sort.descending = false;
+    	}
+    }
 	
 });

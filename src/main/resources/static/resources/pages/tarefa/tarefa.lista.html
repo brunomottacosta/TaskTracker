@@ -1,5 +1,13 @@
 <meta charset="UTF-8">
 
+<style type="text/css">
+	
+	.table > thead > tr > th {
+		cursor: pointer;
+	}
+	
+</style>
+
 <div class="container" ng-init="findAll()">
 	
 	<div class="page-header">
@@ -22,7 +30,8 @@
 					</div>
 					<div class="form-group">
 						<label class="control-label">Projeto <span class="text-danger">*</span></label>
-						<select class="form-control" ng-model="projeto" 
+						<select class="form-control" 
+							ng-model="projeto" 
 							ng-options="projeto.descricao for projeto in projetos" required="required">
 							<option value="">Selecione..</option>
 						</select>
@@ -63,21 +72,28 @@
 	</div>		
 	
 	<div class="panel panel-default" ng-show="tarefas.length">
-		<table class="table table-striped" >
+		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th></th>
-					<th>DESCRICAO</th>
-					<th>PROJETO</th>
-					<th>INÍCIO</th>
-					<th>PRAZO</th>
+					<th ng-click="ordenar(0)" class="col-xs-4">
+						DESCRICAO
+					</th>
+					<th ng-click="ordenar('projeto.descricao')" id="projeto-descricao">
+						PROJETO
+					</th>
+					<th ng-click="ordenar('criacao')" id="criacao">
+						INÍCIO
+					</th>
+					<th ng-click="ordenar('prazo')" id="prazo">
+						PRAZO
+					</th>
 					<th ng-show="isAuthorized('ADMIN')"></th>
 				</tr>
 			</thead>
-			
 			<!-- ITERACAO SOBRE A LISTA TAREFAS -->				
 			<tbody>
-				<tr ng-repeat="tarefa in tarefas | orderBy: 'projeto.id'">
+				<tr ng-repeat="tarefa in tarefas | orderBy:sort.column:sort.descending">
 					<td style="text-align: center" class="col-xs-1">
 						<a ng-href="/#/tarefas/{{tarefa.id}}">
 							<i class="glyphicon glyphicon-folder-open"></i>

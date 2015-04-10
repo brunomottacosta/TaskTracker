@@ -18,8 +18,8 @@ import br.com.dev.rest.config.user.UserAuthentication;
 public class TokenAuthenticationService {
 	
 	private static final String AUTH_HEADER_NAME = "X-AUTH-TOKEN";
-	//private static final long TEN_DAYS = 1000 * 60 * 60 * 24 * 10;
-	private static final long TWO_HOURS = 1000 * 60 * 60;
+	private static final long TEN_DAYS = 1000 * 60 * 60 * 24 * 10;
+//	private static final long TWO_HOURS = 1000 * 60 * 60;
 	private final TokenHandler tokenHandler;
 
 	@Autowired
@@ -29,7 +29,7 @@ public class TokenAuthenticationService {
 
 	public void addAuthentication(HttpServletResponse response,	UserAuthentication authentication) {
 		final User user = authentication.getDetails();
-		user.setExpires(System.currentTimeMillis() + TWO_HOURS);
+		user.setExpires(System.currentTimeMillis() + TEN_DAYS);
 		response.addHeader(AUTH_HEADER_NAME, tokenHandler.createTokenForUser(user));
 	}
 

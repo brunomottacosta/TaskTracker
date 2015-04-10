@@ -1,10 +1,11 @@
 'use strict';
 
 
-app.controller('ProjetoCtrl', function($scope, $stateParams, $state, $location, $modal, $filter, ProjetoService) {
+app.controller('ProjetoCtrl', function($rootScope, $scope, $stateParams, $state, $location, $modal, $filter, ProjetoService) {
  	
 	$scope.projetos = ProjetoService.projetos;
 	$scope.projeto = ProjetoService.projeto;
+	
 	
 	$scope.findAll = function() {
 		ProjetoService.list();		
@@ -72,59 +73,18 @@ app.controller('ProjetoCtrl', function($scope, $stateParams, $state, $location, 
 			$location.path('/projetos'); 
 		});				
 	}
-	
-	// para ordenação da lista
-	$scope.ordem = "descricao";
-	
-	$scope.ordenar = function(val) {		
-		var element = angular.element("#" + val);
-		var ordenacao = element.parent().children('th');
-		var i = ordenacao.length;
-		var selected = 'ordered-by-this';
-		
-		if (element.hasClass(selected)) {
-			if ($scope.ordem === val) {
-				$scope.ordem = "-" + val;
-				element.children('i').remove();
-				element.append(' <i class="fa fa-chevron-up"></i>');	
-			} else {
-				$scope.ordem = val;
-				element.children('i').remove();
-				element.append(' <i class="fa fa-chevron-down"></i>');	
-			}
-		} else {
-			$scope.ordem = val;
-			element.addClass(selected);
-			element.append(' <i class="fa fa-chevron-down"></i>');			
-		}
-		
-		while (i--) {
-			if (ordenacao[i].id !== "") {
-				var e = angular.element("#" + ordenacao[i].id);
-				if (ordenacao[i].id !== val && e.hasClass(selected)) {
-					e.removeClass(selected);
-					e.children('i').remove();
-				}
-			}
-		}
-	}
-	
 
-})
+	$rootScope.ordenar("descricao");
 
-.controller('ProjetoListCtrl', function($scope, $stateParams, $state, $location, ProjetoService) {
-	
-	
-	
 })
 
 /* controller extra para projeto */
 .controller('ProjetoFnCtrl', function($scope, $modalInstance, projeto) {	
 	
-	$scope.editando = angular.copy(projeto);	
+	$scope.projeto = angular.copy(projeto);	
 	
 	$scope.ok = function() {		
-		$modalInstance.close($scope.editando);		
+		$modalInstance.close($scope.projeto);		
 	};
 	
 	$scope.cancel = function() {
