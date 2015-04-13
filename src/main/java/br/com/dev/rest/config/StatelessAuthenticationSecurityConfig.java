@@ -55,7 +55,7 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 				.anyRequest().permitAll()
 				
 				.and()
-			
+				
 				.addFilterBefore(
 						new StatelessLoginFilter("/api/login",
 								tokenAuthenticationService, userDetailsService,

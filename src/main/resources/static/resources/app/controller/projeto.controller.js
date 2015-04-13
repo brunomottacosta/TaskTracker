@@ -2,6 +2,7 @@
 
 
 app.controller('ProjetoCtrl', function(
+		/* dependencias */
 		$rootScope, $scope, $stateParams, $state, $location, $modal, $filter, ProjetoService, Functions) {
  	
 	$scope.projetos = ProjetoService.projetos;
