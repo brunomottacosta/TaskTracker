@@ -26,12 +26,12 @@
 		</div>	
     </div>
 	
-	<div ng-hide="isLoading()">
+	<div>
 		<!-- HEADER -->	
 		<div ng-include="'./resources/templates/header.html'" class="nav-header"></div>
 		
 		<!-- CONTEUDO -->
-		<div ui-view></div>
+		<div ui-view ng-hide="isLoading()"></div>
 		
 		<!-- FOOTER -->
 		<div ng-include="'./resources/templates/footer.html'" class="footer"></div>
@@ -65,6 +65,7 @@
 	<script type="text/javascript" src="./resources/app/controller/tarefa.controller.js"></script>
 	
 	<!-- SERVICES -->
+	<script type="text/javascript" src="./resources/app/service/functions.service.js"></script>
 	<script type="text/javascript" src="./resources/app/service/auth.service.js"></script>
 	<script type="text/javascript" src="./resources/app/service/projeto.service.js"></script>
 	<script type="text/javascript" src="./resources/app/service/tarefa.service.js"></script>

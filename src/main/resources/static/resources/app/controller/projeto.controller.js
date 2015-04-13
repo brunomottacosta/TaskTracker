@@ -1,7 +1,8 @@
 'use strict';
 
 
-app.controller('ProjetoCtrl', function($rootScope, $scope, $stateParams, $state, $location, $modal, $filter, ProjetoService) {
+app.controller('ProjetoCtrl', function(
+		$rootScope, $scope, $stateParams, $state, $location, $modal, $filter, ProjetoService, Functions) {
  	
 	$scope.projetos = ProjetoService.projetos;
 	$scope.projeto = ProjetoService.projeto;
@@ -9,11 +10,6 @@ app.controller('ProjetoCtrl', function($rootScope, $scope, $stateParams, $state,
 	
 	$scope.findAll = function() {
 		ProjetoService.list();		
-	}
-	
-	$scope.limparFormulario = function() {
-		$scope.descricao = "";
-		$scope.criacao = "";
 	}
 	
 	// buscar uma projeto
@@ -28,7 +24,6 @@ app.controller('ProjetoCtrl', function($rootScope, $scope, $stateParams, $state,
 			
 			projeto.descricao = $scope.descricao;
 			projeto.criacao = $scope.criacao.date;
-			projeto.seila = "asdfsadf";
 			
 			ProjetoService.save(projeto).then(function() {
 				$scope.descricao = "";
@@ -72,9 +67,55 @@ app.controller('ProjetoCtrl', function($rootScope, $scope, $stateParams, $state,
 		ProjetoService.remove(projeto).then(function() {
 			$location.path('/projetos'); 
 		});				
+	}	
+	
+	/* #################
+	 * FUNCOES DA PAGINA
+	 * 
+	 * */	
+	
+	// limpa o formulario se estiver preenchido
+	$scope.limparFormulario = function() {
+		$scope.descricao = "";
+		$scope.criacao = "";
 	}
-
-	$rootScope.ordenar("descricao");
+	
+	// array cabecalho
+	$scope.columns = [{
+		type: "descricao",
+		name: "NOME",
+		classe: "",
+		arrow: "",
+		size: "col-xs-4"
+	},{
+		type: "criacao",
+		name: "DATA DE CRIACAO",
+		classe: "",
+		arrow: "",
+		size: "col-xs-2"
+	},{
+		type: "tarefas",
+		name: "Nº DE TAREFAS",
+		classe: "",
+		arrow: "",
+		size: "col-xs-2"
+	}];
+	
+	// variavel de ordenacao 
+	$scope.sort = {
+		column: '',
+		descending: false
+    }
+	    
+	// funcao de ordenacao
+    $scope.ordenar = function(column) {
+    	var sort = $scope.sort;
+    	var columns = $scope.columns;    	
+    	Functions.ordenacaoTabela(column, columns, sort);    	
+    }
+	
+	// executa ordenacao inicial
+	$scope.ordenar($scope.columns[0].type);
 
 })
 

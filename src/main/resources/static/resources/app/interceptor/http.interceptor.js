@@ -15,6 +15,9 @@ app.factory('HttpRequestInterceptor', function($q, $window, $location) {
 			if (response.status === 403) {
 				$location.path('/login');
 			}
+			if (response.status === 404) {
+				$location.path('/404');
+			}
 			
 			return $q.reject(response);
 		};

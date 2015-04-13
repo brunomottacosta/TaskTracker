@@ -32,6 +32,11 @@ public class ProjetoRestController {
 		return wrappers;
 	}
 	
+	@RequestMapping(value = "/projetos/default", method = RequestMethod.GET)
+	public ProjetoWrapper getDefault() {
+		return new ProjetoWrapper();
+	}
+	
 	@RequestMapping(value = "/projetos/{projetoId}", method = RequestMethod.GET)
 	public ProjetoWrapper getProjeto(@PathVariable Integer projetoId) {
 		

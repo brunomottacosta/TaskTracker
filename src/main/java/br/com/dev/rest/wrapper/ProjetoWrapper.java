@@ -38,6 +38,10 @@ public class ProjetoWrapper implements Serializable {
 		}
 	}
 	
+	public ProjetoWrapper() {
+		
+	}
+	
 	public Integer getId() {
 		return id;
 	}

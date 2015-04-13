@@ -2,7 +2,9 @@
  * 
  */
 
-app.controller('TarefaCtrl', function($rootScope, $scope, $location, $stateParams, TarefaService, ProjetoService) {
+app.controller('TarefaCtrl', function(
+		// dependencias
+		$rootScope, $scope, $location, $stateParams, TarefaService, ProjetoService, Functions) {
 
 	$scope.tarefas = TarefaService.tarefas;
 	$scope.projetos = ProjetoService.projetos;
@@ -49,6 +51,11 @@ app.controller('TarefaCtrl', function($rootScope, $scope, $location, $stateParam
 		});
 	};
 	
+	/* #################
+	 * FUNCOES DA PAGINA
+	 * 
+	 * */	
+	
 	// limpar formulario
 	$scope.limparFormulario = function() {
 		$scope.descricao = "";
@@ -57,19 +64,47 @@ app.controller('TarefaCtrl', function($rootScope, $scope, $location, $stateParam
 		$scope.prazo = "";
 	};	
 	
-    $scope.sort = {
-    		column: 'a',
-    		descending: false
+	// array cabecalho
+	$scope.columns = [{
+		type: "descricao",
+		name: "NOME",
+		classe: "",
+		arrow: "",
+		size: "col-xs-3"
+	},{
+		type: "projeto.descricao",
+		name: "PROJETO",
+		classe: "",
+		arrow: "",
+		size: "col-xs-3"
+	},{
+		type: "inicio",
+		name: "DATA INICIAL",
+		classe: "",
+		arrow: "",
+		size: "col-xs-2"
+	},{
+		type: "prazo",
+		name: "DATA FINAL",
+		classe: "",
+		arrow: "",
+		size: "col-xs-2"
+	}];
+	
+	// variavel de ordenacao 
+	$scope.sort = {
+		column: '',
+		descending: false
     }
-    
+	    
+	// funcao de ordenacao
     $scope.ordenar = function(column) {
     	var sort = $scope.sort;
-    	if (sort.column == column) {
-    		sort.descending = !sort.descending;
-    	} else {
-    		sort.column = column;
-    		sort.descending = false;
-    	}
+    	var columns = $scope.columns;    	
+    	Functions.ordenacaoTabela(column, columns, sort);    	
     }
+	
+	// executa ordenacao inicial
+	$scope.ordenar($scope.columns[0].type);
 	
 });

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.dev.rest.model.Tarefa;
+import br.com.dev.rest.model.constants.Status;
 import br.com.dev.rest.repository.ProjetoRepository;
 import br.com.dev.rest.repository.TarefaRepository;
 import br.com.dev.rest.wrapper.TarefaWrapper;
@@ -45,6 +46,7 @@ public class TarefaRestController {
 	@RequestMapping(value = "/tarefas", method = RequestMethod.POST)
 	public Tarefa salvar(@RequestBody Tarefa tarefa) {
 		tarefa.setId(null);
+		tarefa.setStatus(Status._EM_PRODUCAO);
 		return tarefaRespository.saveAndFlush(tarefa);
 	}
 	

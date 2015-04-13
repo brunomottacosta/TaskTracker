@@ -4,7 +4,8 @@ app.factory('ProjetoService', function($http) {
 	
 	var o = {
 			projetos: [],
-			projeto: {}
+			projeto: {},
+			pDefault: {}
 		};	
 		
 		o.list = function() {
@@ -16,6 +17,12 @@ app.factory('ProjetoService', function($http) {
 		o.get = function(id) {
 			return $http.get('/api/projetos/' + id).success(function(data) {
 				angular.copy(data, o.projeto);
+			});
+		};
+ 		
+		o.getDefaultObject = function() {
+			return $http.get('/api/projetos/default').success(function(data) {
+				o.pDefault = Object.keys(data);
 			});
 		};
 		

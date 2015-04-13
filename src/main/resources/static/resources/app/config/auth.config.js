@@ -29,15 +29,14 @@ app.config(function($httpProvider) {
 app.run(function($rootScope, $state, $location, $http, $timeout, Authentication) {
 	
 	Authentication.set().then(function(res) {		
-		$rootScope.$on('$stateChangeStart', function (event, toState, toParams) {	
-			if (Authentication.isAuthenticated()) {	
-				$rootScope.fnLoading(true);
+		$rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+			$rootScope.fnLoading(true);
+			if (Authentication.isAuthenticated()) {					
 				$timeout(function() {
 					$rootScope.fnLoading(false);
 				}, 700);
 			}
 			if (!Authentication.isAuthenticated()) {	
-				$rootScope.fnLoading(true);
 				if ($state. current.data.security) {					
 					$location.path('/login');
 				} else {

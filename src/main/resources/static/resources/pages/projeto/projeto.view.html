@@ -40,15 +40,19 @@
 		
 	</div>
 	
-	<hr />
-	
 	<div class="row">
 	
 		<div class="col-xs-12">
 				
-			<div class="panel panel-default">
+			<h4>Tarefas do projeto:</h4>	
 				
-				<table class="table table-striped">
+			<div class="panel panel-default">
+			
+				<div class="panel-body" ng-show="!projeto.tarefas">
+					<p class="text-danger">Projeto sem tarefas no momento</p>
+				</div>
+							
+				<table class="table table-striped" ng-show="projeto.tarefas">
 					<thead>
 						<tr>
 							<th></th>

@@ -56,7 +56,7 @@
 		</div>	
 	
 	</div>		
-
+	
 	<div class="row">
 	
 		<div class="col-xs-12">
@@ -68,15 +68,12 @@
 					<thead>
 						<tr>
 							<th class="col-xs-1"></th>
-							<th ng-click="ordenar('descricao')" id="descricao" class="col-xs-4">
-								NOME
-							</th>
-							<th ng-click="ordenar('criacao')" id="criacao" class="col-xs-2">
-								DATA DE CRIACAO
-							</th>
-							<th ng-click="ordenar('tarefas')" id="tarefas" class="col-xs-2">
-								Nº DE TAREFAS
-							</th>
+							<th ng-repeat="column in columns" 
+								ng-class="[column.size, column.classe]" 
+								ng-click="ordenar(column.type)">
+								{{column.name}} 
+								<i ng-class="column.arrow" style="padding-left: 0.5em"></i> 
+							</th>	
 							<th ng-show="isAuthorized('ADMIN')" class="col-xs-1"></th>
 						</tr>						
 					</thead>
@@ -84,7 +81,7 @@
 					<!-- ITERACAO SOBRE A LISTA PROJETOS -->				
 					<tbody>
 						
-						<tr ng-repeat="projeto in projetos | orderBy: ordem">
+						<tr ng-repeat="projeto in projetos | orderBy:sort.column:sort.descending">
 							<td style="text-align: center" class="col-xs-1">
 								<a ng-href="#/projetos/{{projeto.id}}">
 									<i class="fa fa-folder-open"></i>
