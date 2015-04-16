@@ -15,6 +15,18 @@ app.config(['$stateProvider', '$urlRouterProvider',
 			controller: 'TarefaCtrl',
 			data: {
 				security: true
+			},
+			resolve: {				
+				tarefas: function(TarefaService) {
+					return TarefaService.list().then(function(res) {
+						return res.data;
+					});
+				},
+				projetos: function(ProjetoService) {
+					return ProjetoService.list().then(function(res) {
+						return res.data;
+					});
+				}				
 			}
 		})
 		
@@ -22,9 +34,16 @@ app.config(['$stateProvider', '$urlRouterProvider',
 		.state('tarefa', {
 			url: '/tarefas/{id}',
 			templateUrl: 'resources/pages/tarefa/tarefa.view.html', 
-			controller: 'TarefaCtrl',
+			controller: 'TarefaViewCtrl',
 			data: {
 				security: true
+			},
+			resolve: {
+				tarefa: function(TarefaService, $stateParams) {
+					return TarefaService.get($stateParams.id).then(function(res) {
+						return res.data;
+					});
+				}
 			}
 		})	
 	

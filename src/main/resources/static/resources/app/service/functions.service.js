@@ -1,15 +1,15 @@
 'use strict';
 
 
-app.factory('Functions', function($timeout) {
+app.factory('Functions', function($timeout, $modal) {
 	
-	var f = {
+	var _function = {
 		
 		// funcao de ordenacao:
 		// recebe a coluna selecionada
 		// as colunas da tabela que podem ser selecionadas
 		// e a variavel de ordenacao	
-		ordenacaoTabela: function(column, columns, sort) {
+		tSort: function(column, columns, sort) {
 			if (sort.column === column) {
 	    		sort.descending = !sort.descending;
 	    	} else {
@@ -30,8 +30,59 @@ app.factory('Functions', function($timeout) {
 	    			obj.arrow = "";
 	    		}
 	    	});
-		}				
+		},			
+		
+		mConfirmDialog: function(obj, msg, fn) {
+			
+			// initiate modal instance
+			var modal = $modal.open({
+				templateUrl: 'resources/pages/modals/exclude.modal.html',
+				controller: 'FunctionsCtrl',
+				size: 'sm',
+				resolve: {
+					object: function() {
+						return obj;
+					},
+					text: function() {
+						return msg;
+					}
+				}
+			});
+			
+			// after modal action ended
+			modal.result.then(function(obj) {				
+				fn(obj);
+			}, function() {});
+		},
+		
+		isEmpty: function(array) {
+			if (array == null) {
+				return true;
+			} else {
+				if (array.length > 0) {
+					return false;
+				} else { 
+					return true;
+				}
+			}			
+		}
 	}
 	
-	return f;
+	return _function;
 });
+
+app.controller('FunctionsCtrl', function($scope, $modalInstance, object, text) {
+	
+	$scope.obj = angular.copy(object);
+	$scope.text = angular.copy(text);
+	
+	$scope.ok = function() {		
+		$modalInstance.close($scope.obj);		
+	};
+	
+	$scope.cancel = function() {
+		$modalInstance.dismiss('cancel');
+	};
+	
+});
+

@@ -13,6 +13,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 			controller: 'ProjetoCtrl',
 			data: {
 				security: true
+			},
+			resolve: {
+				projetos: function(ProjetoService) {
+					return ProjetoService.list().then(function(res) {
+						return res.data;
+					});
+				}
 			}
 		})
 		
@@ -20,9 +27,16 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 		.state('projeto', {
 			url: '/projetos/{id}',
 			templateUrl: 'resources/pages/projeto/projeto.view.html', 
-			controller: 'ProjetoCtrl',
+			controller: 'ProjetoViewCtrl',
 			data: {
 				security: true
+			},
+			resolve: {
+				projeto: function(ProjetoService, $stateParams) {
+					return ProjetoService.get($stateParams.id).then(function(res) {
+						return res.data;
+					});
+				}
 			}
 		});
 	

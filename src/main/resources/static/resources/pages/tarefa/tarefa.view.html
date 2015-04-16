@@ -5,16 +5,45 @@
 	<div class="page-header">
 		
 		<h2>
-			<strong>{{tarefa.descricao}}</strong><small> - {{tarefa.projeto.descricao}}</small> 
+			<strong data-ng-bind="tarefa.descricao"></strong> <small data-ng-bind="tarefa.projeto.descricao"></small> 
 			<span class="pull-right">
-				<button type="button" class="btn btn-warning btn-sm" ng-click="editar()">
+				<button type="button" class="btn btn-warning btn-sm" ng-click="editar()" style="margin-right: 0.5em">
 					<i class="glyphicon glyphicon-pencil"></i>
 				</button>			
-				<button type="button" class="btn btn-danger btn-sm" ng-click="deletar(projeto)">
+				<button type="button" class="btn btn-danger btn-sm" ng-click="deletar(tarefa)">
 					<i class="glyphicon glyphicon-trash"></i>
 				</button>
 			</span>			
 		</h2>
+		
+	</div>
+	
+	<div class="row">
+	
+		<div class="col-xs-4">
+			
+			<div class="panel panel-default">
+				<table class="table">
+					<tr>
+						<td>
+							<strong>Data de Criação:</strong>
+						</td>
+						<td>
+							{{tarefa.criacao | date: 'dd/MM/yyyy'}}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<strong>Prazo Limite:</strong>
+						</td>
+						<td>
+							{{tarefa.prazo | date: 'dd/MM/yyyy'}}
+						</td>
+					</tr>
+				</table>
+			</div> 			
+			
+		</div>
 		
 	</div>
 	

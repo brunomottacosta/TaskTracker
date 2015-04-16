@@ -1,51 +1,45 @@
-/*
- * 
- */
+'use strict';
 
+/* ######################
+ * TAREFA MAIN CONTROLLER
+ * ######################
+ * */
 app.controller('TarefaCtrl', function(
-		// dependencias
-		$rootScope, $scope, $location, $stateParams, TarefaService, ProjetoService, Functions) {
+		/* injections */ 
+		$scope, $state, $location, $stateParams, $modal, TarefaService, ProjetoService, Functions,
+		/* resolve objects */
+		tarefas, projetos) {
 
-	$scope.tarefas = TarefaService.tarefas;
-	$scope.projetos = ProjetoService.projetos;
-	$scope.tarefa = TarefaService.tarefa;
-	
-	// buscar todas as tarefas
-	$scope.findAll = function() {
-		TarefaService.list();
-		ProjetoService.list();
-	};
+	$scope.tarefas = angular.copy(tarefas);
+	$scope.projetos = angular.copy(projetos);
 
-	// buscar uma tarefa
-	$scope.find = function() {
-		TarefaService.get($stateParams.id);
-	};
-
-	// adicionar tarefa
-	$scope.adicionar = function(tarefa) {
-
-		tarefa.descricao = $scope.descricao;
-		tarefa.projeto = $scope.projeto;
-		tarefa.criacao = $scope.inicio.date;
-		tarefa.prazo = $scope.prazo.date;
+	// add in list view function
+	$scope.adicionar = function() {
+		
+		var tarefa = {
+			descricao: $scope.descricao,
+			projeto: $scope.projeto,
+			criacao: $scope.inicio.date,
+			prazo: $scope.prazo.date
+		}
 
 		TarefaService.save(tarefa).then(function() {
 			$scope.descricao = "";
 			$scope.projeto = {};
 			$scope.inicio = "";
 			$scope.prazo = "";
+			$scope.tarefas = TarefaService.tarefas;
 		});
 	};
-
-	// atualizar tarefa
-	$scope.atualizar = function(tarefa) {
-		TarefaService.update(tarefa).then(function() {
-			$location.path('/tarefas/' + tarefa.id);
-		});
+	
+	// open confirm dialog
+	$scope.toDelete = function(tarefa) {
+		var msg = 'Deseja excluir essa Tarefa?';
+		Functions.mConfirmDialog(tarefa, msg, deletar);
 	};
-
-	// deletar tarefa
-	$scope.deletar = function(tarefa) {
+	
+	// remove in list view function
+	var deletar = function(tarefa) {
 		TarefaService.remove(tarefa).then(function() {
 			$state.reload();
 		});
@@ -53,10 +47,15 @@ app.controller('TarefaCtrl', function(
 	
 	/* #################
 	 * FUNCOES DA PAGINA
-	 * 
+	 * #################
 	 * */	
 	
-	// limpar formulario
+	// check array return true if empty or null
+	$scope.isEmpty = function(array) {
+		return Functions.isEmpty(array);
+	}
+	
+	// clean form inputs
 	$scope.limparFormulario = function() {
 		$scope.descricao = "";
 		$scope.projeto = {};
@@ -64,7 +63,7 @@ app.controller('TarefaCtrl', function(
 		$scope.prazo = "";
 	};	
 	
-	// array cabecalho
+	// array table header
 	$scope.columns = [{
 		type: "descricao",
 		name: "NOME",
@@ -78,7 +77,7 @@ app.controller('TarefaCtrl', function(
 		arrow: "",
 		size: "col-xs-3"
 	},{
-		type: "inicio",
+		type: "criacao",
 		name: "DATA INICIAL",
 		classe: "",
 		arrow: "",
@@ -91,20 +90,91 @@ app.controller('TarefaCtrl', function(
 		size: "col-xs-2"
 	}];
 	
-	// variavel de ordenacao 
+	// ordenation variable
 	$scope.sort = {
 		column: '',
 		descending: false
     }
 	    
-	// funcao de ordenacao
+	// ordenation function
     $scope.ordenar = function(column) {
     	var sort = $scope.sort;
-    	var columns = $scope.columns;    	
-    	Functions.ordenacaoTabela(column, columns, sort);    	
+    	var columns = $scope.columns; 
+    	// call sort table function
+    	Functions.tSort(column, columns, sort); 
     }
 	
-	// executa ordenacao inicial
+	// execute initial ordenation
 	$scope.ordenar($scope.columns[0].type);
 	
+})
+/* ######################
+ * TAREFA VIEW CONTROLLER
+ * ######################
+ * */
+.controller('TarefaViewCtrl', function(
+		/* injections */
+		$scope, $state, $stateParams, $modal, TarefaService, 
+		/* resolve objects */
+		tarefa) {
+	
+	$scope.tarefa = angular.copy(tarefa);
+	
+	// remove in view page function
+	var deletar = function(tarefa) {
+		TarefaService.remove(tarefa).then(function() {
+			$state.go('lista-tarefas');
+		});
+	};
+	
+	// update function
+	var atualizar = function(tarefa) {
+		TarefaService.update(tarefa).then(function() {
+			$state.reload();
+		});
+	};
+	
+	// open modal to edit object function
+	$scope.editar = function(size) {
+		
+		// initiate modal instance
+		var modal = $modal.open({
+			templateUrl: 'resources/pages/modals/tarefa.edit.modal.html',
+			controller: 'TarefaFnCtrl',
+			size: size,
+			resolve: {
+				tarefa: function() {
+					return $scope.tarefa;
+				}
+			}
+		});
+		
+		// after modal action ended
+		modal.result.then(function(tarefa) {				
+			atualizar(tarefa);
+		}, function() {			
+			$scope.tarefa = TarefaService.tarefa;			
+		});
+	}
+	
+	
+})
+/* ######################
+ * TAREFA VIEW CONTROLLER
+ * ######################
+ * */
+.controller('TarefaFnCtrl', function($scope, $modalInstance, tarefa) {
+	
+	$scope.tarefa = angular.copy(tarefa);	
+	
+	$scope.ok = function() {		
+		$modalInstance.close($scope.tarefa);		
+	};
+	
+	$scope.cancel = function() {
+		$modalInstance.dismiss('cancel');
+	};
+	
 });
+
+

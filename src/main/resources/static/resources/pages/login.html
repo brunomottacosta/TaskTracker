@@ -3,35 +3,31 @@
 <div class="container">
 
 	
-	<h1><strong>Task Tracker</strong><small> - Autenticação</small></h1>
+	<h1><strong>Task Tracker</strong><small> Autenticação</small></h1>
 	
+	<br/>	
 
 	<div class="row">
 	
-		<div class="col-xs-6 ">
-			
-			<div class="panel panel-default">				
+		<div class="col-xs-6 ">			
 				
-				<form role="form" class="panel-body">
-					<div class="form-group">
-						<label for="username">Username:</label> 
-						<input type="text" class="form-control" ng-model="user.username" />
-					</div>
-					<div class="form-group">
-						<label for="password">Password:</label> 
-						<input type="password" class="form-control" ng-model="user.password" />
-					</div>
-					<button ng-click="login(user)" class="btn btn-primary">
-						<i class="fa fa-sign-in"></i> LOGAR
-					</button>
-				</form>		
-				
-			</div>
-			
-			<div>
-				<div class="alert alert-danger" ng-show="err">
-					There was a	problem logging in. Please try again.
+			<form role="form">
+				<div class="form-group">
+					<label for="username">Username:</label> 
+					<input type="text" class="form-control" ng-model="user.username" />
 				</div>
+				<div class="form-group">
+					<label for="password">Password:</label> 
+					<input type="password" class="form-control" ng-model="user.password" />
+				</div>
+				<button ng-click="login(user)" class="btn btn-primary">
+					<i class="fa fa-sign-in"></i> LOGAR
+				</button>
+			</form>		
+			
+		
+			<div class="alert alert-danger" ng-show="err">
+				There was a	problem logging in. Please try again.
 			</div>
 		
 		</div>

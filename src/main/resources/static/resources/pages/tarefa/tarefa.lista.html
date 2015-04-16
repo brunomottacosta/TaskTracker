@@ -8,102 +8,120 @@
 	
 </style>
 
-<div class="container" ng-init="findAll()">
+<div class="container">
 	
 	<div class="page-header">
-		
 		<h2><strong>Tarefas: </strong></h2>
-		
 	</div>
 	
 	<div class="row" ng-show="isAuthorized('ADMIN')">
 	
 		<div class="col-xs-6">
 		
-			<div class="panel panel-default">
-				
-				<form class="panel-body" ng-submit="adicionar(tarefa)">
-				
-					<div class="form-group">
-						<label class="control-label">Descricao <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" ng-model="descricao" required="required">
-					</div>
-					<div class="form-group">
-						<label class="control-label">Projeto <span class="text-danger">*</span></label>
-						<select class="form-control" 
-							ng-model="projeto" 
-							ng-options="projeto.descricao for projeto in projetos" required="required">
-							<option value="">Selecione..</option>
-						</select>
-					</div>
-					
-					<div class="row">
-						<div class="col-xs-6">
-							<div class="form-group">
-								<label class="control-label">Inicio da Tarefa <span class="text-danger">*</span></label>					
-					            <input type="text" class="form-control" ng-model="inicio.date" required="required"
-					            	datepicker-popup="dd/MM/yyyy" is-open="inicio.opened" ng-click="inicio.opened = true" />	            		
-							</div>
-						</div>
-						<div class="col-xs-6">
-							<div class="form-group">
-								<label class="control-label">Prazo Final <span class="text-danger">*</span></label>					
-					            <input type="text" class="form-control" ng-model="prazo.date" required="required"
-					            	datepicker-popup="dd/MM/yyyy" is-open="prazo.opened" ng-click="prazo.opened = true" />	            		
-							</div>
-						</div>
-					</div>
-					
-					<!-- SUBMIT -->
-					<div class="form-group">
-						<button type="submit" class="btn btn-success">
-							<i class="fa fa-floppy-o"></i>
-						</button>
-						<button type="button" class="btn btn-danger" ng-click="limparFormulario()">
-							<i class="fa fa-remove"></i>
-						</button>
-					</div>	
-					
-				</form>
+			<h4 class="text-primary"><strong>Cadastrar novo:</strong></h4>
 			
-			</div>
-		
+			<br/>
+			
+			<form ng-submit="adicionar()">
+				
+				<div class="form-group">
+					<label class="control-label">Descricao <span class="text-danger">*</span></label>
+					<input type="text" class="form-control" ng-model="descricao" required="required">
+				</div>
+				<div class="form-group">
+					<label class="control-label">Projeto <span class="text-danger">*</span></label>
+					<select class="form-control" 
+						ng-model="projeto" 
+						ng-options="projeto.descricao for projeto in projetos" required="required">
+						<option value="">Selecione..</option>
+					</select>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label">Inicio da Tarefa <span class="text-danger">*</span></label>					
+				            <input type="text" class="form-control" ng-model="inicio.date" required="required"
+				            	datepicker-popup="dd/MM/yyyy" is-open="inicio.opened" ng-click="inicio.opened = true" />	            		
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label">Prazo Final <span class="text-danger">*</span></label>					
+				            <input type="text" class="form-control" ng-model="prazo.date" required="required"
+				            	datepicker-popup="dd/MM/yyyy" is-open="prazo.opened" ng-click="prazo.opened = true" />	            		
+						</div>
+					</div>
+				</div>
+					
+				<!-- SUBMIT -->
+				<div class="form-group">
+					<button type="submit" class="btn btn-success">
+						<i class="fa fa-floppy-o"></i> SALVAR
+					</button>
+					<button type="button" class="btn btn-danger" 
+						    ng-click="limparFormulario()"
+						    ng-show="(descricao || projeto || inicio.date || prazo.date)">
+						<i class="fa fa-remove"></i> LIMPAR CAMPOS	
+					</button>
+				</div>	
+					
+			</form>
+			
 		</div>
+		
 	</div>		
 	
-	<div class="panel panel-default" ng-show="tarefas.length">
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th class="col-xs-1"></th>
-					<th ng-repeat="column in columns"
-						ng-class="[column.size, column.classe]"
-						ng-click="ordenar(column.type)">
-						{{column.name}} 
-						<i ng-class="column.arrow" style="padding-left: 0.5em"></i>
-					</th>					
-					<th ng-show="isAuthorized('ADMIN')" class="col-xs-1"></th>
-				</tr>
-			</thead>
-			<!-- ITERACAO SOBRE A LISTA TAREFAS -->				
-			<tbody>
-				<tr ng-repeat="tarefa in tarefas | orderBy:sort.column:sort.descending">
-					<td style="text-align: center" class="col-xs-1">
-						<a ng-href="/#/tarefas/{{tarefa.id}}">
-							<i class="glyphicon glyphicon-folder-open"></i>
-						</a>
-					</td>
-					<td data-ng-bind="tarefa.descricao"></td>
-					<td data-ng-bind="tarefa.projeto.descricao"></td>
-					<td data-ng-bind="tarefa.criacao | date: 'dd/MM/yyyy'"></td>
-					<td data-ng-bind="tarefa.prazo | date: 'dd/MM/yyyy'"></td>
-					<td style="text-align: center" class="col-xs-1" ng-show="isAuthorized('ADMIN')">					
-						<button type="button" class="btn btn-danger btn-xs" ng-click="deletar(tarefa)">
-							<i class="glyphicon glyphicon-trash"></i>
-						</button>
-					</td>
-				</tr>
-			</tbody>				
-		</table>	
-	</div>	
+	<div class="row">
+		
+		<div class="col-xs-12">
+			
+			<h4 class="text-primary"><strong>Tarefas cadastradas:</strong></h4>
+			
+			<br/>
+			
+			<div ng-show="isEmpty(tarefas)">
+				<p class="text-danger">Não há tarefas cadastradas no momento.</p>
+			</div>
+			
+			<div ng-show="!isEmpty(tarefas)">
+				<table class="table table-striped table-bordered">
+					<thead>
+						<tr>
+							<th class="col-xs-1"></th>
+							<th ng-repeat="column in columns"
+								ng-class="[column.size, column.classe]"
+								ng-click="ordenar(column.type)">
+								{{column.name}} 
+								<i ng-class="column.arrow" style="padding-left: 0.5em"></i>
+							</th>					
+							<th ng-show="isAuthorized('ADMIN')" class="col-xs-1"></th>
+						</tr>
+					</thead>
+					<!-- ITERACAO SOBRE A LISTA TAREFAS -->				
+					<tbody>
+						<tr ng-repeat="tarefa in tarefas | orderBy:sort.column:sort.descending">
+							<td style="text-align: center" class="col-xs-1">
+								<a ng-href="/#/tarefas/{{tarefa.id}}">
+									<i class="glyphicon glyphicon-folder-open"></i>
+								</a>
+							</td>
+							<td data-ng-bind="tarefa.descricao"></td>
+							<td data-ng-bind="tarefa.projeto.descricao"></td>
+							<td data-ng-bind="tarefa.criacao | date: 'dd/MM/yyyy'"></td>
+							<td data-ng-bind="tarefa.prazo | date: 'dd/MM/yyyy'"></td>
+							<td style="text-align: center" class="col-xs-1" ng-show="isAuthorized('ADMIN')">					
+								<button type="button" class="btn btn-danger btn-xs" ng-click="toDelete(tarefa)">
+									<i class="fa fa-trash"></i>
+								</button>
+							</td>
+						</tr>
+					</tbody>				
+				</table>	
+			</div>	
+			
+		</div>
+		
+	</div>
+	
 </div>	

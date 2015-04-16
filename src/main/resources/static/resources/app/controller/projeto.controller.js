@@ -1,87 +1,63 @@
 'use strict';
 
-
+/* #######################
+ * PROJETO MAIN CONTROLLER
+ * #######################
+ * */
 app.controller('ProjetoCtrl', function(
-		/* dependencias */
-		$rootScope, $scope, $stateParams, $state, $location, $modal, $filter, ProjetoService, Functions) {
- 	
-	$scope.projetos = ProjetoService.projetos;
-	$scope.projeto = ProjetoService.projeto;
+		/* injections */
+		$scope, $stateParams, $state, $location, $modal, ProjetoService, Functions, 
+		/* resolve object */
+		projetos) {
+ 		
+	// resolve $scope.projetos (array of object)
+	$scope.projetos = projetos;
 	
-	
-	$scope.findAll = function() {
-		ProjetoService.list();		
+	// add in list page function
+	$scope.adicionar = function() {
+		
+		var projeto = {
+			descricao: $scope.descricao,
+			criacao: $scope.criacao.date
+		}	
+					
+		ProjetoService.save(projeto).then(function() {
+			$scope.descricao = "";
+			$scope.criacao = "";
+			$scope.projetos = ProjetoService.projetos;
+		});				
 	}
 	
-	// buscar uma projeto
-	$scope.find = function() {
-		ProjetoService.get($stateParams.id);
+	// open confirmation dialog
+	$scope.toDelete = function(projeto) {
+		var msg = 'Deseja excluir esse Projeto?';
+		Functions.mConfirmDialog(projeto, msg, deletar);
 	}
 	
-	// adicionar projeto
-	$scope.adicionar = function(projeto) {
-		
-		if ($scope.descricao !== "") {
-			
-			projeto.descricao = $scope.descricao;
-			projeto.criacao = $scope.criacao.date;
-			
-			ProjetoService.save(projeto).then(function() {
-				$scope.descricao = "";
-				$scope.criacao = "";
-			});			
-		};		
-		
-	}
-	
-	// funcao editar projeto, abre modal para editar dados 
-	$scope.editar = function(size) {
-		
-		var modal = $modal.open({
-			templateUrl: 'resources/pages/modals/projeto.edit.modal.html',
-			controller: 'ProjetoFnCtrl',
-			size: size,
-			resolve: {
-				projeto: function() {
-					return $scope.projeto;
-				}
-			}
-		});
-		
-		modal.result.then(function(projeto) {				
-			atualizar(projeto);
-		}, function() {			
-			$scope.projeto = ProjetoService.projeto;			
-		});
-		
-	}
-	
-	// atualizar projeto
-	var atualizar = function(projeto) {
-		ProjetoService.update(projeto).then(function() {
-			$state.reload();
-		});
-	}
-	
-	// deletar projeto
-	$scope.deletar = function(projeto) {
+	// remove in list page function
+	var deletar = function(projeto) {
 		ProjetoService.remove(projeto).then(function() {
-			$location.path('/projetos'); 
+			$state.reload();
 		});				
 	}	
 	
 	/* #################
 	 * FUNCOES DA PAGINA
-	 * 
+	 * #################
 	 * */	
 	
-	// limpa o formulario se estiver preenchido
+	// check array return true if empty or null
+	$scope.isEmpty = function(array) {
+		return Functions.isEmpty(array);
+	}
+	 
+	// clean form inputs
 	$scope.limparFormulario = function() {
 		$scope.descricao = "";
 		$scope.criacao = "";
 	}
 	
-	// array cabecalho
+	// array table header
 	$scope.columns = [{
 		type: "descricao",
 		name: "NOME",
@@ -102,25 +78,97 @@ app.controller('ProjetoCtrl', function(
 		size: "col-xs-2"
 	}];
 	
-	// variavel de ordenacao 
+	// ordenation variable
 	$scope.sort = {
 		column: '',
 		descending: false
     }
 	    
-	// funcao de ordenacao
-    $scope.ordenar = function(column) {
+	// ordenation function
+    $scope.ordenar = function(column) {		
     	var sort = $scope.sort;
-    	var columns = $scope.columns;    	
-    	Functions.ordenacaoTabela(column, columns, sort);    	
+    	var columns = $scope.columns; 
+    	// call sort table function
+    	Functions.tSort(column, columns, sort);    	
     }
 	
-	// executa ordenacao inicial
+	// execute initial ordenation
 	$scope.ordenar($scope.columns[0].type);
 
 })
-
-/* controller extra para projeto */
+/* #######################
+ * PROJETO VIEW CONTROLLER
+ * #######################
+ * */
+.controller('ProjetoViewCtrl', function(
+		/* injections */
+		$scope, $stateParams, $state, $location, $modal, ProjetoService, Functions, 
+		/* resolve objects*/
+		projeto) {
+	
+	// resolve $scope.projeto (object)
+	$scope.projeto = angular.copy(projeto);
+	
+	// open confirmation dialog
+	$scope.toDelete = function(projeto) {
+		var msg = 'Deseja excluir esse projeto?';
+		Functions.mConfirmDialog(projeto, msg, deletar);
+	}
+	
+	// remove in view page function
+	var deletar = function(projeto) {
+		ProjetoService.remove(projeto).then(function() {
+			$state.go('lista-projetos');
+		});				
+	}	
+	
+	// update in view page function
+	var atualizar = function(projeto) {
+		ProjetoService.update(projeto).then(function() {
+			$state.reload();
+		});
+	}
+	
+	
+	// open modal to edit object function
+	$scope.editar = function(size) {
+		
+		// initiate modal instance
+		var modal = $modal.open({
+			templateUrl: 'resources/pages/modals/projeto.edit.modal.html',
+			controller: 'ProjetoFnCtrl',
+			size: size,
+			resolve: {
+				projeto: function() {
+					return $scope.projeto;
+				}
+			}
+		});
+		
+		// after modal action ended
+		modal.result.then(function(projeto) {				
+			atualizar(projeto);
+		}, function() {			
+			$scope.projeto = ProjetoService.projeto;			
+		});
+		
+	}
+	
+	/* #################
+	 * FUNCOES DA PAGINA
+	 * #################
+	 * */	
+	
+	// check array return true if empty or null
+	$scope.isEmpty = function(array) {
+		return Functions.isEmpty(array);
+	}
+	
+})
+/* ########################
+ * PROJETO MODAL CONTROLLER
+ * ########################
+ * */
 .controller('ProjetoFnCtrl', function($scope, $modalInstance, projeto) {	
 	
 	$scope.projeto = angular.copy(projeto);	

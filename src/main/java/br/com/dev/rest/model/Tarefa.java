@@ -62,6 +62,7 @@ public class Tarefa {
 	public Tarefa(Integer id, String descricao, Date criacao, Date finalizacao,
 			Date prazo, Status status, List<Comentario> comentarios,
 			Projeto projeto) {
+		
 		super();
 		this.id = id;
 		this.descricao = descricao;
