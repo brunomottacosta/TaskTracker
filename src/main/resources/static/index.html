@@ -1,80 +1,160 @@
 <!DOCTYPE html>
 <html ng-app="TaskTracker">
-<head>	
-	<meta charset="UTF-8">
-	<title>Task Tracker</title>
-	
-	<!-- CSS -->
-	<link rel="stylesheet" href="./resources/imports/bootstrap/dist/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="./resources/assets/css/font-awesome.min.css">
-	<link rel="stylesheet" href="./resources/assets/css/style.css">
-	
-	<style type="text/css">
-		[ng-cloak] {
-			display: none !important;
-		}
-	</style>
-	
-</head>
-	
-<body ng-cloak ng-controller="ApplicationController" ng-init="init()">
-	
-	<div class="background-fade" ng-class="loading">
-	    <div class="loading-div">
-	    	<p>Carregando...</p>			     
-			<img src="resources/assets/imgs/ajax-loader.gif">	
-		</div>	
-    </div>
-	
-	<div>
-		<!-- HEADER -->	
-		<div ng-include="'./resources/templates/header.html'" class="nav-header"></div>
-		
-		<!-- CONTEUDO -->
-		<div ui-view ng-hide="isLoading()"></div>
-		
-		<!-- FOOTER -->
-		<div ng-include="'./resources/templates/footer.html'" class="footer"></div>
-	</div>
-	
-	
 
-	<!-- SCRIPTS -->	
-	<script type="text/javascript" src="./resources/imports/jquery/dist/jquery.min.js"></script>
-	<script type="text/javascript" src="./resources/imports/bootstrap/dist/js/bootstrap.js"></script>
-	<script type="text/javascript" src="./resources/imports/angular/angular.min.js"></script>
-	<script type="text/javascript" src="./resources/imports/angular/locale-pt_br.js"></script>
-	<script type="text/javascript" src="./resources/imports/angular-ui-utils/ui-utils.min.js"></script>	
-	<script type="text/javascript" src="./resources/imports/angular/angular-ui-router.min.js"></script>
-	<script type="text/javascript" src="./resources/imports/angular-resource/angular-resource.min.js"></script>
-	<script type="text/javascript" src="./resources/imports/diretivas/smart-table.min.js"></script>
-	<script type="text/javascript" src="./resources/imports/angular-bootstrap/ui-bootstrap-tpls-0.12.1.min.js"></script>
+	<head>
 	
-	<!-- APP -->
-	<script type="text/javascript" src="./resources/app/app.js"></script>
-	
-	<!-- CONFIG -->
-	<script type="text/javascript" src="./resources/app/config/auth.config.js"></script>
-	<script type="text/javascript" src="./resources/app/interceptor/token.interceptor.js"></script>
-	<script type="text/javascript" src="./resources/app/interceptor/http.interceptor.js"></script>
-	
-	<!-- CONTROLLERS -->
-	<script type="text/javascript" src="./resources/app/controller/main.controller.js"></script>
-	<script type="text/javascript" src="./resources/app/controller/auth.controller.js"></script>
-	<script type="text/javascript" src="./resources/app/controller/projeto.controller.js"></script>
-	<script type="text/javascript" src="./resources/app/controller/tarefa.controller.js"></script>
-	
-	<!-- SERVICES -->
-	<script type="text/javascript" src="./resources/app/service/functions.service.js"></script>
-	<script type="text/javascript" src="./resources/app/service/auth.service.js"></script>
-	<script type="text/javascript" src="./resources/app/service/projeto.service.js"></script>
-	<script type="text/javascript" src="./resources/app/service/tarefa.service.js"></script>
-	
-	<!-- ROUTES -->
-	<script type="text/javascript" src="./resources/app/route/main.route.js"></script>
-	<script type="text/javascript" src="./resources/app/route/projeto.route.js"></script>
-	<script type="text/javascript" src="./resources/app/route/tarefa.route.js"></script>
+		<meta charset="UTF-8">
+		<title>Task Tracker</title>
 		
-</body>
+		<!-- CSS -->
+		<link rel="stylesheet" href="./resources/imports/bootstrap/dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="./resources/assets/css/font-awesome.min.css">
+		<link rel="stylesheet" href="./resources/assets/css/styles.css">
+		<link rel="stylesheet" href="./resources/assets/css/style.css">
+		
+		<style type="text/css">
+			[ng-cloak] {
+				display: none !important;
+			}
+		</style>
+		
+	</head>
+	
+	<body ng-cloak ng-controller="ApplicationController" ng-init="init()">
+	
+		<div class="background-fade" ng-class="loading">
+		    <div class="loading-div">
+		    	<div class="panel panel-loading">
+		    		<div class="panel-body">
+				    	<p>Carregando...</p>			     
+						<img src="resources/assets/imgs/ajax-loader.gif">	
+		    		</div>
+		    	</div>
+			</div>	
+	    </div>
+		
+		<!-- page-container -->
+		<div class="page-container">
+  
+			<!-- top navbar -->
+		    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		    
+		    	<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#sidebar-nav">
+			             <span class="icon-bar"></span>
+			             <span class="icon-bar"></span>
+			             <span class="icon-bar"></span>
+		           </button>
+		           <a class="navbar-brand" href="#">Bootstrap Holo</a>
+		    	</div>
+		    	
+		    </nav>
+		    <!-- /top navbar -->  
+    	
+    		<!-- container -->
+			<div class="container-fluid">
+			
+				<div class="row row-offcanvas row-offcanvas-left">
+        
+			        <!-- sidebar -->
+			        <div class="col-xs-4 col-sm-2 sidebar-offcanvas" id="sidebar" role="navigation">
+			        	<div data-spy="affix" data-offset-top="45" data-offset-bottom="90">
+			            	<ul class="nav" id="sidebar-nav">
+								<li>
+									<a ng-href="/#/home" ng-class="isSelected('home')">
+										<i class="fa fa-home"></i> Home
+									</a>
+								</li>
+								<li ng-show="isAuthenticated()">
+						    		<a ng-href="/#/projetos" ng-class="isSelected('lista-projetos')">
+						    			Projetos
+						    		</a>
+						    	</li>
+						    	<li ng-show="isAuthenticated()">
+						    		<a ng-href="/#/tarefas" ng-class="isSelected('lista-tarefas')">
+						    			Tarefas
+						    		</a>
+						    	</li>
+						    	<li class="divider"></li>
+								<li ng-hide="isAuthenticated()">
+					    			<a href="/#/login">
+					    				<i class="fa fa-sign-in"></i> Login
+					    			</a>
+					    		</li>
+					    		<li ng-show="isAuthenticated()">
+									<a href="" ng-click="logout()">
+										<i class="fa fa-power-off text-danger"></i> Logout
+									</a>
+								</li>
+			           		</ul>
+			        	</div>
+			        </div>
+			        <!-- /sidebar -->
+  	
+			        <!-- main -->
+			        <div class="col-xs-12 col-sm-10" data-spy="scroll" data-target="#sidebar-nav">
+          				
+          				<!-- CONTEUDO -->
+						<div ui-view ng-hide="isLoading()"></div>
+          				
+       				</div>
+          			<!-- /main -->
+          			
+				</div>
+			
+			</div>
+			<!--/.container-->
+		</div>
+		<!-- /page-container -->
+  		
+  		<!-- FOOTER -->
+		<footer>
+			<div class="container">
+		   		<div class="row">
+			
+					<p><strong>Task Tracker</strong> - Project Management | 2015</p>
+			
+				</div>
+			</div>
+		</footer>				
+        
+		<!-- SCRIPTS -->	
+		<script type="text/javascript" src="./resources/imports/jquery/dist/jquery.min.js"></script>
+		<script type="text/javascript" src="./resources/imports/bootstrap/dist/js/bootstrap.js"></script>
+		<script type="text/javascript" src="./resources/imports/angular/angular.min.js"></script>
+		<script type="text/javascript" src="./resources/imports/angular/locale-pt_br.js"></script>
+		<script type="text/javascript" src="./resources/imports/angular-ui-utils/ui-utils.min.js"></script>	
+		<script type="text/javascript" src="./resources/imports/angular/angular-ui-router.min.js"></script>
+		<script type="text/javascript" src="./resources/imports/angular-resource/angular-resource.min.js"></script>
+		<script type="text/javascript" src="./resources/imports/diretivas/smart-table.min.js"></script>
+		<script type="text/javascript" src="./resources/imports/angular-bootstrap/ui-bootstrap-tpls-0.12.1.min.js"></script>
+		
+		<!-- APP -->
+		<script type="text/javascript" src="./resources/app/app.js"></script>
+		
+		<!-- CONFIG -->
+		<script type="text/javascript" src="./resources/app/config/auth.config.js"></script>
+		<script type="text/javascript" src="./resources/app/interceptor/token.interceptor.js"></script>
+		<script type="text/javascript" src="./resources/app/interceptor/http.interceptor.js"></script>
+		
+		<!-- CONTROLLERS -->
+		<script type="text/javascript" src="./resources/app/controller/main.controller.js"></script>
+		<script type="text/javascript" src="./resources/app/controller/auth.controller.js"></script>
+		<script type="text/javascript" src="./resources/app/controller/projeto.controller.js"></script>
+		<script type="text/javascript" src="./resources/app/controller/tarefa.controller.js"></script>
+		
+		<!-- SERVICES -->
+		<script type="text/javascript" src="./resources/app/service/functions.service.js"></script>
+		<script type="text/javascript" src="./resources/app/service/auth.service.js"></script>
+		<script type="text/javascript" src="./resources/app/service/projeto.service.js"></script>
+		<script type="text/javascript" src="./resources/app/service/tarefa.service.js"></script>
+		
+		<!-- ROUTES -->
+		<script type="text/javascript" src="./resources/app/route/main.route.js"></script>
+		<script type="text/javascript" src="./resources/app/route/projeto.route.js"></script>
+		<script type="text/javascript" src="./resources/app/route/tarefa.route.js"></script>
+		
+	</body>
 	
 </html>
+

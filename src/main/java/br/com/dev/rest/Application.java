@@ -33,6 +33,7 @@ public class Application {
 //
 //			private void addUser(String username, String password) {
 //				User user = new User();
+//				user.setName("Administrador");
 //				user.setUsername(username);
 //				user.setPassword(new BCryptPasswordEncoder().encode(password));
 //				user.grantRole(username.equals("admin") ? UserRole.ADMIN : UserRole.USER);

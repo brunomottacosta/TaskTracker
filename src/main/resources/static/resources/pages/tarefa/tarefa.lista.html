@@ -10,63 +10,69 @@
 
 <div class="container">
 	
-	<div class="page-header">
-		<h2><strong>Tarefas: </strong></h2>
-	</div>
+	<h2>Tarefas</h2>
+	
+	<br/>
 	
 	<div class="row" ng-show="isAuthorized('ADMIN')">
 	
 		<div class="col-xs-6">
 		
-			<h4 class="text-primary"><strong>Cadastrar novo:</strong></h4>
+			<h4>Cadastrar nova:</h4>
 			
-			<br/>
-			
-			<form ng-submit="adicionar()">
+			<div class="panel panel-default">
 				
-				<div class="form-group">
-					<label class="control-label">Descricao <span class="text-danger">*</span></label>
-					<input type="text" class="form-control" ng-model="descricao" required="required">
-				</div>
-				<div class="form-group">
-					<label class="control-label">Projeto <span class="text-danger">*</span></label>
-					<select class="form-control" 
-						ng-model="projeto" 
-						ng-options="projeto.descricao for projeto in projetos" required="required">
-						<option value="">Selecione..</option>
-					</select>
+				<div class="panel-body">
+					
+					<form ng-submit="adicionar()">
+				
+						<div class="form-group">
+							<label class="control-label">Descricao <span class="text-danger">*</span></label>
+							<input type="text" class="form-control" ng-model="descricao" required="required">
+						</div>
+						<div class="form-group">
+							<label class="control-label">Projeto <span class="text-danger">*</span></label>
+							<select class="form-control" 
+								ng-model="projeto" 
+								ng-options="projeto.descricao for projeto in projetos" required="required">
+								<option value="">Selecione..</option>
+							</select>
+						</div>
+						
+						<div class="row">
+							<div class="col-xs-6">
+								<div class="form-group">
+									<label class="control-label">Inicio da Tarefa <span class="text-danger">*</span></label>					
+						            <input type="text" class="form-control" ng-model="inicio.date" required="required"
+						            	datepicker-popup="dd/MM/yyyy" is-open="inicio.opened" ng-click="inicio.opened = true" />	            		
+								</div>
+							</div>
+							<div class="col-xs-6">
+								<div class="form-group">
+									<label class="control-label">Prazo Final <span class="text-danger">*</span></label>					
+						            <input type="text" class="form-control" ng-model="prazo.date" required="required"
+						            	datepicker-popup="dd/MM/yyyy" is-open="prazo.opened" ng-click="prazo.opened = true" />	            		
+								</div>
+							</div>
+						</div>
+							
+						<!-- SUBMIT -->
+						<div class="form-group">
+							<button type="submit" class="btn btn-success">
+								<i class="fa fa-floppy-o"></i> SALVAR
+							</button>
+							<button type="button" class="btn btn-danger" 
+								    ng-click="limparFormulario()"
+								    ng-show="(descricao || projeto || inicio.date || prazo.date)">
+								<i class="fa fa-remove"></i> LIMPAR CAMPOS	
+							</button>
+						</div>	
+							
+					</form>
+					
 				</div>
 				
-				<div class="row">
-					<div class="col-xs-6">
-						<div class="form-group">
-							<label class="control-label">Inicio da Tarefa <span class="text-danger">*</span></label>					
-				            <input type="text" class="form-control" ng-model="inicio.date" required="required"
-				            	datepicker-popup="dd/MM/yyyy" is-open="inicio.opened" ng-click="inicio.opened = true" />	            		
-						</div>
-					</div>
-					<div class="col-xs-6">
-						<div class="form-group">
-							<label class="control-label">Prazo Final <span class="text-danger">*</span></label>					
-				            <input type="text" class="form-control" ng-model="prazo.date" required="required"
-				            	datepicker-popup="dd/MM/yyyy" is-open="prazo.opened" ng-click="prazo.opened = true" />	            		
-						</div>
-					</div>
-				</div>
-					
-				<!-- SUBMIT -->
-				<div class="form-group">
-					<button type="submit" class="btn btn-success">
-						<i class="fa fa-floppy-o"></i> SALVAR
-					</button>
-					<button type="button" class="btn btn-danger" 
-						    ng-click="limparFormulario()"
-						    ng-show="(descricao || projeto || inicio.date || prazo.date)">
-						<i class="fa fa-remove"></i> LIMPAR CAMPOS	
-					</button>
-				</div>	
-					
-			</form>
+			</div>
 			
 		</div>
 		
@@ -76,9 +82,7 @@
 		
 		<div class="col-xs-12">
 			
-			<h4 class="text-primary"><strong>Tarefas cadastradas:</strong></h4>
-			
-			<br/>
+			<h4>Tarefas cadastradas:</h4>
 			
 			<div ng-show="isEmpty(tarefas)">
 				<p class="text-danger">Não há tarefas cadastradas no momento.</p>

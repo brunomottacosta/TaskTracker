@@ -28,7 +28,7 @@ app.controller('ProjetoCtrl', function(
 		});				
 	}
 	
-	// open confirmation dialog
+	// open delete confirmation dialog
 	$scope.toDelete = function(projeto) {
 		var msg = 'Deseja excluir esse Projeto?';
 		Functions.mConfirmDialog(projeto, msg, deletar);
@@ -102,12 +102,41 @@ app.controller('ProjetoCtrl', function(
  * */
 .controller('ProjetoViewCtrl', function(
 		/* injections */
-		$scope, $stateParams, $state, $location, $modal, ProjetoService, Functions, 
+		$scope, $stateParams, $state, $location, $modal, ProjetoService, TarefaService, Functions, 
 		/* resolve objects*/
 		projeto) {
 	
 	// resolve $scope.projeto (object)
 	$scope.projeto = angular.copy(projeto);
+	
+	$scope.toAddTarefa = function() {
+		
+		var tarefa = {};
+		var modal = $modal.open({
+			templateUrl: 'resources/pages/modals/tarefa.novo.modal.html',
+			controller: 'TarefaFnCtrl',
+			size: '',
+			resolve: {
+				tarefa: function() {
+					return tarefa;
+				}
+			}
+		});
+		
+		// after modal action ended
+		modal.result.then(function(tarefa) {	
+			tarefa.projeto = $scope.projeto;
+			addTarefaToProjeto(tarefa);
+		}, function() {			
+				
+		});
+	}
+	
+	var addTarefaToProjeto = function(tarefa) {
+		TarefaService.save(tarefa).then(function(res) {
+			$state.reload();
+		});
+	}
 	
 	// open confirmation dialog
 	$scope.toDelete = function(projeto) {
@@ -124,8 +153,8 @@ app.controller('ProjetoCtrl', function(
 	
 	// update in view page function
 	var atualizar = function(projeto) {
-		ProjetoService.update(projeto).then(function() {
-			$state.reload();
+		ProjetoService.update(projeto).then(function(res) {
+			$scope.projeto = angular.copy(res.data);
 		});
 	}
 	
@@ -149,7 +178,7 @@ app.controller('ProjetoCtrl', function(
 		modal.result.then(function(projeto) {				
 			atualizar(projeto);
 		}, function() {			
-			$scope.projeto = ProjetoService.projeto;			
+			$state.reload();			
 		});
 		
 	}

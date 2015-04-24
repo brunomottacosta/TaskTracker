@@ -1,6 +1,6 @@
 <meta charset="UTF-8">
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top">
 
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -18,7 +18,7 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="main-nav-menu">
 		
-			<ul class="nav navbar-nav">			
+			<ul class="nav navbar-nav" ng-hide="isLoading()">			
 		    	
 		    	<li ng-show="isAuthenticated()">
 		    		<a ng-href="/#/projetos">
@@ -39,9 +39,16 @@
 	    			</a>
 	    		</li>
 	    		<li ng-show="isAuthenticated()">
-	    			<a href="" ng-click="logout()">
-	    				<i class="fa fa-sign-out"></i> Logout
+	    			<a href="" data-toggle="dropdown" aria-expanded="false">
+	    				<strong>{{user.name}}</strong>
 	    			</a>
+	    			<ul class="dropdown-menu" role="menu">
+	    				<li style="text-align: center">
+							<a href="" ng-click="logout()">
+								<i class="fa fa-power-off text-danger"></i> Logout
+							</a>
+						</li>
+	    			</ul>
 	    		</li>
 	    	</ul>
 	    	

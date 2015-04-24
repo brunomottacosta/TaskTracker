@@ -1,0 +1,39 @@
+<meta charset="UTF-8">
+
+<!-- header -->
+<div class="modal-header">
+    <h3 class="modal-title">Tarefa <small>Cadastro</small></h3>
+</div>
+
+<!-- body -->
+<div class="modal-body">
+	
+	<div class="form-group">
+		<label class="control-label">Descriçao:</label> 
+		<input type="text" class="form-control" ng-model="tarefa.descricao" />
+	</div>
+	
+	<div class="row">
+		<div class="col-xs-6">
+			<div class="form-group">
+				<label class="control-label">Inicio da Tarefa <span class="text-danger">*</span></label>					
+	            <input type="text" class="form-control" ng-model="tarefa.criacao" required="required"
+	            	datepicker-popup="dd/MM/yyyy" is-open="inicio.opened" ng-click="inicio.opened = true" />	            		
+			</div>
+		</div>
+		<div class="col-xs-6">
+			<div class="form-group">
+				<label class="control-label">Prazo Final <span class="text-danger">*</span></label>					
+	            <input type="text" class="form-control" ng-model="tarefa.prazo" required="required"
+	            	datepicker-popup="dd/MM/yyyy" is-open="prazo.opened" ng-click="prazo.opened = true" />	            		
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<!-- footer -->
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-danger" ng-click="cancel()">Cancel</button>
+</div>

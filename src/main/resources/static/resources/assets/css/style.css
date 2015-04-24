@@ -1,14 +1,5 @@
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
-	position: relative;
-	min-height: 100%;
-}
-
-body {
-	background-color: rgba(250, 250, 250, 0.5);
-	margin-bottom: 5em;
-}
 
 .footer {
 	position: absolute;
@@ -16,7 +7,7 @@ body {
 	width: 100%;
 	height: 5em;
 	padding: 1.5em;
-	background-color: #CCC;
+	background-color: #151515;
 }
 
 /* Nav header styles
@@ -44,8 +35,7 @@ body {
 .background-fade {
 	overflow: hidden;
 	z-index: 5000;
-	background-size: cover;
-    background-color: rgba(0, 0, 0, 0.75);
+	background-size: cover;   
     position: fixed;
 	top: 0;
 	bottom: 0;
@@ -68,6 +58,5 @@ body {
 /* Classes listas */
 
 .ordered-by-this {
-	color: #0A6EBD;
 }
 

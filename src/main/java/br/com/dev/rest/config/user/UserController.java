@@ -19,11 +19,10 @@ public class UserController {
 	
 	@Autowired
 	UserRepository userRepository;
-
+	
 	@RequestMapping(value = "/api/users/current", method = RequestMethod.GET)
 	public User getCurrent() {
-		final Authentication authentication = SecurityContextHolder
-				.getContext().getAuthentication();
+		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication instanceof UserAuthentication) {
 			return ((UserAuthentication) authentication).getDetails();
 		}
@@ -35,8 +34,7 @@ public class UserController {
 	public ResponseEntity<String> changePassword(@RequestBody final User user) {
 		
 		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		final User currentUser = userRepository.findByUsername(authentication
-				.getName());
+		final User currentUser = userRepository.findByUsername(authentication.getName());
 		if (user.getNewPassword() == null || user.getNewPassword().length() < 4) {
 			return new ResponseEntity<String>("new password to short",
 					HttpStatus.UNPROCESSABLE_ENTITY);
@@ -82,9 +80,33 @@ public class UserController {
 		
 		return new ResponseEntity<String>("role revoked", HttpStatus.OK);
 	}
-
+	
 	@RequestMapping(value = "/admin/api/users", method = RequestMethod.GET)
 	public List<User> list() {
 		return userRepository.findAll();
 	}
+	
+	@RequestMapping(value = "/admin/api/users/{id}", method = RequestMethod.GET)
+	public User get(@PathVariable Long id) {
+		return userRepository.getOne(id);
+	}
+	
+	@RequestMapping(value = "/admin/api/users", method = RequestMethod.POST)
+	public User salvar(@RequestBody User user) {
+		user.setId(null);
+		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+		return userRepository.save(user);
+	}
+	
+	@RequestMapping(value = "/admin/api/users/{id}", method = RequestMethod.PUT)
+	public User atualizar(@RequestBody User user, @PathVariable Long id) {
+		user.setId(id);
+		return userRepository.saveAndFlush(user);
+	}
+	
+	@RequestMapping(value = "/admin/api/users/{id}", method = RequestMethod.DELETE)
+	public void remover(@PathVariable Long id) {
+		userRepository.delete(id);
+	}
+	
 }

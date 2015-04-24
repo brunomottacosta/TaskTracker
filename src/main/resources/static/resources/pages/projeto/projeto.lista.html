@@ -9,69 +9,76 @@
 </style>
 
 <div class="container">
+		
+	<h2>Projetos</h2>
 	
-	<div class="page-header">
+	<br />
 		
-		<h2><strong>Projetos</strong></h2>
-		
-	</div>
-
 	<div class="row" ng-show="isAuthorized('ADMIN')">		
 		
 		<div class="col-xs-6">
-		
-			<h4 class="text-primary"><strong>Cadastrar novo:</strong></h4>
 			
-			<br/>
+			<h4>Cadastrar novo:</h4>
 			
-			<form ng-submit="adicionar()">
-								
-				<div class="form-group">
-					<label class="control-label">Nome do Projeto <span class="text-danger">*</span></label>
-					<input type="text" class="form-control" ng-model="descricao" required="required">
-				</div>	
+			<div class="panel panel-default">
 				
-				<div class="form-group">
-					<label class="control-label">Data de Criação <span class="text-danger">*</span></label>					
-		            <input type="text" class="form-control" required="required" 
-		            	ng-model="criacao.date" 
-		            	ng-click="criacao.opened = true" 
-		            	datepicker-popup="dd/MM/yyyy" 
-		            	is-open="criacao.opened" />	            		
+				<div class="panel-body">
+				
+					<form ng-submit="adicionar()">
+									
+						<div class="form-group">
+							<label class="control-label">Nome do Projeto <span class="text-danger">*</span></label>
+							<input type="text" class="form-control" ng-model="descricao" required="required">
+						</div>	
+						
+						<div class="form-group">
+							<label class="control-label">Data de Criação <span class="text-danger">*</span></label>					
+				            <input type="text" class="form-control" required="required" 
+				            	ng-model="criacao.date" 
+				            	ng-click="criacao.opened = true" 
+				            	datepicker-popup="dd/MM/yyyy" 
+				            	is-open="criacao.opened" />	            		
+						</div>
+												
+						<div class="form-group">
+							<button type="submit" class="btn btn-default">
+								<i class="fa fa-floppy-o"></i> SALVAR
+							</button>
+							<button type="button" class="btn btn-danger" 
+								ng-click="limparFormulario()" 
+								ng-show="(descricao || criacao)">
+								<i class="fa fa-remove"></i> LIMPAR CAMPOS
+							</button>
+						</div>	
+													
+					</form>				
+			
 				</div>
-										
-				<div class="form-group">
-					<button type="submit" class="btn btn-success">
-						<i class="fa fa-floppy-o"></i> SALVAR
-					</button>
-					<button type="button" class="btn btn-danger" 
-						ng-click="limparFormulario()" 
-						ng-show="(descricao || criacao)">
-						<i class="fa fa-remove"></i> LIMPAR CAMPOS
-					</button>
-				</div>	
-											
-			</form>				
+				
+			</div>
 			
 		</div>	
 	
 	</div>		
 	
-	<hr/>	
-	
 	<div class="row">
 		
 		<div class="col-xs-12">
 		
-			<h4 class="text-primary"><strong>Projetos cadastrados:</strong></h4>
+			<h4>Projetos cadastrados:</h4>
 			
-			<br/>
+			<div class="panel panel-default" ng-show="isEmpty(projetos)">
+				
+				<div class="panel-body">
+				
+					<p class="text-danger" >Não há projetos cadastrados no momento.</p>
+					
+				</div>
 			
-			<div ng-show="isEmpty(projetos)">
-				<p class="text-danger">Não há projetos cadastrados no momento.</p>
 			</div>
-		
-			<table class="table table-striped" ng-show="!isEmpty(projetos)">				
+			
+			<!-- table projetos -->
+			<table class="table table-bordered" ng-show="!isEmpty(projetos)">				
 				<thead>
 					<tr>
 						<th class="col-xs-1"></th>
@@ -85,9 +92,7 @@
 					</tr>						
 				</thead>
 				
-				<!-- ITERACAO SOBRE A LISTA PROJETOS -->				
 				<tbody>
-					
 					<tr ng-repeat="projeto in projetos | orderBy:sort.column:sort.descending">
 						<td style="text-align: center" class="col-xs-1">
 							<a ng-href="#/projetos/{{projeto.id}}">
@@ -101,15 +106,14 @@
 							<span ng-if="!projeto.tarefas">0</span>
 						</td>
 						<td style="text-align: center" class="col-xs-1" ng-show="isAuthorized('ADMIN')">					
-							<button type="button" class="btn btn-danger btn-xs" ng-click="toDelete(projeto)">
+							<a href="#" class="text-danger" ng-click="toDelete(projeto)">
 								<i class="fa fa-trash"></i>
-							</button>
+							</a>
 						</td>
 					</tr>
-					
 				</tbody>
-								
 			</table>
+			<!-- /table projetos -->
 					
 		</div>
 		

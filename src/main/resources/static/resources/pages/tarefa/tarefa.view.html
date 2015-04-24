@@ -22,26 +22,20 @@
 	
 		<div class="col-xs-4">
 			
-			<div class="panel panel-default">
-				<table class="table">
-					<tr>
-						<td>
-							<strong>Data de Criação:</strong>
-						</td>
-						<td>
-							{{tarefa.criacao | date: 'dd/MM/yyyy'}}
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<strong>Prazo Limite:</strong>
-						</td>
-						<td>
-							{{tarefa.prazo | date: 'dd/MM/yyyy'}}
-						</td>
-					</tr>
-				</table>
-			</div> 			
+			<ul class="list-group">
+				<li class="list-group-item">
+					<strong>Data de Criação:</strong>
+					<span class="pull-right">
+						{{tarefa.criacao | date: 'dd/MM/yyyy'}}
+					</span>
+				</li>
+				<li class="list-group-item">
+					<strong>Prazo Limite:</strong>
+					<span class="pull-right">
+						{{tarefa.prazo | date: 'dd/MM/yyyy'}}
+					</span>
+				</li>
+			</ul>
 			
 		</div>
 		

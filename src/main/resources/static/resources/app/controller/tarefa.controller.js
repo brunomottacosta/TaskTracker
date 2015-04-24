@@ -58,7 +58,7 @@ app.controller('TarefaCtrl', function(
 	// clean form inputs
 	$scope.limparFormulario = function() {
 		$scope.descricao = "";
-		$scope.projeto = {};
+		$scope.projeto = "";
 		$scope.inicio = "";
 		$scope.prazo = "";
 	};	
