@@ -39,13 +39,42 @@
 			<!-- top navbar -->
 		    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		    
-		    	<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#sidebar-nav">
-			             <span class="icon-bar"></span>
-			             <span class="icon-bar"></span>
-			             <span class="icon-bar"></span>
-		           </button>
-		           <a class="navbar-brand" href="#">Bootstrap Holo</a>
+		    	<div class="container-fluid">
+		    
+			    	<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#sidebar-nav">
+				             <span class="icon-bar"></span>
+				             <span class="icon-bar"></span>
+				             <span class="icon-bar"></span>
+			           </button>
+			           <a class="navbar-brand" href="#">TaskTracker 0.1</a>
+			    	</div>
+			    	
+		    		<ul class="nav navbar-nav navbar-right" ng-hide="isLoading()">
+			    		<li ng-hide="isAuthenticated()">
+			    			<a href="/#/login">
+			    				<i class="fa fa-sign-in"></i> Login
+			    			</a>
+			    		</li>
+			    		<li ng-show="isAuthenticated()">
+			    			<a href="" data-toggle="dropdown" aria-expanded="false">
+			    				<i class="fa fa-user text-danger"></i> {{user.name}}
+			    			</a>
+			    			<ul class="dropdown-menu" role="menu">
+			    				<li style="text-align: center">
+									<a ng-href="/#/admin">
+										<i class="fa fa-cog text-warning"></i> Painel Admin
+									</a>
+								</li>
+			    				<li style="text-align: center">
+									<a href="" ng-click="logout()">
+										<i class="fa fa-power-off text-danger"></i> Logout
+									</a>
+								</li>
+			    			</ul>
+			    		</li>
+			    	</ul>
+		    	
 		    	</div>
 		    	
 		    </nav>
@@ -59,7 +88,7 @@
 			        <!-- sidebar -->
 			        <div class="col-xs-4 col-sm-2 sidebar-offcanvas" id="sidebar" role="navigation">
 			        	<div data-spy="affix" data-offset-top="45" data-offset-bottom="90">
-			            	<ul class="nav" id="sidebar-nav">
+			            	<ul class="nav" id="sidebar-nav" ng-hide="isLoading()">
 								<li>
 									<a ng-href="/#/home" ng-class="isSelected('home')">
 										<i class="fa fa-home"></i> Home
@@ -75,17 +104,17 @@
 						    			Tarefas
 						    		</a>
 						    	</li>
-						    	<li class="divider"></li>
-								<li ng-hide="isAuthenticated()">
-					    			<a href="/#/login">
-					    				<i class="fa fa-sign-in"></i> Login
-					    			</a>
-					    		</li>
-					    		<li ng-show="isAuthenticated()">
-									<a href="" ng-click="logout()">
-										<i class="fa fa-power-off text-danger"></i> Logout
-									</a>
-								</li>
+<!-- 						    	<li class="divider"></li> -->
+<!-- 								<li ng-hide="isAuthenticated()"> -->
+<!-- 					    			<a href="/#/login"> -->
+<!-- 					    				<i class="fa fa-sign-in"></i> Login -->
+<!-- 					    			</a> -->
+<!-- 					    		</li> -->
+<!-- 					    		<li ng-show="isAuthenticated()"> -->
+<!-- 									<a href="" ng-click="logout()"> -->
+<!-- 										<i class="fa fa-power-off text-danger"></i> Logout -->
+<!-- 									</a> -->
+<!-- 								</li> -->
 			           		</ul>
 			        	</div>
 			        </div>
@@ -139,18 +168,21 @@
 		
 		<!-- CONTROLLERS -->
 		<script type="text/javascript" src="./resources/app/controller/main.controller.js"></script>
+		<script type="text/javascript" src="./resources/app/controller/admin.controller.js"></script>
 		<script type="text/javascript" src="./resources/app/controller/auth.controller.js"></script>
 		<script type="text/javascript" src="./resources/app/controller/projeto.controller.js"></script>
 		<script type="text/javascript" src="./resources/app/controller/tarefa.controller.js"></script>
 		
 		<!-- SERVICES -->
 		<script type="text/javascript" src="./resources/app/service/functions.service.js"></script>
+		<script type="text/javascript" src="./resources/app/service/admin.service.js"></script>
 		<script type="text/javascript" src="./resources/app/service/auth.service.js"></script>
 		<script type="text/javascript" src="./resources/app/service/projeto.service.js"></script>
 		<script type="text/javascript" src="./resources/app/service/tarefa.service.js"></script>
 		
 		<!-- ROUTES -->
 		<script type="text/javascript" src="./resources/app/route/main.route.js"></script>
+		<script type="text/javascript" src="./resources/app/route/admin.route.js"></script>
 		<script type="text/javascript" src="./resources/app/route/projeto.route.js"></script>
 		<script type="text/javascript" src="./resources/app/route/tarefa.route.js"></script>
 		

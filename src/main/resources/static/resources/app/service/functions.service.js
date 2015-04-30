@@ -5,10 +5,12 @@ app.factory('Functions', function($timeout, $modal) {
 	
 	var _function = {
 		
-		// funcao de ordenacao:
-		// recebe a coluna selecionada
-		// as colunas da tabela que podem ser selecionadas
-		// e a variavel de ordenacao	
+		/**
+		  funcao de ordenacao:
+		  recebe a coluna selecionada
+		  as colunas da tabela que podem ser selecionadas
+		  e a variavel de ordenacao	
+		**/ 
 		tSort: function(column, columns, sort) {
 			if (sort.column === column) {
 	    		sort.descending = !sort.descending;
@@ -32,6 +34,12 @@ app.factory('Functions', function($timeout, $modal) {
 	    	});
 		},			
 		
+		/**
+		  funcao para abrir modal de confirmacao
+		  recebe o objeto que sofrerá uma ação
+		  a mensagem a ser exibida para responder sim ou nao
+		  e a funcao a ser executada com o objeto
+		**/ 
 		mConfirmDialog: function(obj, msg, fn) {
 			
 			// initiate modal instance
@@ -55,6 +63,10 @@ app.factory('Functions', function($timeout, $modal) {
 			}, function() {});
 		},
 		
+		/** 
+		  retorna true se array estiver vazio ou nulo 
+		  e false caso contrario
+		**/ 
 		isEmpty: function(array) {
 			if (array == null) {
 				return true;

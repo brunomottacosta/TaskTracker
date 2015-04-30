@@ -13,10 +13,10 @@ app.config(['$stateProvider', '$urlRouterProvider','$httpProvider', '$locationPr
 			templateUrl: 'resources/pages/admin/admin.panel.html', 
 			controller: 'AdminCtrl',
 			data: {
-				security: false
+				security: true
 			},
 			resolve: {
-				users: function('AdminService') {
+				users: function(AdminService) {
 					return AdminService.listUsers().then(function(res) {
 						return res.data;
 					});

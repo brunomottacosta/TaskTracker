@@ -15,6 +15,7 @@ import br.com.dev.rest.repository.ComentarioRepository;
 import br.com.dev.rest.wrapper.ComentarioWrapper;
 
 @RestController
+@RequestMapping(value = "/api")
 public class ComentarioRestController {
 	
 	@Autowired private ComentarioRepository comentarioRepository;

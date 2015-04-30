@@ -276,18 +276,52 @@ h3, h4, h5, .panel {
 
 .panel {
 	background-color: #353535;
-}
-
-.panel {
 	color: #A5A5A5;
 }
 
 .panel-default {
 	border: 2px #555 solid;
+	color: #A5A5A5
 }
 
 .panel-loading {
 	color: #555;
 	background-color: #FFFFFF;
 }
+
+.modal-body {
+	background-color: #353535;
+	color: #A5A5A5;
+}
+
+.modal-header {
+	background-color: #222;
+	border-color: #222;
+	color: #F9F9F9;
+}
+
+.modal-footer {
+	background-color: #222;
+	border-color: #222;
+	color: #F9F9F9;
+}
+
+.modal-title {
+	color: #F9F9F9;
+}
+
+.list-group-item {
+	background-color: #222;
+	border-color: #222;
+	border-radius: 0px;
+	color: #F9F9F9;
+}
+
+.list-group-item:first-child,
+.list-group-item:last-child {
+	background-color: #222;
+	border-color: #222;
+	border-radius: 0px;
+	box-shadow: transparent;
+	color: #F9F9F9;
 }

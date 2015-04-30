@@ -9,7 +9,7 @@ app.controller('TarefaCtrl', function(
 		$scope, $state, $location, $stateParams, $modal, TarefaService, ProjetoService, Functions,
 		/* resolve objects */
 		tarefas, projetos) {
-
+	
 	$scope.tarefas = angular.copy(tarefas);
 	$scope.projetos = angular.copy(projetos);
 
@@ -114,11 +114,17 @@ app.controller('TarefaCtrl', function(
  * */
 .controller('TarefaViewCtrl', function(
 		/* injections */
-		$scope, $state, $stateParams, $modal, TarefaService, 
+		$scope, $state, $stateParams, $modal, TarefaService, Functions,
 		/* resolve objects */
 		tarefa) {
 	
 	$scope.tarefa = angular.copy(tarefa);
+	
+	// open confirm dialog
+	$scope.toDelete = function(tarefa) {
+		var msg = 'Deseja excluir essa Tarefa?';
+		Functions.mConfirmDialog(tarefa, msg, deletar);
+	};
 	
 	// remove in view page function
 	var deletar = function(tarefa) {

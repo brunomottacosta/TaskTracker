@@ -9,11 +9,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.com.dev.rest.config.user.User;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -39,6 +44,11 @@ public class Projeto {
 	@OneToMany(mappedBy = "projeto", cascade = CascadeType.ALL)
 	@JsonManagedReference(value = "projeto-comentario")
 	private List<Comentario> comentarios;
+	
+	@ManyToOne
+	@JoinColumn(name = "idn_user", referencedColumnName = "id")
+	@JsonBackReference(value = "user-projeto")
+	private User user;
 
 	public Projeto() {
 		super();
@@ -92,6 +102,14 @@ public class Projeto {
 
 	public void setComentarios(List<Comentario> comentarios) {
 		this.comentarios = comentarios;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

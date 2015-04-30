@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import br.com.dev.rest.config.user.User;
 import br.com.dev.rest.model.Comentario;
 import br.com.dev.rest.model.Projeto;
 import br.com.dev.rest.model.Tarefa;
@@ -16,7 +15,7 @@ public class ProjetoWrapper implements Serializable {
 	private Integer id;
 	private String descricao;
 	private Date criacao;
-	private User user;
+	private UserWrapper user;
 	private List<Tarefa> tarefas;
 	private List<Comentario> comentarios;
 	
@@ -36,11 +35,12 @@ public class ProjetoWrapper implements Serializable {
 		if (!projeto.getComentarios().isEmpty()) {
 			this.comentarios = projeto.getComentarios();
 		}
+		if (projeto.getUser() != null) {
+			this.user = new UserWrapper(projeto.getUser());
+		}
 	}
 	
-	public ProjetoWrapper() {
-		
-	}
+	public ProjetoWrapper() {}
 	
 	public Integer getId() {
 		return id;
@@ -66,11 +66,11 @@ public class ProjetoWrapper implements Serializable {
 		this.criacao = criacao;
 	}
 
-	public User getUsuario() {
+	public UserWrapper getUser() {
 		return user;
 	}
 
-	public void setUsuario(User user) {
+	public void setUser(UserWrapper user) {
 		this.user = user;
 	}
 

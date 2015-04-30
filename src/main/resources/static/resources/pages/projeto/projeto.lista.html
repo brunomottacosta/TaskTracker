@@ -46,7 +46,7 @@
 							</button>
 							<button type="button" class="btn btn-danger" 
 								ng-click="limparFormulario()" 
-								ng-show="(descricao || criacao)">
+								ng-show="(descricao || criacao.date)">
 								<i class="fa fa-remove"></i> LIMPAR CAMPOS
 							</button>
 						</div>	
@@ -67,18 +67,8 @@
 		
 			<h4>Projetos cadastrados:</h4>
 			
-			<div class="panel panel-default" ng-show="isEmpty(projetos)">
-				
-				<div class="panel-body">
-				
-					<p class="text-danger" >Não há projetos cadastrados no momento.</p>
-					
-				</div>
-			
-			</div>
-			
 			<!-- table projetos -->
-			<table class="table table-bordered" ng-show="!isEmpty(projetos)">				
+			<table class="table table-bordered">				
 				<thead>
 					<tr>
 						<th class="col-xs-1"></th>
@@ -93,7 +83,12 @@
 				</thead>
 				
 				<tbody>
-					<tr ng-repeat="projeto in projetos | orderBy:sort.column:sort.descending">
+					<tr ng-show="isEmpty(projetos)">
+						<td colspan="5">
+							<span class="text-danger">Não há projetos cadastrados no momento</span>
+						</td>
+					</tr>
+					<tr ng-repeat="projeto in projetos | orderBy:sort.column:sort.descending" ng-hide="isEmpty(projetos)">
 						<td style="text-align: center" class="col-xs-1">
 							<a ng-href="#/projetos/{{projeto.id}}">
 								<i class="fa fa-folder-open"></i>
@@ -106,7 +101,7 @@
 							<span ng-if="!projeto.tarefas">0</span>
 						</td>
 						<td style="text-align: center" class="col-xs-1" ng-show="isAuthorized('ADMIN')">					
-							<a href="#" class="text-danger" ng-click="toDelete(projeto)">
+							<a href="" class="text-danger" ng-click="toDelete(projeto)">
 								<i class="fa fa-trash"></i>
 							</a>
 						</td>

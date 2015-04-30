@@ -2,37 +2,39 @@
 
 <div class="container" data-ng-init="find()">
 	
-	<div class="page-header">
+	<h2>
+		{{tarefa.descricao}} <small>{{tarefa.projeto.descricao}}</small> 
+		<span class="btn-group" role="group">
+			<button type="button" class="btn btn-info btn-sm" ng-click="editar()" style="margin-right: 0.5em">
+				<i class="glyphicon glyphicon-pencil"></i>
+			</button>			
+			<button type="button" class="btn btn-danger btn-sm" ng-click="toDelete(tarefa)">
+				<i class="glyphicon glyphicon-trash"></i>
+			</button>
+		</span>	
+	</h2>
 		
-		<h2>
-			<strong data-ng-bind="tarefa.descricao"></strong> <small data-ng-bind="tarefa.projeto.descricao"></small> 
-			<span class="pull-right">
-				<button type="button" class="btn btn-warning btn-sm" ng-click="editar()" style="margin-right: 0.5em">
-					<i class="glyphicon glyphicon-pencil"></i>
-				</button>			
-				<button type="button" class="btn btn-danger btn-sm" ng-click="deletar(tarefa)">
-					<i class="glyphicon glyphicon-trash"></i>
-				</button>
-			</span>			
-		</h2>
-		
-	</div>
-	
 	<div class="row">
 	
 		<div class="col-xs-4">
 			
 			<ul class="list-group">
 				<li class="list-group-item">
-					<strong>Data de Criação:</strong>
+					Data de Criação:
 					<span class="pull-right">
 						{{tarefa.criacao | date: 'dd/MM/yyyy'}}
 					</span>
 				</li>
 				<li class="list-group-item">
-					<strong>Prazo Limite:</strong>
+					Prazo Limite:
 					<span class="pull-right">
 						{{tarefa.prazo | date: 'dd/MM/yyyy'}}
+					</span>
+				</li>
+				<li class="list-group-item">
+					Status:
+					<span class="pull-right">
+						{{tarefa.status}}
 					</span>
 				</li>
 			</ul>

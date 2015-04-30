@@ -16,16 +16,20 @@ app.controller('ProjetoCtrl', function(
 	// add in list page function
 	$scope.adicionar = function() {
 		
-		var projeto = {
-			descricao: $scope.descricao,
-			criacao: $scope.criacao.date
-		}	
-					
-		ProjetoService.save(projeto).then(function() {
-			$scope.descricao = "";
-			$scope.criacao = "";
-			$scope.projetos = ProjetoService.projetos;
-		});				
+		if ($scope.isAuthenticated) {
+			
+			var projeto = {
+					descricao: $scope.descricao,
+					criacao: $scope.criacao.date,
+					user: $scope.user
+			}	
+			
+			ProjetoService.save(projeto).then(function() {
+				$scope.descricao = "";
+				$scope.criacao = "";
+				$scope.projetos = ProjetoService.projetos;
+			});				
+		}		
 	}
 	
 	// open delete confirmation dialog
@@ -109,6 +113,9 @@ app.controller('ProjetoCtrl', function(
 	// resolve $scope.projeto (object)
 	$scope.projeto = angular.copy(projeto);
 	
+	/**
+	 * open add tarefa modal
+	 */
 	$scope.toAddTarefa = function() {
 		
 		var tarefa = {};
@@ -132,6 +139,9 @@ app.controller('ProjetoCtrl', function(
 		});
 	}
 	
+	/**
+	 * save tarefa to projeto
+	 */
 	var addTarefaToProjeto = function(tarefa) {
 		TarefaService.save(tarefa).then(function(res) {
 			$state.reload();

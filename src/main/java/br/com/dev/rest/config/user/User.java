@@ -3,6 +3,7 @@ package br.com.dev.rest.config.user;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -20,7 +21,10 @@ import javax.validation.constraints.Size;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
+import br.com.dev.rest.model.Projeto;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -39,7 +43,12 @@ public class User implements UserDetails {
 		this.username = username;
 		this.expires = expires.getTime();
 	}
-
+	
+	@Transient
+	@OneToMany(mappedBy = "user", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+	@JsonManagedReference(value = "user-projeto")
+	private List<Projeto> projetos;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -81,6 +90,14 @@ public class User implements UserDetails {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public List<Projeto> getProjetos() {
+		return projetos;
+	}
+
+	public void setProjetos(List<Projeto> projetos) {
+		this.projetos = projetos;
 	}
 
 	@Override

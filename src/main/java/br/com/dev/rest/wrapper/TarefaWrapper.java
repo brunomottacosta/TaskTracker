@@ -8,7 +8,6 @@ import br.com.dev.rest.config.user.User;
 import br.com.dev.rest.model.Comentario;
 import br.com.dev.rest.model.Projeto;
 import br.com.dev.rest.model.Tarefa;
-import br.com.dev.rest.model.constants.Status;
 
 public class TarefaWrapper implements Serializable {
 
@@ -22,7 +21,7 @@ public class TarefaWrapper implements Serializable {
 	private Projeto projeto;
 	private User user;
 	private List<Comentario> comentarios;
-	private Status status;
+	private String status;
 	
 	public TarefaWrapper(Tarefa tarefa) {
 		if (tarefa.getId() != null) {
@@ -47,7 +46,7 @@ public class TarefaWrapper implements Serializable {
 			this.comentarios = tarefa.getComentarios();
 		}
 		if (tarefa.getStatus() != null) {
-			this.status = tarefa.getStatus();
+			this.status = tarefa.getStatus().getDescricao();
 		}
 	}
 	
@@ -115,11 +114,11 @@ public class TarefaWrapper implements Serializable {
 		this.comentarios = comentarios;
 	}
 
-	public Status getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

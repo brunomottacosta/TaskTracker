@@ -60,3 +60,6 @@
 .ordered-by-this {
 }
 
+.text-click {
+	cursor: pointer;
+}

@@ -31,6 +31,8 @@ public class ComentarioWrapper implements Serializable {
 			this.tarefa = comentario.getTarefa();
 		}
 	}
+	
+	public ComentarioWrapper() {}
 
 	public Integer getId() {
 		return id;
