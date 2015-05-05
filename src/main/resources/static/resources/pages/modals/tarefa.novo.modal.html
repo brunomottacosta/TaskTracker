@@ -17,15 +17,23 @@
 		<div class="col-xs-6">
 			<div class="form-group">
 				<label class="control-label">Inicio da Tarefa <span class="text-danger">*</span></label>					
-	            <input type="text" class="form-control" ng-model="tarefa.criacao" required="required"
-	            	datepicker-popup="dd/MM/yyyy" is-open="inicio.opened" ng-click="inicio.opened = true" />	            		
+	            <label class="control-label pull-right"><small>(yyyy-mm-dd)</small></label>					
+	            <input type="text" 
+	            	class="form-control" 
+	            	ng-model="inicio" 
+           			mask="39/19/9999"
+           			required="required" />	                		
 			</div>
 		</div>
 		<div class="col-xs-6">
 			<div class="form-group">
 				<label class="control-label">Prazo Final <span class="text-danger">*</span></label>					
-	            <input type="text" class="form-control" ng-model="tarefa.prazo" required="required"
-	            	datepicker-popup="dd/MM/yyyy" is-open="prazo.opened" ng-click="prazo.opened = true" />	            		
+	            <label class="control-label pull-right"><small>(yyyy-mm-dd)</small></label>					
+	            <input type="text" 
+	            	class="form-control" 
+	            	ng-model="prazo" 
+	            	mask="39/19/9999" 
+	            	required="required"/>	              		
 			</div>
 		</div>
 	</div>

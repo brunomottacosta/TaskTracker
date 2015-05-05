@@ -1,5 +1,6 @@
 'use strict';
 
+
 /* #######################
  * PROJETO MAIN CONTROLLER
  * #######################
@@ -18,10 +19,14 @@ app.controller('ProjetoCtrl', function(
 		
 		if ($scope.isAuthenticated) {
 			
+			var descricao = $scope.descricao;
+			var criacao = Date.parse(Functions.toAmericanCalendar($scope.criacao));
+			var user = $scope.user;
+			
 			var projeto = {
-					descricao: $scope.descricao,
-					criacao: $scope.criacao.date,
-					user: $scope.user
+					descricao: descricao,
+					criacao: criacao,
+					user: user
 			}	
 			
 			ProjetoService.save(projeto).then(function() {

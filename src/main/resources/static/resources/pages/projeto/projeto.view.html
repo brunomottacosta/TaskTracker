@@ -1,127 +1,123 @@
 <meta charset="UTF-8">
 
-<div class="container">
-		
-	<h2>
-		{{projeto.descricao}}
-		<span class="btn-group" role="group">
-			<button type="button" class="btn btn-primary btn-sm" ng-click="editar()" style="margin-right: 0.5em">
-				<i class="glyphicon glyphicon-pencil"></i>
-			</button>			
-			<button type="button" class="btn btn-danger btn-sm" ng-click="toDelete(projeto)">
-				<i class="glyphicon glyphicon-trash"></i>
-			</button>
-		</span>			
-	</h2>
-		
-	<div class="row">
+<h2>
+	{{projeto.descricao}}
+	<span class="btn-group" role="group">
+		<button type="button" class="btn btn-primary btn-sm" ng-click="editar()" style="margin-right: 0.5em">
+			<i class="glyphicon glyphicon-pencil"></i>
+		</button>			
+		<button type="button" class="btn btn-danger btn-sm" ng-click="toDelete(projeto)">
+			<i class="glyphicon glyphicon-trash"></i>
+		</button>
+	</span>			
+</h2>
 	
-		<div class="col-xs-4">
-			
-			<h4>Dados do Projeto:</h4>
-			
-			<br/>
-				
-			<ul class="list-group">
-				<li class="list-group-item">
-					Criador:
-					<span class="pull-right">
-						{{projeto.user.nome}}
-					</span>
-				</li>
-				<li class="list-group-item">
-					Data de Criação:
-					<span class="pull-right">
-						{{projeto.criacao | date: 'dd/MM/yyyy'}}
-					</span>
-				</li>
-				<li class="list-group-item">
-					Nº de Tarefas:
-					<span class="pull-right">
-						<span ng-show="projeto.tarefas.length">{{projeto.tarefas.length}}</span>
-						<span ng-hide="projeto.tarefas.length">0</span>
-					</span>
-				</li>
-			</ul>
+<div class="row">
+
+	<div class="col-xs-4">
 		
-		</div>
-		<div class="col-xs-2"></div>
-		<div class="col-xs-6">
+		<h4>Dados do Projeto:</h4>
+		
+		<br/>
 			
-			<h4>
-				<span class="text-success text-click">
-					<i class="fa fa-plus"></i>
+		<ul class="list-group">
+			<li class="list-group-item">
+				Criador:
+				<span class="pull-right">
+					{{projeto.user.nome}}
 				</span>
-				Comentários:
-			</h4>
-				
-			<br/>	
-				
-			<p class="text-danger">Projeto sem comentários no momento</p>
-					
-			<ul class="list-group" ng-show="isEmpty(projeto.comentarios)">
-				<li class="list-group-item" ng-repeat="comentario in projeto.comentarios">
-					
-				</li>				
-			</ul>	
+			</li>
+			<li class="list-group-item">
+				Data de Criação:
+				<span class="pull-right">
+					{{projeto.criacao | date: 'dd/MM/yyyy'}}
+				</span>
+			</li>
+			<li class="list-group-item">
+				Nº de Tarefas:
+				<span class="pull-right">
+					<span ng-show="projeto.tarefas.length">{{projeto.tarefas.length}}</span>
+					<span ng-hide="projeto.tarefas.length">0</span>
+				</span>
+			</li>
+		</ul>
+	
+	</div>
+	<div class="col-xs-2"></div>
+	<div class="col-xs-6">
+		
+		<h4>
+			<span class="text-success text-click">
+				<i class="fa fa-plus"></i>
+			</span>
+			Comentários:
+		</h4>
 			
-		</div>
+		<br/>	
+			
+		<p class="text-danger">Projeto sem comentários no momento</p>
+				
+		<ul class="list-group" ng-show="isEmpty(projeto.comentarios)">
+			<li class="list-group-item" ng-repeat="comentario in projeto.comentarios">
+				
+			</li>				
+		</ul>	
 		
 	</div>
 	
-	<hr/>
+</div>
+
+<hr/>
+
+<div class="row">	
 	
-	<div class="row">	
+	<div class="col-xs-12">
 		
-		<div class="col-xs-12">
-			
-			<div class="row">
-				<div class="col-xs-6">
-					<h4>Tarefas do projeto:</h4>	
-				</div>
-				<div class="col-xs-6">
-					<button class="btn btn-primary btn-sm pull-right" ng-click="toAddTarefa()">
-						<i class="fa fa-plus"></i> ADICIONAR TAREFA
-					</button>
-				</div>
+		<div class="row">
+			<div class="col-xs-6">
+				<h4>Tarefas do projeto:</h4>	
 			</div>
-			
-			
-			<br/>
-				
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th></th>
-						<th>TAREFA</th>
-						<th>INICIO</th>
-						<th>PRAZO</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-show="isEmpty(projeto.tarefas)">
-						<td colspan="4">
-							<span class="text-danger">Projeto sem tarefas no momento</span>
-						</td>
-					</tr>
-					<tr ng-repeat="tarefa in projeto.tarefas"  ng-hide="isEmpty(projeto.tarefas)">
-						<td style="text-align: center" class="col-xs-1">
-							<a ng-href="/#/tarefas/{{tarefa.id}}">
-								<i class="glyphicon glyphicon-folder-open"></i>
-							</a>
-						</td>
-						<td>{{tarefa.descricao}}</td>
-						<td>{{tarefa.criacao | date: 'dd/MM/yyyy'}}</td>
-						<td>{{tarefa.prazo | date: 'dd/MM/yyyy'}}</td>
-					</tr>
-				</tbody>
-			</table>
-				
+			<div class="col-xs-6">
+				<button class="btn btn-primary btn-sm pull-right" ng-click="toAddTarefa()">
+					<i class="fa fa-plus"></i> ADICIONAR TAREFA
+				</button>
+			</div>
 		</div>
 		
+		
+		<br/>
+			
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th></th>
+					<th>TAREFA</th>
+					<th>INICIO</th>
+					<th>PRAZO</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-show="isEmpty(projeto.tarefas)">
+					<td colspan="4">
+						<span class="text-danger">Projeto sem tarefas no momento</span>
+					</td>
+				</tr>
+				<tr ng-repeat="tarefa in projeto.tarefas"  ng-hide="isEmpty(projeto.tarefas)">
+					<td style="text-align: center" class="col-xs-1">
+						<a ng-href="/#/tarefas/{{tarefa.id}}">
+							<i class="glyphicon glyphicon-folder-open"></i>
+						</a>
+					</td>
+					<td>{{tarefa.descricao}}</td>
+					<td>{{tarefa.criacao | date: 'dd/MM/yyyy'}}</td>
+					<td>{{tarefa.prazo | date: 'dd/MM/yyyy'}}</td>
+				</tr>
+			</tbody>
+		</table>
+			
 	</div>
 	
-</div>	
+</div>
 
 
 

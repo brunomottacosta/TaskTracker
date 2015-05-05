@@ -8,112 +8,108 @@
 	
 </style>
 
-<div class="container">
-		
-	<h2>Projetos</h2>
+<h2>Projetos</h2>
+
+<br />
 	
-	<br />
+<div class="row" ng-show="isAuthorized('ADMIN')">		
+	
+	<div class="col-xs-6">
 		
-	<div class="row" ng-show="isAuthorized('ADMIN')">		
+		<h4>Cadastrar novo:</h4>
 		
-		<div class="col-xs-6">
+		<div class="panel panel-default">
 			
-			<h4>Cadastrar novo:</h4>
+			<div class="panel-body">
 			
-			<div class="panel panel-default">
-				
-				<div class="panel-body">
-				
-					<form ng-submit="adicionar()">
-									
-						<div class="form-group">
-							<label class="control-label">Nome do Projeto <span class="text-danger">*</span></label>
-							<input type="text" class="form-control" ng-model="descricao" required="required">
-						</div>	
-						
-						<div class="form-group">
-							<label class="control-label">Data de Criação <span class="text-danger">*</span></label>					
-				            <input type="text" class="form-control" required="required" 
-				            	ng-model="criacao.date" 
-				            	ng-click="criacao.opened = true" 
-				            	datepicker-popup="dd/MM/yyyy" 
-				            	is-open="criacao.opened" />	            		
-						</div>
+				<form ng-submit="adicionar()">
+								
+					<div class="form-group">
+						<label class="control-label">Nome do Projeto <span class="text-danger">*</span></label>
+						<input type="text" class="form-control" ng-model="descricao" required="required">
+					</div>	
+					
+					<div class="form-group">
+						<label class="control-label">Data de Criação <span class="text-danger">*</span></label>		
+						<label class="control-label pull-right"><small>(yyyy-mm-dd)</small></label>		
+			            <input type="text" class="form-control" required="required" 
+			            	ng-model="criacao" 
+			            	mask="39/19/9999" />	            		
+					</div>
+											
+					<div class="form-group">
+						<button type="submit" class="btn btn-default">
+							<i class="fa fa-floppy-o"></i> SALVAR
+						</button>
+						<button type="button" class="btn btn-danger" 
+							ng-click="limparFormulario()" 
+							ng-show="(descricao || criacao.date)">
+							<i class="fa fa-remove"></i> LIMPAR CAMPOS
+						</button>
+					</div>	
 												
-						<div class="form-group">
-							<button type="submit" class="btn btn-default">
-								<i class="fa fa-floppy-o"></i> SALVAR
-							</button>
-							<button type="button" class="btn btn-danger" 
-								ng-click="limparFormulario()" 
-								ng-show="(descricao || criacao.date)">
-								<i class="fa fa-remove"></i> LIMPAR CAMPOS
-							</button>
-						</div>	
-													
-					</form>				
-			
-				</div>
-				
+				</form>				
+		
 			</div>
 			
-		</div>	
-	
-	</div>		
-	
-	<div class="row">
-		
-		<div class="col-xs-12">
-		
-			<h4>Projetos cadastrados:</h4>
-			
-			<!-- table projetos -->
-			<table class="table table-bordered">				
-				<thead>
-					<tr>
-						<th class="col-xs-1"></th>
-						<th ng-repeat="column in columns" 
-							ng-class="[column.size, column.classe]" 
-							ng-click="ordenar(column.type)">
-							{{column.name}} 
-							<i ng-class="column.arrow" style="padding-left: 0.5em"></i> 
-						</th>	
-						<th ng-show="isAuthorized('ADMIN')" class="col-xs-1"></th>
-					</tr>						
-				</thead>
-				
-				<tbody>
-					<tr ng-show="isEmpty(projetos)">
-						<td colspan="5">
-							<span class="text-danger">Não há projetos cadastrados no momento</span>
-						</td>
-					</tr>
-					<tr ng-repeat="projeto in projetos | orderBy:sort.column:sort.descending" ng-hide="isEmpty(projetos)">
-						<td style="text-align: center" class="col-xs-1">
-							<a ng-href="#/projetos/{{projeto.id}}">
-								<i class="fa fa-folder-open"></i>
-							</a>
-						</td>
-						<td>{{projeto.descricao}}</td>
-						<td>{{projeto.criacao | date: 'dd/MM/yyyy'}}</td>
-						<td>
-							<span ng-if="projeto.tarefas">{{projeto.tarefas.length}}</span>
-							<span ng-if="!projeto.tarefas">0</span>
-						</td>
-						<td style="text-align: center" class="col-xs-1" ng-show="isAuthorized('ADMIN')">					
-							<a href="" class="text-danger" ng-click="toDelete(projeto)">
-								<i class="fa fa-trash"></i>
-							</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<!-- /table projetos -->
-					
 		</div>
 		
+	</div>	
+
+</div>		
+
+<div class="row">
+	
+	<div class="col-xs-12">
+	
+		<h4>Projetos cadastrados:</h4>
+		
+		<!-- table projetos -->
+		<table class="table table-bordered">				
+			<thead>
+				<tr>
+					<th class="col-xs-1"></th>
+					<th ng-repeat="column in columns" 
+						ng-class="[column.size, column.classe]" 
+						ng-click="ordenar(column.type)">
+						{{column.name}} 
+						<i ng-class="column.arrow" style="padding-left: 0.5em"></i> 
+					</th>	
+					<th ng-show="isAuthorized('ADMIN')" class="col-xs-1"></th>
+				</tr>						
+			</thead>
+			
+			<tbody>
+				<tr ng-show="isEmpty(projetos)">
+					<td colspan="5">
+						<span class="text-danger">Não há projetos cadastrados no momento</span>
+					</td>
+				</tr>
+				<tr ng-repeat="projeto in projetos | orderBy:sort.column:sort.descending" ng-hide="isEmpty(projetos)">
+					<td style="text-align: center" class="col-xs-1">
+						<a ng-href="#/projetos/{{projeto.id}}">
+							<i class="fa fa-folder-open"></i>
+						</a>
+					</td>
+					<td>{{projeto.descricao}}</td>
+					<td>{{projeto.criacao | date: 'dd/MM/yyyy'}}</td>
+					<td>
+						<span ng-if="projeto.tarefas">{{projeto.tarefas.length}}</span>
+						<span ng-if="!projeto.tarefas">0</span>
+					</td>
+					<td style="text-align: center" class="col-xs-1" ng-show="isAuthorized('ADMIN')">					
+						<a href="" class="text-danger" ng-click="toDelete(projeto)">
+							<i class="fa fa-trash"></i>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- /table projetos -->
+				
 	</div>
 	
-</div>	
+</div>
+	
 
 

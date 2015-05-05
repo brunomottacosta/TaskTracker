@@ -16,11 +16,16 @@ app.controller('TarefaCtrl', function(
 	// add in list view function
 	$scope.adicionar = function() {
 		
+		var descricao = $scope.descricao;
+		var projeto = $scope.projeto;
+		var criacao = Date.parse(Functions.toAmericanCalendar($scope.inicio));
+		var prazo = Date.parse(Functions.toAmericanCalendar($scope.prazo));
+		
 		var tarefa = {
-			descricao: $scope.descricao,
-			projeto: $scope.projeto,
-			criacao: $scope.inicio.date,
-			prazo: $scope.prazo.date
+			descricao: descricao,
+			projeto: projeto,
+			criacao: criacao,
+			prazo: prazo
 		}
 
 		TarefaService.save(tarefa).then(function() {

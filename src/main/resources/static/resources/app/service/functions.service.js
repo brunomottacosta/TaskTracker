@@ -77,8 +77,17 @@ app.factory('Functions', function($timeout, $modal) {
 					return true;
 				}
 			}			
+		},
+		
+		toAmericanCalendar: function(date) {
+			var stDate = date.split('/');
+			var day = stDate[0];
+			var month = stDate[1];
+			var year = stDate[2];
+			
+			return month + "/" + day + "/" + year;
 		}
-	}
+	} 
 	
 	return _function;
 });

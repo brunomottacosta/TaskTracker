@@ -4,6 +4,7 @@ var app = angular.module('TaskTracker', [
 	'ngResource', 
 	'ui.bootstrap',
 	'ui.mask',
-	'smart-table'
+	'smart-table',
+	'ngMask'
 
 ]);

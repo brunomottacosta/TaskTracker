@@ -1,15 +1,13 @@
 <meta charset="UTF-8">
 
-<div class="container">
 	
-	<div ng-show="isAuthenticated()">		
-		<h1>Welcome, <strong>{{user.name}}</strong> Let's start working!</h1>
-	</div>
-	
-	<div ng-hide="isAuthenticated()">
-		<h1><strong>Task Tracker</strong> - Project Management</h1>
-		<h4>Welcome, start working with your <a href="#/login">account</a></h4>
-	</div>
-		
+<div ng-show="isAuthenticated()">		
+	<h1>Welcome, <strong>{{user.name}}</strong> Let's start working!</h1>
 </div>
+
+<div ng-hide="isAuthenticated()">
+	<h1><strong>Task Tracker</strong> - Project Management</h1>
+	<h4>Welcome, start working with your <a href="#/login">account</a></h4>
+</div>
+	
 
