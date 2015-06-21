@@ -1,46 +1,59 @@
 <meta charset="UTF-8">
 
-<div class="container" data-ng-init="find()">
 	
-	<h2>
-		{{tarefa.descricao}} <small>{{tarefa.projeto.descricao}}</small> 
-		<span class="btn-group" role="group">
-			<button type="button" class="btn btn-info btn-sm" ng-click="editar()" style="margin-right: 0.5em">
-				<i class="glyphicon glyphicon-pencil"></i>
-			</button>			
-			<button type="button" class="btn btn-danger btn-sm" ng-click="toDelete(tarefa)">
-				<i class="glyphicon glyphicon-trash"></i>
-			</button>
-		</span>	
-	</h2>
+<h2>
+	{{tarefa.descricao}} <small>{{tarefa.projeto.descricao}}</small> 
+	<span class="btn-group" role="group">
+		<button type="button" class="btn btn-primary btn-sm" ng-click="editar()" style="margin-right: 0.5em">
+			<i class="glyphicon glyphicon-pencil"></i>
+		</button>			
+		<button type="button" class="btn btn-danger btn-sm" ng-click="toDelete(tarefa)">
+			<i class="glyphicon glyphicon-trash"></i>
+		</button>
+	</span>	
+</h2>
+	
+<div class="row">
+
+	<div class="col-xs-6">
 		
-	<div class="row">
-	
-		<div class="col-xs-4">
+		<div class="panel panel-default">
 			
-			<ul class="list-group">
-				<li class="list-group-item">
-					Data de Criação:
-					<span class="pull-right">
-						{{tarefa.criacao | date: 'dd/MM/yyyy'}}
-					</span>
-				</li>
-				<li class="list-group-item">
-					Prazo Limite:
-					<span class="pull-right">
-						{{tarefa.prazo | date: 'dd/MM/yyyy'}}
-					</span>
-				</li>
-				<li class="list-group-item">
-					Status:
-					<span class="pull-right">
-						{{tarefa.status}}
-					</span>
-				</li>
-			</ul>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="control-label">Data de Criação:</label>
+					<input class="form-control input-sm" type="text" 
+		            	ng-disabled="true"
+		            	ng-value="tarefa.criacao | date: 'dd/MM/yyyy'" />
+				</div>
+				<div class="form-group">
+					<label class="control-label">Prazo Limite:</label>
+					<input class="form-control input-sm"  type="text" 
+		            	ng-disabled="true"
+		            	ng-value="tarefa.prazo | date: 'dd/MM/yyyy'" />
+				</div>
+				<div class="form-group">
+					<label class="control-label">Status:</label>
+					<div class="input-group">
+						<span class="input-group-btn">
+					    	<button class="btn btn-default btn-sm" type="button"
+					    		ng-click="updateStatus()">
+								<i class="fa fa-edit"></i>
+							</button>
+			      		</span>
+						<select class="form-control input-sm" aria-describedby="update-status"
+							ng-model="status"
+							ng-disabled="!isUpdatingStatus"
+							ng-options="s.descricao for s in listaStatus track by s.codigo">
+							
+						</select>
+					</div>
+				</div>	
+			</div>
 			
-		</div>
+		</div>	
 		
 	</div>
 	
 </div>
+	

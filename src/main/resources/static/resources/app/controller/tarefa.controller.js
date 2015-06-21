@@ -121,9 +121,13 @@ app.controller('TarefaCtrl', function(
 		/* injections */
 		$scope, $state, $stateParams, $modal, TarefaService, Functions,
 		/* resolve objects */
-		tarefa) {
+		tarefa, status) {
 	
-	$scope.tarefa = angular.copy(tarefa);
+	$scope.tarefa = angular.copy(tarefa);	
+	$scope.listaStatus = angular.copy(status);	
+	$scope.status = angular.copy(tarefa.status);
+	
+	$scope.isUpdatingStatus = false;
 	
 	// open confirm dialog
 	$scope.toDelete = function(tarefa) {
@@ -140,10 +144,24 @@ app.controller('TarefaCtrl', function(
 	
 	// update function
 	var atualizar = function(tarefa) {
+		if (tarefa.status != null) {
+			tarefa.status = tarefa.status.status;
+		}
 		TarefaService.update(tarefa).then(function() {
 			$state.reload();
 		});
 	};
+	
+	// show update status selection
+	$scope.updateStatus = function() {
+		if ($scope.isUpdatingStatus) {
+			$scope.isUpdatingStatus = false;
+			$scope.tarefa.status = $scope.status;
+			atualizar($scope.tarefa);
+		} else {
+			$scope.isUpdatingStatus = true;
+		}
+	}
 	
 	// open modal to edit object function
 	$scope.editar = function(size) {

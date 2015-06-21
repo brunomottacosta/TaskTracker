@@ -205,6 +205,15 @@ label {
 	box-shadow: none !important;
 }
 
+.form-control:disabled {
+	color: #E5E5E5;
+	background-color: #252525;
+	border-color: #1E1E1E;
+	outline: 0;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+}
+
 .btn {
 	border-color: transparent;
 }

@@ -53,14 +53,15 @@ public class UserController {
 		return new ResponseEntity<String>("password changed", HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/admin/api/users/{user}/grant/role/{role}", method = RequestMethod.POST)
-	public ResponseEntity<String> grantRole(@PathVariable User user, @PathVariable UserRole role) {
+	@RequestMapping(value = "/admin/api/users/{id}/grant/role/{role}", method = RequestMethod.POST)
+	public ResponseEntity<String> grantRole(@PathVariable Long id, @PathVariable UserRole role) {
 		
-		if (user == null) {
+		if (id == null || id == 0) {
 			return new ResponseEntity<String>("invalid user id",
 					HttpStatus.UNPROCESSABLE_ENTITY);
 		}
 		
+		User user = get(id);
 		user.grantRole(role);
 		userRepository.saveAndFlush(user);
 		

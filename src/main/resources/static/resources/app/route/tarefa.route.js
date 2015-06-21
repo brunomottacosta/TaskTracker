@@ -43,6 +43,11 @@ app.config(['$stateProvider', '$urlRouterProvider',
 					return TarefaService.get($stateParams.id).then(function(res) {
 						return res.data;
 					});
+				},
+				status: function(UtilsService) {
+					return UtilsService.listarStatus().then(function(res) {
+						return res.data;
+					});
 				}
 			}
 		})	

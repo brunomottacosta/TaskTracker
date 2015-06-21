@@ -21,7 +21,7 @@ public class TarefaWrapper implements Serializable {
 	private Projeto projeto;
 	private User user;
 	private List<Comentario> comentarios;
-	private String status;
+	private StatusWrapper status;
 	
 	public TarefaWrapper(Tarefa tarefa) {
 		if (tarefa.getId() != null) {
@@ -46,7 +46,7 @@ public class TarefaWrapper implements Serializable {
 			this.comentarios = tarefa.getComentarios();
 		}
 		if (tarefa.getStatus() != null) {
-			this.status = tarefa.getStatus().getDescricao();
+			this.status = new StatusWrapper(tarefa.getStatus());
 		}
 	}
 	
@@ -114,11 +114,11 @@ public class TarefaWrapper implements Serializable {
 		this.comentarios = comentarios;
 	}
 
-	public String getStatus() {
+	public StatusWrapper getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(StatusWrapper status) {
 		this.status = status;
 	}
 
