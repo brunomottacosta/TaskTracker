@@ -24,7 +24,6 @@ public class Comentario {
 	
 	@Column(name = "txt_comentario")
 	private String texto;
-	
 
 	@ManyToOne
 	@JoinColumn(name = "idn_projeto", referencedColumnName = "idn_projeto")
