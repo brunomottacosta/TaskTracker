@@ -16,19 +16,24 @@ app.controller('ProjetoCtrl', function(
 	
 	// add in list page function
 	$scope.adicionar = function() {
-		
+
+		// verifica se usuario está autenticado
 		if ($scope.isAuthenticated) {
-			
+
+			// cria variáveis locais (para manter o método mais limpo, sem ter que usar o $scope)
 			var descricao = $scope.descricao;
+			// por padrão a data tem que ser enviada no formato americano (MM/dd/yyyy)
+			// então a data que está na tela necessita ser formatada
 			var criacao = Date.parse(Functions.toAmericanCalendar($scope.criacao));
 			var user = $scope.user;
-			
+			// objeto projeto é criado, e seus atributos setados
 			var projeto = {
 					descricao: descricao,
 					criacao: criacao,
 					user: user
 			}	
-			
+			// chama a função do serviço para salvar o projeto
+			// após salvar, os campos são limpos
 			ProjetoService.save(projeto).then(function() {
 				$scope.descricao = "";
 				$scope.criacao = "";
@@ -39,20 +44,27 @@ app.controller('ProjetoCtrl', function(
 	
 	// open delete confirmation dialog
 	$scope.toDelete = function(projeto) {
+		// ela chama um modal de confirmacao
+		// o modal recebe o objeto para deletar, uma mensagem para exibir
+		// e a funcao de deletar
 		var msg = 'Deseja excluir esse Projeto?';
 		Functions.mConfirmDialog(projeto, msg, deletar);
 	}
 	
 	// remove in list page function
 	var deletar = function(projeto) {
+		// funcao de deletar, nao usa $scope pois nao é chamada diretamente
+		// na tela, chama a função do serviço, passando o objeto
 		ProjetoService.remove(projeto).then(function() {
 			$state.reload();
 		});				
 	}	
 	
-	/* #################
-	 * FUNCOES DA PAGINA
-	 * #################
+	/* ###########################################
+	 * FUNCOES DA PAGINA #########################
+	 * : RESPONSÁVEIS POR MANIPULAR A DOM ########
+	 * : SE POSSÍVEL, DEPOIS SE TORNARÃO DIRETIVAS
+	 * ###########################################
 	 * */	
 	
 	// check array return true if empty or null
@@ -111,7 +123,7 @@ app.controller('ProjetoCtrl', function(
  * */
 .controller('ProjetoViewCtrl', function(
 		/* injections */
-		$scope, $stateParams, $state, $location, $modal, ProjetoService, TarefaService, Functions, 
+		$scope, $stateParams, $state, $location, $modal, ProjetoService, TarefaService, ComentarioService, Functions,
 		/* resolve objects*/
 		projeto) {
 	
@@ -149,6 +161,41 @@ app.controller('ProjetoCtrl', function(
 	 */
 	var addTarefaToProjeto = function(tarefa) {
 		TarefaService.save(tarefa).then(function(res) {
+			$state.reload();
+		});
+	}
+
+	/**
+	 * open add comentario modal
+	 */
+	$scope.toAddComentario = function() {
+
+		var comentario = {}; // cria um objeto comentario para injetar no modal
+		var modal = $modal.open({
+			templateUrl: 'resources/pages/modals/comentario.novo.modal.html',
+			controller: 'ComentarioFnCtrl',
+			size: '',
+			resolve: {
+				comentario: function() {
+					return comentario;
+				}
+			}
+		});
+
+		// after modal action ended
+		modal.result.then(function(comentario) {
+			comentario.projeto = $scope.projeto;
+			addComentarioToProjeto(comentario);
+		}, function() {
+
+		});
+	}
+
+	/**
+	 * save comentario to projeto
+	 */
+	var addComentarioToProjeto = function(comentario) {
+		ComentarioService.save(comentario).then(function(res) {
 			$state.reload();
 		});
 	}

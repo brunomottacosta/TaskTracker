@@ -68,9 +68,7 @@
 			<thead>
 				<tr>
 					<th class="col-xs-1"></th>
-					<th ng-repeat="column in columns" 
-						ng-class="[column.size, column.classe]" 
-						ng-click="ordenar(column.type)">
+					<th ng-repeat="column in columns" ng-class="[column.size, column.classe]" ng-click="ordenar(column.type)">
 						{{column.name}} 
 						<i ng-class="column.arrow" style="padding-left: 0.5em"></i> 
 					</th>	

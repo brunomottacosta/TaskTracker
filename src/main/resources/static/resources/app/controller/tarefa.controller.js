@@ -192,11 +192,17 @@ app.controller('TarefaCtrl', function(
  * TAREFA VIEW CONTROLLER
  * ######################
  * */
-.controller('TarefaFnCtrl', function($scope, $modalInstance, tarefa) {
+.controller('TarefaFnCtrl', function($scope, $modalInstance, Functions, tarefa) {
 	
 	$scope.tarefa = angular.copy(tarefa);	
 	
-	$scope.ok = function() {		
+	$scope.ok = function() {
+		var criacao = Date.parse(Functions.toAmericanCalendar($scope.inicio));
+		var prazo = Date.parse(Functions.toAmericanCalendar($scope.prazo));
+		
+		$scope.tarefa.criacao = criacao;
+		$scope.tarefa.prazo = prazo;
+		
 		$modalInstance.close($scope.tarefa);		
 	};
 	

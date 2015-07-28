@@ -9,25 +9,8 @@
 <div class="modal-body">
 	
 	<div class="form-group">
-		<label class="control-label">Descriçao:</label> 
-		<input type="text" class="form-control" ng-model="tarefa.descricao" />
-	</div>
-	
-	<div class="row">
-		<div class="col-xs-6">
-			<div class="form-group">
-				<label class="control-label">Inicio da Tarefa <span class="text-danger">*</span></label>					
-	            <input type="text" class="form-control" ng-model="tarefa.criacao" required="required"
-	            	datepicker-popup="dd/MM/yyyy" is-open="inicio.opened" ng-click="inicio.opened = true" />	            		
-			</div>
-		</div>
-		<div class="col-xs-6">
-			<div class="form-group">
-				<label class="control-label">Prazo Final <span class="text-danger">*</span></label>					
-	            <input type="text" class="form-control" ng-model="tarefa.prazo" required="required"
-	            	datepicker-popup="dd/MM/yyyy" is-open="prazo.opened" ng-click="prazo.opened = true" />	            		
-			</div>
-		</div>
+		<label class="control-label">Comentario:</label>
+		<textarea type="text" class="form-control" rows="3" ng-model="comentario.texto" style="resize: none"></textarea>
 	</div>
 
 </div>
